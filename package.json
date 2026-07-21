@@ -1,0 +1,36 @@
+{
+  "name": "betmaster-pro",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx server.ts",
+    "build": "vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
+    "start": "node dist/server.cjs",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "canvas-confetti": "^1.9.4",
+    "cheerio": "^1.2.0",
+    "dotenv": "^17.4.2",
+    "duck-duck-scrape": "^2.2.7",
+    "express": "^5.2.1",
+    "lucide-react": "^0.562.0",
+    "openai": "^6.48.0",
+    "playwright": "^1.61.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "recharts": "^3.6.0"
+  },
+  "devDependencies": {
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/express": "^5.0.6",
+    "@types/node": "^22.14.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "esbuild": "^0.28.1",
+    "tsx": "^4.23.1",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}
