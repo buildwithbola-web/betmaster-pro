@@ -39,36 +39,36 @@ const FirstSetWinnersSection: React.FC<FirstSetWinnersSectionProps> = ({ winners
     if (s.includes('tennis')) {
       return {
         name: 'Tennis',
-        themeColor: 'emerald',
-        bgBadge: 'bg-black text-emerald-500 border-white/10',
-        bgPanel: 'bg-black border-white/10',
-        textColor: 'text-emerald-500',
-        focusBorder: 'hover:border-emerald-500',
+        themeColor: 'cyan',
+        bgBadge: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30',
+        bgPanel: 'bg-white/5 border-white/10',
+        textColor: 'text-cyan-400',
+        focusBorder: 'hover:border-cyan-500',
         label: '1st Set Winner',
-        icon: <Activity size={14} className="text-white" />
+        icon: <Activity size={14} className="text-cyan-400" />
       };
     } else if (s.includes('basketball')) {
       return {
         name: 'Basketball',
-        themeColor: 'white',
-        bgBadge: 'bg-black text-white border-white/10',
-        bgPanel: 'bg-black border-white/10',
-        textColor: 'text-white',
-        focusBorder: 'hover:border-white',
+        themeColor: 'teal',
+        bgBadge: 'bg-teal-500/20 text-teal-300 border-teal-500/30',
+        bgPanel: 'bg-white/5 border-white/10',
+        textColor: 'text-teal-400',
+        focusBorder: 'hover:border-teal-500',
         label: '1st Half Points Total',
-        icon: <Flame size={14} className="text-white" />
+        icon: <Flame size={14} className="text-teal-400" />
       };
     } else {
       // Default to Football/Soccer
       return {
         name: 'Football',
-        themeColor: 'white',
-        bgBadge: 'bg-black text-white border-white/10',
-        bgPanel: 'bg-black border-white/10',
-        textColor: 'text-white',
-        focusBorder: 'hover:border-white',
+        themeColor: 'cyan',
+        bgBadge: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30',
+        bgPanel: 'bg-white/5 border-white/10',
+        textColor: 'text-cyan-400',
+        focusBorder: 'hover:border-cyan-500',
         label: '1st Half Draw Verdict',
-        icon: <Clock size={14} className="text-white" />
+        icon: <Clock size={14} className="text-cyan-400" />
       };
     }
   };
@@ -78,11 +78,11 @@ const FirstSetWinnersSection: React.FC<FirstSetWinnersSectionProps> = ({ winners
       <div className="flex items-end justify-between mb-6 border-b border-white/10 pb-4">
         <div>
           <h3 className="text-2xl font-black uppercase tracking-widest text-white flex items-center gap-3">
-            <span className="text-emerald-500 text-3xl">04.</span>
+            <span className="text-cyan-500 text-3xl">04.</span>
             1ST SET & HALF CRITICAL ANALYSIS
           </h3>
-          <p className="text-[10px] text-zinc-500 font-mono uppercase mt-1 flex items-center gap-2 tracking-widest">
-            <Trophy size={12} className="text-emerald-500" /> Advanced Momentum & Early-Game Advantage Metrics
+          <p className="text-[10px] text-cyan-400/80 font-mono uppercase mt-1 flex items-center gap-2 tracking-widest">
+            <Trophy size={12} className="text-cyan-500" /> Advanced Momentum & Early-Game Advantage Metrics
           </p>
         </div>
       </div>
@@ -95,18 +95,18 @@ const FirstSetWinnersSection: React.FC<FirstSetWinnersSectionProps> = ({ winners
           return (
             <div 
               key={index} 
-              className={`group bg-black hover:bg-white/5 rounded-none border border-white/10 hover:border-emerald-500 transition-all cursor-pointer flex flex-col h-full overflow-hidden`}
+              className={`group glass-panel rounded-3xl hover:glow-${config.themeColor} hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col h-full overflow-hidden`}
               onClick={() => onGameClick(winner.game)}
             >
               {/* Card Header with Sport Badge */}
-              <div className="p-5 pb-3 border-b border-white/10 flex justify-between items-center bg-black">
+              <div className="p-5 pb-3 border-b border-white/10 flex justify-between items-center bg-white/5">
                 <div className="flex items-center gap-2">
-                  <span className={`text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-1 rounded-none border ${config.bgBadge} flex items-center gap-1.5`}>
+                  <span className={`text-[10px] font-mono font-bold uppercase tracking-widest px-3 py-1 rounded-full border flex items-center gap-1.5 ${config.bgBadge}`}>
                     {config.icon}
                     {config.name}
                   </span>
                 </div>
-                <div className="text-[10px] font-mono font-bold text-emerald-500 bg-black border border-white/10 px-2 py-0.5 rounded-none tracking-widest">
+                <div className={`text-[10px] font-mono font-bold ${config.textColor} bg-white/5 border border-white/10 px-3 py-1 rounded-full tracking-widest`}>
                   {winner.confidence}% CONFIDENCE
                 </div>
               </div>
@@ -115,57 +115,57 @@ const FirstSetWinnersSection: React.FC<FirstSetWinnersSectionProps> = ({ winners
               <div className="p-5 pb-3 flex justify-between items-start gap-4">
                 <div className="flex-1">
                   <h4 className="text-base font-black uppercase tracking-wider text-white leading-snug">{winner.game}</h4>
-                  <span className="text-[10px] tracking-widest text-zinc-500 font-mono mt-1 block uppercase">{config.label} Analysis</span>
+                  <span className="text-[10px] tracking-widest text-zinc-400 font-mono mt-1 block uppercase">{config.label} Analysis</span>
                 </div>
-                <div className="bg-black px-3 py-1.5 rounded-none border border-white/10 text-center min-w-[70px]">
-                  <span className="text-[9px] text-zinc-500 font-mono uppercase tracking-widest block mb-0.5">Odds</span>
-                  <span className="text-sm font-mono font-bold text-emerald-500">{winner.odds}</span>
+                <div className="bg-white/5 px-4 py-2 rounded-xl border border-white/10 text-center min-w-[70px]">
+                  <span className="text-[9px] text-zinc-400 font-mono uppercase tracking-widest block mb-0.5">Odds</span>
+                  <span className={`text-sm font-mono font-bold ${config.textColor}`}>{winner.odds}</span>
                 </div>
               </div>
 
               {/* Main Prediction Value Display */}
               <div className="px-5 pb-3">
-                <div className={`p-3.5 rounded-none border ${config.bgPanel} flex items-center justify-between`}>
+                <div className={`p-4 rounded-2xl border ${config.bgPanel} flex items-center justify-between shadow-inner`}>
                   <div>
-                    <span className="text-[10px] tracking-widest text-zinc-500 uppercase font-mono font-bold block mb-1">Target Prediction</span>
+                    <span className="text-[10px] tracking-widest text-zinc-400 uppercase font-mono font-bold block mb-1">Target Prediction</span>
                     <span className={`text-base font-bold uppercase tracking-widest ${config.textColor}`}>
                       {winner.predictedWinner}
                     </span>
                   </div>
-                  <div className="bg-black border border-white/10 p-2 rounded-none">
-                    <TrendingUp size={16} className={config.textColor} />
+                  <div className="bg-white/5 border border-white/10 p-2.5 rounded-xl">
+                    <TrendingUp size={18} className={config.textColor} />
                   </div>
                 </div>
               </div>
 
               {/* Core Summary */}
               <div className="px-5 pb-4 flex-1">
-                <p className="text-[10px] font-mono uppercase tracking-widest text-zinc-300 leading-relaxed border-l-2 border-white/10 pl-3">
+                <p className="text-[10px] font-mono uppercase tracking-widest text-zinc-300 leading-relaxed border-l-2 border-cyan-500/30 pl-3">
                   {winner.reasoning}
                 </p>
               </div>
 
               {/* Interactive Extensive Analysis Section */}
-              <div className="border-t border-white/10 bg-black">
+              <div className="border-t border-white/10 bg-white/5">
                 <button
                   type="button"
                   onClick={(e) => toggleExpand(index, e)}
-                  className="w-full px-5 py-3 flex items-center justify-between text-left hover:bg-white/5 transition-colors"
+                  className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-white/10 transition-all"
                 >
-                  <span className="text-[10px] font-mono font-bold tracking-widest text-zinc-400 uppercase flex items-center gap-1.5">
-                    <FileText size={12} className="text-zinc-500" />
+                  <span className="text-[10px] font-mono font-bold tracking-widest text-zinc-300 uppercase flex items-center gap-2">
+                    <FileText size={14} className="text-cyan-400" />
                     Critical Scouting Report
                   </span>
                   {isExpanded ? (
-                    <ChevronUp size={14} className="text-zinc-500" />
+                    <ChevronUp size={16} className="text-cyan-400" />
                   ) : (
-                    <ChevronDown size={14} className="text-zinc-500" />
+                    <ChevronDown size={16} className="text-cyan-400" />
                   )}
                 </button>
 
                 {isExpanded && (
-                  <div className="px-5 pb-5 pt-1 border-t border-white/10 animate-fade-in text-[10px] font-mono uppercase tracking-widest text-zinc-400 leading-relaxed space-y-2.5">
-                    <div className="p-3 bg-black rounded-none border border-white/10 whitespace-pre-line text-zinc-300">
+                  <div className="px-5 pb-5 pt-2 animate-fade-in text-[10px] font-mono uppercase tracking-widest text-zinc-300 leading-relaxed space-y-2.5">
+                    <div className="p-4 glass-panel rounded-2xl whitespace-pre-line text-zinc-200">
                       {winner.extensiveAnalysis}
                     </div>
                   </div>
@@ -173,7 +173,7 @@ const FirstSetWinnersSection: React.FC<FirstSetWinnersSectionProps> = ({ winners
               </div>
 
               {/* Action Buttons */}
-              <div className="p-5 pt-3 border-t border-white/10 flex justify-between items-center bg-black">
+              <div className="p-5 pt-4 border-t border-white/10 flex justify-between items-center bg-white/5">
                 <button 
                   onClick={(e) => {
                     e.stopPropagation();
@@ -185,12 +185,12 @@ const FirstSetWinnersSection: React.FC<FirstSetWinnersSectionProps> = ({ winners
                       odds: winner.odds
                     });
                   }}
-                  className="text-[10px] font-mono font-bold text-emerald-500 hover:text-black transition-colors flex items-center gap-1 bg-black hover:bg-emerald-500 px-2.5 py-1.5 rounded-none border border-emerald-500 tracking-widest"
+                  className="text-[10px] font-mono font-bold text-white hover:text-cyan-900 transition-all flex items-center gap-2 bg-cyan-600 hover:bg-cyan-400 px-4 py-2 rounded-full tracking-widest shadow-[0_0_15px_rgba(6,182,212,0.4)]"
                 >
-                  <Plus size={10} /> ADD TO SLIP
+                  <Plus size={12} /> ADD TO SLIP
                 </button>
-                <span className="text-[10px] font-mono tracking-widest text-zinc-500 group-hover:text-emerald-500 transition-colors flex items-center gap-1">
-                  DEEP DIVE <ArrowRight size={10} />
+                <span className="text-[10px] font-mono tracking-widest text-cyan-400/80 group-hover:text-cyan-400 transition-colors flex items-center gap-1">
+                  DEEP DIVE <ArrowRight size={12} />
                 </span>
               </div>
             </div>

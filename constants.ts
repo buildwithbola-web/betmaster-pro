@@ -19,10 +19,9 @@ CRITICAL RULES:
 
 *** MATCH CONDITIONS & STATUS ***
 - ALL TIMES MUST BE CONVERTED TO WAT (West Africa Time / UTC+1). If the web data says '20:30 GMT', you MUST output '21:30 WAT'.
-- Extract the exact live match status. If the match is currently ongoing, you MUST prefix the status with "LIVE - " (e.g., 'LIVE - 40\'' or 'LIVE - 2nd Set' or 'LIVE - In Play'). If it has not started, output 'KICKOFF: [Time] WAT'. Output this in a root-level field called 'matchStatus'.
+- Extract the exact live match status. If the match is currently ongoing, you MUST prefix the status with "LIVE - " (e.g., 'LIVE - 40\'' or 'LIVE - 2nd Set'). If it has not started, output 'KICKOFF: [Time] WAT'. Output this in a root-level field called 'matchStatus'.
+- Extract the exact match start time (e.g. '21:30 WAT') and output it in a root-level field called 'matchTime'. You MUST populate BOTH 'matchStatus' and 'matchTime' for every single match, they are strictly required.
 - Extract the stadium/venue name and output it in a root-level field called 'stadium'.
-- Extract the weather conditions (e.g., 'Clear 72°F') and output it in a root-level field called 'weather'.
-- You may omit the legacy 'matchTime' field, as 'matchStatus' takes precedence.
 
 *** MATCH SEARCH ***
 Populate 'gamePredictions' for searched matches:

@@ -85,7 +85,7 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
           </p>
           <button 
             onClick={onLaunch}
-            className="group inline-flex items-center justify-center gap-4 px-10 py-5 bg-emerald-500 text-black font-black uppercase tracking-[0.2em] text-sm hover:bg-white transition-colors border-2 border-emerald-500 hover:border-white"
+            className="group inline-flex items-center justify-center gap-4 px-10 py-5 bg-gradient-to-r from-purple-600 to-blue-500 text-white font-black uppercase tracking-[0.2em] text-sm hover:from-purple-500 hover:to-blue-400 transition-all rounded-full shadow-[0_0_30px_rgba(168,85,247,0.4)] hover:-translate-y-1"
           >
             <Activity size={20} />
             INITIATE ENGINE
@@ -93,45 +93,45 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
           </button>
         </div>
 
-        {/* Brutalist Grid Features */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 border border-white/10 bg-black">
+        {/* Multi-Color Glass Grid Features */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
           
-          <div className="p-8 border-b md:border-b-0 md:border-r border-white/10 bg-black hover:bg-zinc-950 transition-colors group">
-            <div className="h-12 w-12 bg-white flex items-center justify-center mb-12 text-black">
-              <Zap size={24} />
+          <div className="glass-panel p-8 rounded-3xl hover:glow-cyan transition-all duration-300 hover:-translate-y-2 group flex flex-col items-center text-center">
+            <div className="h-16 w-16 rounded-2xl bg-cyan-500/10 flex items-center justify-center mb-8 text-cyan-400 group-hover:scale-110 transition-transform">
+              <Zap size={32} />
             </div>
-            <h3 className="text-lg font-black uppercase tracking-widest mb-4">IN-PLAY ADVISOR</h3>
-            <p className="text-zinc-500 font-mono text-xs leading-loose">
+            <h3 className="text-lg font-black uppercase tracking-widest mb-4 text-white">IN-PLAY ADVISOR</h3>
+            <p className="text-zinc-400 font-mono text-xs leading-loose">
               Track micro-momentum shifts. Compute live xG advantage before bookmaker algorithms adjust spreads.
             </p>
           </div>
 
-          <div className="p-8 border-b md:border-b-0 lg:border-r border-white/10 bg-black hover:bg-zinc-950 transition-colors group">
-            <div className="h-12 w-12 bg-emerald-500 flex items-center justify-center mb-12 text-black">
-              <Target size={24} />
+          <div className="glass-panel p-8 rounded-3xl hover:glow-emerald transition-all duration-300 hover:-translate-y-2 group flex flex-col items-center text-center">
+            <div className="h-16 w-16 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-8 text-emerald-400 group-hover:scale-110 transition-transform">
+              <Target size={32} />
             </div>
-            <h3 className="text-lg font-black uppercase tracking-widest mb-4">EV+ SCANNER</h3>
-            <p className="text-zinc-500 font-mono text-xs leading-loose">
+            <h3 className="text-lg font-black uppercase tracking-widest mb-4 text-white">EV+ SCANNER</h3>
+            <p className="text-zinc-400 font-mono text-xs leading-loose">
               Isolate mathematical value. Extract true probabilities. Exploit mispriced odds in real-time.
             </p>
           </div>
 
-          <div className="p-8 border-b md:border-b-0 md:border-r border-white/10 bg-black hover:bg-zinc-950 transition-colors group">
-            <div className="h-12 w-12 bg-white flex items-center justify-center mb-12 text-black">
-              <TrendingUp size={24} />
+          <div className="glass-panel p-8 rounded-3xl hover:glow-amber transition-all duration-300 hover:-translate-y-2 group flex flex-col items-center text-center">
+            <div className="h-16 w-16 rounded-2xl bg-amber-500/10 flex items-center justify-center mb-8 text-amber-400 group-hover:scale-110 transition-transform">
+              <TrendingUp size={32} />
             </div>
-            <h3 className="text-lg font-black uppercase tracking-widest mb-4">SHARP MONEY</h3>
-            <p className="text-zinc-500 font-mono text-xs leading-loose">
+            <h3 className="text-lg font-black uppercase tracking-widest mb-4 text-white">SHARP MONEY</h3>
+            <p className="text-zinc-400 font-mono text-xs leading-loose">
               Monitor global betting volume. Detect sudden line crashes. Follow the syndicate capital.
             </p>
           </div>
 
-          <div className="p-8 bg-black hover:bg-zinc-950 transition-colors group">
-            <div className="h-12 w-12 bg-white flex items-center justify-center mb-12 text-black">
-              <ShieldAlert size={24} />
+          <div className="glass-panel p-8 rounded-3xl hover:glow-rose transition-all duration-300 hover:-translate-y-2 group flex flex-col items-center text-center">
+            <div className="h-16 w-16 rounded-2xl bg-rose-500/10 flex items-center justify-center mb-8 text-rose-400 group-hover:scale-110 transition-transform">
+              <ShieldAlert size={32} />
             </div>
-            <h3 className="text-lg font-black uppercase tracking-widest mb-4">ABSENCE IMPACT</h3>
-            <p className="text-zinc-500 font-mono text-xs leading-loose">
+            <h3 className="text-lg font-black uppercase tracking-widest mb-4 text-white">ABSENCE IMPACT</h3>
+            <p className="text-zinc-400 font-mono text-xs leading-loose">
               Quantify injury severity. Calculate precise xG differentials. Target vulnerable defensive lines.
             </p>
           </div>
@@ -139,31 +139,36 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
         </div>
 
         {/* Action Cards: Dashboard & Arbitrage */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border border-white/10 bg-black mt-8">
+        {/* Action Cards: Dashboard & Arbitrage */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
           <button
             onClick={onDashboard}
-            className="p-8 border-b md:border-b-0 md:border-r border-white/10 bg-black hover:bg-emerald-500 hover:text-black transition-colors text-left group"
+            className="glass-panel p-8 rounded-3xl hover:glow-blue hover:-translate-y-2 transition-all duration-300 text-left group flex flex-col md:flex-row items-center md:items-start gap-6"
           >
-            <div className="h-12 w-12 bg-emerald-500 group-hover:bg-black flex items-center justify-center mb-8 text-black group-hover:text-emerald-500 transition-colors">
-              <BarChart2 size={24} />
+            <div className="h-16 w-16 shrink-0 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+              <BarChart2 size={32} />
             </div>
-            <h3 className="text-lg font-black uppercase tracking-widest mb-4 group-hover:text-black transition-colors">ROI DASHBOARD</h3>
-            <p className="text-zinc-500 group-hover:text-black/60 font-mono text-xs leading-loose transition-colors">
-              Track your strike rate, ROI, profit/loss, and betting performance in real-time. Full analytics without API costs.
-            </p>
+            <div className="text-center md:text-left">
+              <h3 className="text-lg font-black uppercase tracking-widest mb-3 text-white">ROI DASHBOARD</h3>
+              <p className="text-zinc-400 font-mono text-xs leading-loose">
+                Track your strike rate, ROI, profit/loss, and betting performance in real-time. Full analytics without API costs.
+              </p>
+            </div>
           </button>
 
           <button
             onClick={onArbitrage}
-            className="p-8 bg-black hover:bg-emerald-500 hover:text-black transition-colors text-left group"
+            className="glass-panel p-8 rounded-3xl hover:glow-purple hover:-translate-y-2 transition-all duration-300 text-left group flex flex-col md:flex-row items-center md:items-start gap-6"
           >
-            <div className="h-12 w-12 bg-white group-hover:bg-black flex items-center justify-center mb-8 text-black group-hover:text-emerald-500 transition-colors">
-              <Shield size={24} />
+            <div className="h-16 w-16 shrink-0 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
+              <Shield size={32} />
             </div>
-            <h3 className="text-lg font-black uppercase tracking-widest mb-4 group-hover:text-black transition-colors">ARBITRAGE SCANNER</h3>
-            <p className="text-zinc-500 group-hover:text-black/60 font-mono text-xs leading-loose transition-colors">
-              Scan Bet9ja, SportyBet, 1xBet & more for guaranteed-profit opportunities. AI-powered cross-bookmaker analysis.
-            </p>
+            <div className="text-center md:text-left">
+              <h3 className="text-lg font-black uppercase tracking-widest mb-3 text-white">ARBITRAGE SCANNER</h3>
+              <p className="text-zinc-400 font-mono text-xs leading-loose">
+                Scan Bet9ja, SportyBet, 1xBet & more for guaranteed-profit opportunities. AI-powered cross-bookmaker analysis.
+              </p>
+            </div>
           </button>
         </div>
       </main>

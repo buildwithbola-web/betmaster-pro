@@ -21,7 +21,7 @@ const BetHistoryPage: React.FC<BetHistoryPageProps> = ({ history, onBack, onUpda
           <div className="flex items-center gap-4">
             <button 
               onClick={onBack}
-              className="p-2 hover:bg-white/10 border border-transparent hover:border-white/10 rounded-none transition-colors text-zinc-400 hover:text-white"
+              className="p-2.5 hover:bg-white/10 bg-white/5 border border-white/10 hover:border-emerald-500/30 rounded-full transition-all text-zinc-400 hover:text-white"
             >
               <ArrowLeft size={24} />
             </button>
@@ -32,13 +32,13 @@ const BetHistoryPage: React.FC<BetHistoryPageProps> = ({ history, onBack, onUpda
           </div>
 
           {/* Filters */}
-          <div className="flex bg-black rounded-none p-1 border border-white/10">
+          <div className="flex bg-white/5 rounded-full p-1 border border-white/10 backdrop-blur-md">
             {['all', 'pending', 'won', 'lost'].map(f => (
               <button
                 key={f}
                 onClick={() => setFilter(f as any)}
-                className={`px-4 py-1.5 rounded-none text-[10px] font-mono font-bold uppercase tracking-widest transition-colors ${
-                  filter === f ? 'bg-emerald-500 text-black border border-emerald-500' : 'text-zinc-500 hover:text-white border border-transparent hover:border-white/10'
+                className={`px-5 py-2 rounded-full text-[10px] font-mono font-bold uppercase tracking-widest transition-all ${
+                  filter === f ? 'bg-emerald-500 text-black shadow-[0_0_15px_rgba(16,185,129,0.4)]' : 'text-zinc-400 hover:text-white hover:bg-white/5'
                 }`}
               >
                 {f}
@@ -56,9 +56,9 @@ const BetHistoryPage: React.FC<BetHistoryPageProps> = ({ history, onBack, onUpda
         ) : (
           <div className="space-y-6">
             {filteredHistory.map(item => (
-              <div key={item.id} className="bg-black border border-white/10 rounded-none overflow-hidden">
+              <div key={item.id} className="glass-panel border-emerald-500/20 rounded-3xl overflow-hidden hover:border-emerald-500/50 transition-all duration-300">
                 {/* Item Header */}
-                <div className="bg-black px-6 py-4 border-b border-white/10 flex flex-wrap items-center justify-between gap-4">
+                <div className="bg-white/5 px-6 py-5 border-b border-white/10 flex flex-wrap items-center justify-between gap-4">
                   <div className="flex items-center gap-4">
                     <div className="flex flex-col">
                       <span className="text-xs text-zinc-500 font-mono uppercase">Ticket ID</span>
@@ -73,22 +73,22 @@ const BetHistoryPage: React.FC<BetHistoryPageProps> = ({ history, onBack, onUpda
                     </div>
                   </div>
                   
-                  <div className="flex items-center gap-3">
-                    <span className={`px-3 py-1 rounded-none text-[10px] font-mono font-bold uppercase tracking-widest border flex items-center gap-1.5 ${
-                      item.status === 'won' ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-500' :
-                      item.status === 'lost' ? 'bg-red-500/10 border-red-500/30 text-red-500' :
-                      'bg-amber-500/10 border-amber-500/30 text-amber-500'
+                  <div className="flex items-center gap-4">
+                    <span className={`px-4 py-1.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-widest border flex items-center gap-2 ${
+                      item.status === 'won' ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.2)]' :
+                      item.status === 'lost' ? 'bg-red-500/20 border-red-500/50 text-red-400 shadow-[0_0_10px_rgba(239,68,68,0.2)]' :
+                      'bg-amber-500/20 border-amber-500/50 text-amber-400 shadow-[0_0_10px_rgba(245,158,11,0.2)]'
                     }`}>
-                      {item.status === 'won' && <Trophy size={12} />}
-                      {item.status === 'lost' && <XCircle size={12} />}
-                      {item.status === 'pending' && <Clock size={12} />}
+                      {item.status === 'won' && <Trophy size={14} />}
+                      {item.status === 'lost' && <XCircle size={14} />}
+                      {item.status === 'pending' && <Clock size={14} />}
                       {item.status}
                     </span>
 
                     {/* Developer test toggles */}
-                    <div className="flex border border-white/10 rounded-none overflow-hidden opacity-50 hover:opacity-100 transition-opacity">
-                      <button onClick={() => onUpdateStatus(item.id, 'won')} className="px-2 py-1 bg-black hover:bg-emerald-500 hover:text-black border-r border-white/10 text-[10px] text-zinc-400">W</button>
-                      <button onClick={() => onUpdateStatus(item.id, 'lost')} className="px-2 py-1 bg-black hover:bg-red-500 hover:text-black text-[10px] text-zinc-400">L</button>
+                    <div className="flex border border-white/10 rounded-xl overflow-hidden opacity-30 hover:opacity-100 transition-opacity">
+                      <button onClick={() => onUpdateStatus(item.id, 'won')} className="px-3 py-1 bg-white/5 hover:bg-emerald-500 hover:text-white border-r border-white/10 text-[10px] text-zinc-400 transition-colors font-bold">W</button>
+                      <button onClick={() => onUpdateStatus(item.id, 'lost')} className="px-3 py-1 bg-white/5 hover:bg-red-500 hover:text-white text-[10px] text-zinc-400 transition-colors font-bold">L</button>
                     </div>
                   </div>
                 </div>
@@ -96,13 +96,13 @@ const BetHistoryPage: React.FC<BetHistoryPageProps> = ({ history, onBack, onUpda
                 {/* Bets */}
                 <div className="p-6 space-y-4">
                   {item.bets.map((bet, idx) => (
-                    <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-white/10 last:border-0 last:pb-0">
+                    <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/10 last:border-0 last:pb-0">
                       <div>
-                        <div className="text-[10px] font-mono text-emerald-500 uppercase tracking-widest mb-1">{bet.market}</div>
+                        <div className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest mb-1.5 bg-emerald-500/10 px-2 py-0.5 rounded-md inline-block">{bet.market}</div>
                         <div className="text-sm font-bold text-white mb-1 uppercase tracking-wider">{bet.game}</div>
                         <div className="text-xs text-zinc-400 font-mono uppercase tracking-widest">{bet.selection}</div>
                       </div>
-                      <div className="text-sm font-mono font-bold text-emerald-500 bg-black px-3 py-1.5 rounded-none border border-white/10">
+                      <div className="text-sm font-mono font-bold text-emerald-400 bg-white/5 px-4 py-2 rounded-xl border border-white/10">
                         {bet.odds}
                       </div>
                     </div>
@@ -110,7 +110,7 @@ const BetHistoryPage: React.FC<BetHistoryPageProps> = ({ history, onBack, onUpda
                 </div>
 
                 {/* Footer / Stakes */}
-                <div className="bg-black p-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-6">
+                <div className="bg-black/40 p-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-6">
                   <div className="grid grid-cols-2 sm:flex gap-6 sm:gap-12 w-full sm:w-auto">
                     <div className="flex flex-col">
                       <span className="text-[10px] text-zinc-500 font-mono uppercase tracking-widest">Total Odds</span>

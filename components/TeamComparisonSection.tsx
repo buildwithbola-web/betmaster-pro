@@ -9,26 +9,26 @@ interface TeamComparisonSectionProps {
 const TeamComparisonSection: React.FC<TeamComparisonSectionProps> = ({ comparison }) => {
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-3 mb-6 border-b border-white/10 pb-4">
-        <div className="bg-black p-2 rounded-none border border-white/10">
-          <Swords className="text-white" size={24} />
+      <div className="flex items-center gap-4 mb-6 border-b border-white/10 pb-4">
+        <div className="bg-amber-500/20 p-3 rounded-2xl">
+          <Swords className="text-amber-400" size={28} />
         </div>
         <div>
           <h2 className="text-xl font-black text-white uppercase tracking-widest">Team Comparison</h2>
-          <p className="text-xs text-zinc-500 font-mono uppercase tracking-widest">Head-to-head analysis</p>
+          <p className="text-xs text-amber-400/80 font-mono uppercase tracking-widest">Head-to-head analysis</p>
         </div>
       </div>
 
-      <div className="bg-black rounded-none border border-white/10 overflow-hidden">
+      <div className="glass-panel rounded-3xl overflow-hidden hover:glow-amber transition-all duration-300">
         {/* Teams Header */}
-        <div className="grid grid-cols-[1fr,auto,1fr] items-center p-6 border-b border-white/10 bg-black">
+        <div className="grid grid-cols-[1fr,auto,1fr] items-center p-6 border-b border-white/10 bg-white/5">
           <div className="text-center">
             <h3 className="text-2xl font-black text-white uppercase tracking-widest">{comparison.teamA}</h3>
             <span className="text-[10px] text-zinc-500 font-mono mt-1 block uppercase tracking-widest">HOME / TEAM A</span>
           </div>
           <div className="px-6 flex flex-col items-center">
-            <div className="w-10 h-10 rounded-none bg-black flex items-center justify-center border border-white/10 shadow-inner">
-              <span className="font-bold font-mono text-zinc-500">VS</span>
+            <div className="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/30 shadow-inner">
+              <span className="font-bold font-mono text-amber-400">VS</span>
             </div>
           </div>
           <div className="text-center">
@@ -128,21 +128,21 @@ const TeamComparisonSection: React.FC<TeamComparisonSectionProps> = ({ compariso
         </div>
 
         {/* Head-to-Head & Tactical Summary */}
-        <div className="border-t border-white/10 bg-black p-6 space-y-6">
+        <div className="border-t border-white/10 bg-white/5 p-6 space-y-6">
           <div>
-            <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mb-2">Head-to-Head History</div>
+            <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest mb-2">Head-to-Head History</div>
             <p className="text-sm text-zinc-300 leading-relaxed border-l-2 border-white/10 pl-3 font-mono uppercase tracking-widest">
               {comparison.headToHead}
             </p>
           </div>
           <div>
-            <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mb-2">Tactical Matchup</div>
-            <p className="text-sm text-zinc-300 leading-relaxed border-l-2 border-white/10 pl-3 font-mono uppercase tracking-widest">
+            <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest mb-2">Tactical Matchup</div>
+            <p className="text-sm text-zinc-300 leading-relaxed border-l-2 border-amber-500/30 pl-3 font-mono uppercase tracking-widest">
               {comparison.tacticalMatchup}
             </p>
           </div>
-          <div className="bg-black border border-emerald-500 rounded-none p-4">
-             <div className="text-[10px] font-mono text-emerald-500 uppercase tracking-widest mb-2 flex items-center gap-2">
+          <div className="glass-panel border-amber-500/50 rounded-2xl p-5 hover:-translate-y-1 transition-transform shadow-[0_0_15px_rgba(245,158,11,0.2)]">
+             <div className="text-[10px] font-mono text-amber-400 uppercase tracking-widest mb-3 flex items-center gap-2">
                 <Zap size={14} /> AI Prediction
              </div>
              <p className="text-sm text-white leading-relaxed font-mono uppercase tracking-widest">

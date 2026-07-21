@@ -17,11 +17,11 @@ const BankerBetsSection: React.FC<BankerBetsSectionProps> = ({ bets, onGameClick
       <div className="flex items-end justify-between mb-6 border-b border-white/10 pb-4">
         <div>
           <h3 className="text-2xl font-black text-white flex items-center gap-3 uppercase tracking-widest">
-            <span className="text-emerald-500 text-3xl">06.</span>
+            <span className="text-rose-500 text-3xl">06.</span>
             SUREFIRE BANKER BETS
           </h3>
-          <p className="text-[10px] text-zinc-500 font-mono uppercase mt-1 flex items-center gap-2 tracking-widest">
-            <ShieldCheck size={12} className="text-emerald-500" /> Lowest Odds • Uncommon Markets • Maximum Confidence
+          <p className="text-[10px] text-rose-400/80 font-mono uppercase mt-1 flex items-center gap-2 tracking-widest">
+            <ShieldCheck size={12} className="text-rose-500" /> Lowest Odds • Uncommon Markets • Maximum Confidence
           </p>
         </div>
       </div>
@@ -33,24 +33,24 @@ const BankerBetsSection: React.FC<BankerBetsSectionProps> = ({ bets, onGameClick
           return (
             <div 
               key={index} 
-              className={`group rounded-none p-5 border transition-all cursor-pointer flex flex-col h-full relative ${
+              className={`group glass-panel rounded-3xl p-6 border transition-all duration-300 cursor-pointer flex flex-col h-full relative hover:-translate-y-2 ${
                 isBestBet 
-                  ? 'bg-black hover:bg-white/5 border-emerald-500 hover:border-white overflow-hidden'
-                  : 'bg-black hover:bg-white/5 border-white/10 hover:border-emerald-500'
+                  ? 'border-rose-500/50 hover:glow-rose overflow-hidden bg-rose-500/5'
+                  : 'border-white/10 hover:border-rose-500/30'
               }`}
               onClick={() => onGameClick(bet.game)}
             >
               {isBestBet && (
-                <div className="absolute top-0 right-0 bg-emerald-500 text-black text-[10px] font-mono font-bold px-3 py-1 rounded-none border border-black flex items-center gap-1 z-10">
-                  <Star size={10} className="fill-black" /> SUREST PICK
+                <div className="absolute top-0 right-0 bg-gradient-to-r from-rose-500 to-pink-500 text-white text-[10px] font-mono font-bold px-4 py-1.5 rounded-bl-2xl flex items-center gap-1 z-10 shadow-lg">
+                  <Star size={10} className="fill-white" /> SUREST PICK
                 </div>
               )}
               <div className="mb-4 mt-2">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className={`text-[10px] font-mono font-bold uppercase tracking-widest px-2 py-0.5 rounded-none border border-white/10 bg-black ${
+                <div className="flex items-center gap-2 mb-3">
+                  <span className={`text-[10px] font-mono font-bold uppercase tracking-widest px-3 py-1 rounded-full border ${
                     isBestBet 
-                      ? 'text-emerald-500' 
-                      : 'text-white'
+                      ? 'border-rose-500/30 bg-rose-500/20 text-rose-300' 
+                      : 'border-white/10 bg-white/5 text-white'
                   }`}>
                     {bet.market}
                   </span>
@@ -58,44 +58,44 @@ const BankerBetsSection: React.FC<BankerBetsSectionProps> = ({ bets, onGameClick
                 <h4 className="text-sm font-black uppercase tracking-wider text-white leading-tight pr-4">{bet.game}</h4>
               </div>
 
-              <div className="flex-1 space-y-4">
-                <div className={`p-3 rounded-none border text-center bg-black ${
+              <div className="flex-1 space-y-5">
+                <div className={`p-4 rounded-2xl border text-center ${
                   isBestBet 
-                    ? 'border-emerald-500' 
-                    : 'border-white/10'
+                    ? 'border-rose-500/30 bg-rose-500/10' 
+                    : 'border-white/10 bg-white/5'
                 }`}>
-                  <div className="text-[10px] text-zinc-500 uppercase font-mono tracking-widest mb-1">Pick</div>
-                  <div className={`text-sm font-bold flex items-center justify-center gap-1 uppercase tracking-widest ${
-                    isBestBet ? 'text-emerald-500' : 'text-white'
+                  <div className="text-[10px] text-zinc-400 uppercase font-mono tracking-widest mb-2">Pick</div>
+                  <div className={`text-sm font-bold flex items-center justify-center gap-2 uppercase tracking-widest ${
+                    isBestBet ? 'text-rose-400' : 'text-white'
                   }`}>
-                    <Zap size={14} className={isBestBet ? 'text-emerald-500' : 'text-white'} />
+                    <Zap size={16} className={isBestBet ? 'text-rose-400' : 'text-zinc-400'} />
                     {bet.selection}
                   </div>
                 </div>
 
                 <div className="flex justify-between items-center px-1">
                   <div className="flex flex-col">
-                     <span className="text-[10px] text-zinc-500 uppercase font-mono tracking-widest">Odds</span>
-                     <span className={`text-sm font-mono font-bold text-emerald-500`}>{bet.odds}</span>
+                     <span className="text-[10px] text-zinc-400 uppercase font-mono tracking-widest mb-1">Odds</span>
+                     <span className={`text-sm font-mono font-bold text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded w-fit`}>{bet.odds}</span>
                   </div>
                   <div className="flex flex-col items-end">
-                     <span className="text-[10px] text-zinc-500 uppercase font-mono tracking-widest">Confidence</span>
+                     <span className="text-[10px] text-zinc-400 uppercase font-mono tracking-widest mb-1">Confidence</span>
                      <span className={`text-sm font-mono font-bold ${
-                       isBestBet ? 'text-emerald-500' : 'text-white'
+                       isBestBet ? 'text-rose-400' : 'text-white'
                      }`}>{bet.confidence}%</span>
                   </div>
                 </div>
 
                 <p className={`text-[10px] leading-relaxed border-l-2 pl-3 font-mono uppercase tracking-widest ${
                   isBestBet 
-                    ? 'text-emerald-500 border-white/10' 
+                    ? 'text-rose-400 border-rose-500/30' 
                     : 'text-zinc-400 border-white/10'
                 }`}>
                   {bet.reasoning}
                 </p>
               </div>
 
-              <div className={`mt-4 pt-3 border-t flex justify-between items-center border-white/10`}>
+              <div className={`mt-5 pt-4 border-t flex justify-between items-center border-white/10`}>
                 <button 
                   onClick={(e) => {
                     e.stopPropagation();
@@ -107,12 +107,19 @@ const BankerBetsSection: React.FC<BankerBetsSectionProps> = ({ bets, onGameClick
                       odds: bet.odds
                     });
                   }}
-                  className={`text-[10px] font-mono transition-colors flex items-center gap-1 px-2 py-1 rounded-none border border-transparent hover:border-emerald-500 hover:bg-emerald-500 hover:text-black bg-transparent text-emerald-500`}
+                  className={`p-2 rounded-full text-white transition-all shadow-[0_0_15px_rgba(244,63,94,0.4)] hover:shadow-[0_0_20px_rgba(244,63,94,0.6)] ${
+                    isBestBet 
+                      ? 'bg-rose-500 hover:bg-rose-400' 
+                      : 'bg-white/10 hover:bg-rose-500'
+                  }`}
+                  title="Add to Slip"
                 >
-                  <Plus size={10} /> ADD TO SLIP
+                  <Plus size={16} />
                 </button>
-                <span className={`text-[10px] font-mono tracking-widest uppercase transition-colors flex items-center gap-1 text-zinc-500 group-hover:text-emerald-500`}>
-                  DEEP DIVE <ArrowRight size={10} />
+                <span className={`text-[10px] font-mono tracking-widest transition-colors flex items-center gap-1 ${
+                  isBestBet ? 'text-rose-400' : 'text-zinc-500 group-hover:text-rose-400'
+                }`}>
+                  VIEW DETAILS <ArrowRight size={12} />
                 </span>
               </div>
             </div>

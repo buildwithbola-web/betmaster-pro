@@ -13,11 +13,11 @@ const MicroMarketsSection: React.FC<MicroMarketsSectionProps> = ({ insights, onA
 
   const getIcon = (type: string) => {
     switch (type) {
-      case 'SHOT_SNIPER': return <Target className="text-white" size={24} />;
-      case 'TACKLE_MACHINE': return <Swords className="text-white" size={24} />;
-      case 'CRUMBLE_WATCH': return <TrendingDown className="text-white" size={24} />;
-      case 'FAST_START': return <Zap className="text-white" size={24} />;
-      default: return <BarChart2 className="text-white" size={24} />;
+      case 'SHOT_SNIPER': return <Target className="text-blue-400" size={24} />;
+      case 'TACKLE_MACHINE': return <Swords className="text-blue-400" size={24} />;
+      case 'CRUMBLE_WATCH': return <TrendingDown className="text-blue-400" size={24} />;
+      case 'FAST_START': return <Zap className="text-blue-400" size={24} />;
+      default: return <BarChart2 className="text-blue-400" size={24} />;
     }
   };
 
@@ -33,11 +33,11 @@ const MicroMarketsSection: React.FC<MicroMarketsSectionProps> = ({ insights, onA
 
   const getColorClass = (type: string) => {
     switch (type) {
-      case 'SHOT_SNIPER': return 'border-white/10 bg-black hover:border-white hover:bg-white/5';
-      case 'TACKLE_MACHINE': return 'border-white/10 bg-black hover:border-white hover:bg-white/5';
-      case 'CRUMBLE_WATCH': return 'border-white/10 bg-black hover:border-white hover:bg-white/5';
-      case 'FAST_START': return 'border-white/10 bg-black hover:border-white hover:bg-white/5';
-      default: return 'border-white/10 bg-black hover:border-white hover:bg-white/5';
+      case 'SHOT_SNIPER': return 'hover:glow-blue hover:-translate-y-2';
+      case 'TACKLE_MACHINE': return 'hover:glow-blue hover:-translate-y-2';
+      case 'CRUMBLE_WATCH': return 'hover:glow-blue hover:-translate-y-2';
+      case 'FAST_START': return 'hover:glow-blue hover:-translate-y-2';
+      default: return 'hover:glow-blue hover:-translate-y-2';
     }
   };
 
@@ -45,7 +45,7 @@ const MicroMarketsSection: React.FC<MicroMarketsSectionProps> = ({ insights, onA
     <div className="space-y-6">
       <div className="flex items-end justify-between border-b border-white/10 pb-4">
         <h3 className="text-2xl font-black uppercase tracking-widest text-white flex items-center gap-3">
-          <span className="text-emerald-500 text-3xl">07.</span>
+          <span className="text-blue-500 text-3xl">07.</span>
           MICRO-MARKETS & PLAYER PROPS
         </h3>
         <span className="text-[10px] tracking-widest font-mono text-zinc-500 uppercase flex items-center gap-1">
@@ -57,13 +57,13 @@ const MicroMarketsSection: React.FC<MicroMarketsSectionProps> = ({ insights, onA
         {insights.map((insight, idx) => (
           <div 
             key={idx} 
-            className={`p-5 rounded-none border ${getColorClass(insight.type)} transition-all flex flex-col`}
+            className={`glass-panel p-6 rounded-3xl ${getColorClass(insight.type)} transition-all duration-300 flex flex-col`}
           >
             <div className="flex items-center justify-between mb-4">
-               <div className="p-2 bg-black rounded-none border border-white/10">
+               <div className="p-3 bg-blue-500/10 rounded-2xl">
                 {getIcon(insight.type)}
                </div>
-               <span className="text-[10px] font-black font-mono text-zinc-500 uppercase tracking-widest">
+               <span className="text-[10px] font-black font-mono text-blue-400 uppercase tracking-widest bg-blue-500/10 px-2 py-1 rounded-full">
                 {insight.confidence}% Conf
                </span>
             </div>
@@ -78,14 +78,14 @@ const MicroMarketsSection: React.FC<MicroMarketsSectionProps> = ({ insights, onA
               </span>
             </div>
 
-            <p className="text-[10px] font-mono tracking-widest uppercase text-zinc-400 mb-4 flex-1 border-l-2 border-white/10 pl-2">
+            <p className="text-[10px] font-mono tracking-widest uppercase text-zinc-400 mb-6 flex-1 border-l-2 border-blue-500/30 pl-3">
               "{insight.insight}"
             </p>
 
-            <div className="bg-black p-3 rounded-none border border-white/10 flex justify-between items-center gap-1">
+            <div className="bg-white/5 p-4 rounded-2xl flex justify-between items-center gap-2">
               <div className="flex flex-col gap-1">
-                <span className="text-[8px] tracking-widest font-mono text-zinc-500 uppercase">Value Prediction</span>
-                <span className="text-xs font-mono font-bold text-emerald-500">
+                <span className="text-[9px] tracking-widest font-mono text-zinc-500 uppercase">Value Prediction</span>
+                <span className="text-xs font-mono font-bold text-blue-400">
                   {insight.prediction}
                 </span>
               </div>
@@ -100,11 +100,12 @@ const MicroMarketsSection: React.FC<MicroMarketsSectionProps> = ({ insights, onA
                     odds: '1.00' // Placeholder odds, as micro markets might not have them returned in current schema
                   });
                 }}
-                className="text-zinc-500 hover:text-black transition-colors p-1.5 bg-transparent hover:bg-emerald-500 border border-transparent hover:border-emerald-500 rounded-none shrink-0"
-                title="Add to Slip"
-              >
-                <Plus size={14} />
-              </button>
+                  className="p-2 rounded-full bg-blue-500 hover:bg-blue-400 text-white transition-all shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]"
+                  title="Add to Slip"
+                >
+                  <Plus size={16} />
+                </button>
+              </div>
             </div>
           </div>
         ))}

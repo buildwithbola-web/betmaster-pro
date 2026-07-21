@@ -13,28 +13,30 @@ const OddsMovementSection: React.FC<OddsMovementSectionProps> = ({ movements, on
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-3 mb-4 pb-4 border-b border-white/10">
-        <Activity className="text-emerald-500" size={24} />
+      <div className="flex items-center gap-4 mb-4 pb-4 border-b border-white/10">
+        <div className="bg-fuchsia-500/20 p-3 rounded-2xl">
+          <Activity className="text-fuchsia-400" size={28} />
+        </div>
         <h2 className="text-xl font-black text-white uppercase tracking-widest">
-          Line Movement <span className="text-emerald-500">& Smart Money</span>
+          Line Movement <span className="text-fuchsia-400">& Smart Money</span>
         </h2>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {movements.map((mov, idx) => (
-          <div key={idx} className="bg-black border border-white/10 rounded-none p-5 hover:border-emerald-500 hover:bg-white/5 transition-all relative overflow-hidden group">
-            <div className={`absolute top-0 left-0 w-1 h-full ${mov.movementDirection === 'DOWN' ? 'bg-emerald-500' : 'bg-red-500'}`}></div>
+          <div key={idx} className="glass-panel border-fuchsia-500/20 rounded-3xl p-6 hover:border-fuchsia-500/50 hover:glow-fuchsia hover:-translate-y-2 transition-all duration-300 relative overflow-hidden group">
+            <div className={`absolute top-0 left-0 w-1.5 h-full ${mov.movementDirection === 'DOWN' ? 'bg-fuchsia-500 shadow-[0_0_10px_rgba(217,70,239,0.8)]' : 'bg-pink-500 shadow-[0_0_10px_rgba(236,72,153,0.8)]'}`}></div>
             
-            <div className="flex justify-between items-start mb-3">
+            <div className="flex justify-between items-start mb-4">
               <div>
-                <span className="text-[10px] font-mono tracking-widest text-zinc-500 bg-black px-2 py-0.5 rounded-none border border-white/10 uppercase">
+                <span className="text-[10px] font-mono tracking-widest text-fuchsia-300 bg-fuchsia-500/20 px-3 py-1 rounded-full border border-fuchsia-500/30 uppercase">
                   {mov.market}
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 px-2 py-1 bg-black rounded-none border border-white/10">
-                <span className="text-[10px] font-mono text-zinc-500 line-through">{mov.openingOdds}</span>
-                {mov.movementDirection === 'DOWN' ? <TrendingDown size={12} className="text-emerald-500" /> : <TrendingUp size={12} className="text-red-500" />}
-                <span className={`text-xs font-mono font-bold ${mov.movementDirection === 'DOWN' ? 'text-emerald-400' : 'text-red-400'}`}>
+              <div className="flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full border border-white/10">
+                <span className="text-[10px] font-mono text-zinc-400 line-through">{mov.openingOdds}</span>
+                {mov.movementDirection === 'DOWN' ? <TrendingDown size={14} className="text-fuchsia-400" /> : <TrendingUp size={14} className="text-pink-400" />}
+                <span className={`text-xs font-mono font-bold ${mov.movementDirection === 'DOWN' ? 'text-fuchsia-400' : 'text-pink-400'}`}>
                   {mov.currentOdds}
                 </span>
               </div>
@@ -44,9 +46,9 @@ const OddsMovementSection: React.FC<OddsMovementSectionProps> = ({ movements, on
               {mov.insight}
             </p>
 
-            <div className="flex items-center justify-between mt-4 pt-3 border-t border-white/10">
+            <div className="flex items-center justify-between mt-5 pt-4 border-t border-white/10">
               <div className="flex items-center gap-2">
-                <BarChart2 size={14} className="text-zinc-500" />
+                <BarChart2 size={16} className="text-fuchsia-400" />
                 <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400">Volume: <span className="text-white font-bold">{mov.sharpMoneyVolume}</span></span>
               </div>
               <button 
@@ -57,7 +59,7 @@ const OddsMovementSection: React.FC<OddsMovementSectionProps> = ({ movements, on
                   selection: "Follow Sharp Money",
                   odds: mov.currentOdds
                 })}
-                className="text-[10px] font-mono uppercase tracking-widest bg-emerald-500 hover:bg-transparent text-black hover:text-emerald-500 px-3 py-1.5 rounded-none transition-colors font-bold border border-emerald-500"
+                className="text-[10px] font-mono uppercase tracking-widest bg-fuchsia-600 hover:bg-fuchsia-500 text-white px-4 py-2 rounded-full transition-all font-bold shadow-[0_0_15px_rgba(217,70,239,0.4)] hover:shadow-[0_0_20px_rgba(217,70,239,0.6)]"
               >
                 ADD TO SLIP
               </button>

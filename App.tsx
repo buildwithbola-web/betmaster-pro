@@ -249,14 +249,14 @@ const App: React.FC = () => {
             </button>
             <button
               onClick={() => setCurrentView('history')}
-              className="p-2 hover:bg-white/5 border border-transparent hover:border-white/10 transition-colors text-zinc-500 hover:text-white"
+              className="p-2 hover:bg-white/10 rounded-full border border-transparent hover:border-white/20 transition-all text-zinc-400 hover:text-white"
               title="Bet History"
             >
               <History size={18} />
             </button>
             <div className="flex h-2 w-2 relative ml-2">
-              <span className="animate-ping absolute inline-flex h-full w-full bg-emerald-500 opacity-75"></span>
-              <span className="relative inline-flex h-2 w-2 bg-emerald-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full bg-emerald-500 rounded-full opacity-75"></span>
+              <span className="relative inline-flex h-2 w-2 bg-emerald-500 rounded-full"></span>
             </div>
           </div>
         </nav>
@@ -274,8 +274,8 @@ const App: React.FC = () => {
             }} 
             className="relative w-full group animate-fade-in-up"
           >
-            <div className="relative bg-black p-2 border border-white/10 flex items-center focus-within:border-emerald-500 transition-colors">
-              <div className="pl-4 pr-2 text-zinc-500 group-focus-within:text-emerald-500 transition-colors">
+            <div className="relative glass-panel rounded-full p-2 flex items-center focus-within:glow-purple transition-all duration-300">
+              <div className="pl-4 pr-2 text-zinc-400 group-focus-within:text-purple-400 transition-colors">
                 <Search size={28} />
               </div>
               <input
@@ -288,21 +288,21 @@ const App: React.FC = () => {
                 onFocus={() => setShowHistory(true)}
                 onBlur={() => setTimeout(() => setShowHistory(false), 200)}
                 placeholder="e.g. Real Madrid, Lakers, Carlos Alcaraz..."
-                className="w-full bg-transparent border-none text-white px-2 py-4 focus:ring-0 text-xl md:text-2xl placeholder-zinc-600 font-mono uppercase tracking-widest outline-none"
+                className="w-full bg-transparent border-none text-white px-2 py-4 focus:ring-0 text-xl md:text-2xl placeholder-zinc-500 font-mono tracking-wide outline-none"
               />
               <button
                 type="submit"
                 disabled={loading || !input.trim()}
-                className="bg-emerald-500 hover:bg-white disabled:opacity-50 text-black px-8 py-4 transition-colors font-black uppercase tracking-widest text-sm flex items-center gap-2"
+                className="bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white rounded-full px-8 py-4 transition-all font-bold uppercase tracking-widest text-sm flex items-center gap-2 shadow-[0_0_20px_rgba(168,85,247,0.4)]"
               >
                 Scan <Sparkles size={16} />
               </button>
             </div>
 
             {showHistory && searchHistory.filter(h => h.toLowerCase().includes(input.toLowerCase())).length > 0 && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-black border border-white/10 overflow-hidden z-50">
+              <div className="absolute top-full left-0 right-0 mt-4 glass-panel rounded-2xl overflow-hidden z-50">
                 <div className="p-2">
-                  <div className="text-xs font-mono text-zinc-500 mb-2 px-3 flex items-center gap-2 pt-2">
+                  <div className="text-xs font-mono text-zinc-400 mb-2 px-3 flex items-center gap-2 pt-2 uppercase tracking-widest">
                     <History size={12} /> RECENT SCANS
                   </div>
                   {searchHistory.filter(h => h.toLowerCase().includes(input.toLowerCase())).map((historyItem, idx) => (
@@ -314,9 +314,9 @@ const App: React.FC = () => {
                         setShowHistory(false);
                         handleAnalyze(undefined, historyItem);
                       }}
-                      className="w-full text-left px-4 py-3 text-sm font-mono uppercase tracking-widest text-zinc-500 hover:bg-white/5 hover:text-white transition-colors flex items-center gap-3"
+                      className="w-full text-left px-4 py-3 text-sm font-mono tracking-wide text-zinc-300 hover:bg-white/10 hover:text-white rounded-xl transition-all flex items-center gap-3"
                     >
-                      <Search size={14} className="text-zinc-500" />
+                      <Search size={14} className="text-purple-400" />
                       {historyItem}
                     </button>
                   ))}
@@ -333,30 +333,30 @@ const App: React.FC = () => {
         )}
 
         {data && !loading && (data.matchStatus || data.matchTime) && (
-          <div className="max-w-4xl mx-auto mb-8 animate-fade-in-up">
+          <div className="max-w-4xl mx-auto mb-10 animate-fade-in-up">
             <div className="flex flex-col md:flex-row items-center justify-center gap-6">
                
                {/* Live Status Badge */}
-               <div className={`flex items-center gap-3 px-8 py-4 border ${(data.matchStatus || '').toUpperCase().includes('LIVE') ? 'bg-black border-red-500' : 'bg-black border-emerald-500'}`}>
-                 <Clock className={`${(data.matchStatus || '').toUpperCase().includes('LIVE') ? 'text-red-500' : 'text-emerald-500'} animate-pulse`} size={24} />
-                 <span className={`${(data.matchStatus || '').toUpperCase().includes('LIVE') ? 'text-red-500' : 'text-emerald-500'} font-black tracking-[0.2em] text-xl uppercase`}>
-                   {data.matchStatus || `KICKOFF: ${data.matchTime}`}
+               <div className={`flex items-center gap-3 px-8 py-4 rounded-full glass-panel ${(data.matchStatus || '').toUpperCase().includes('LIVE') ? 'glow-rose border-rose-500/50' : 'glow-emerald border-emerald-500/50'} transition-all hover:-translate-y-1`}>
+                 <Clock className={`${(data.matchStatus || '').toUpperCase().includes('LIVE') ? 'text-rose-400' : 'text-emerald-400'} animate-pulse`} size={24} />
+                 <span className={`${(data.matchStatus || '').toUpperCase().includes('LIVE') ? 'text-rose-400' : 'text-emerald-400'} font-bold tracking-[0.15em] text-lg uppercase`}>
+                   {data.matchStatus || (data.matchTime ? `KICKOFF: ${data.matchTime}` : 'TIME TBD')}
                  </span>
                </div>
                
                {/* Match Conditions Card */}
                {(data.stadium || data.weather) && (
-                 <div className="flex items-center gap-4 bg-black border border-white/10 px-6 py-3">
+                 <div className="flex items-center gap-4 glass-panel rounded-full px-8 py-4 transition-all hover:-translate-y-1">
                    {data.stadium && (
-                     <div className="flex items-center gap-2 border-r border-white/10 pr-4">
-                       <Trophy className="text-white" size={16} />
-                       <span className="text-zinc-400 font-mono text-xs uppercase tracking-widest">{data.stadium}</span>
+                     <div className="flex items-center gap-3 border-r border-white/10 pr-6">
+                       <Trophy className="text-indigo-400" size={18} />
+                       <span className="text-zinc-300 font-mono text-sm uppercase tracking-wide">{data.stadium}</span>
                      </div>
                    )}
                    {data.weather && (
-                     <div className="flex items-center gap-2 pl-2">
-                       <Globe className="text-white" size={16} />
-                       <span className="text-zinc-400 font-mono text-xs uppercase tracking-widest">{data.weather}</span>
+                     <div className="flex items-center gap-3 pl-2">
+                       <Globe className="text-amber-400" size={18} />
+                       <span className="text-zinc-300 font-mono text-sm uppercase tracking-wide">{data.weather}</span>
                      </div>
                    )}
                  </div>
