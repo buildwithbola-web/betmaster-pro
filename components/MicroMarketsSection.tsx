@@ -107,7 +107,6 @@ const MicroMarketsSection: React.FC<MicroMarketsSectionProps> = ({ insights, onA
                 </button>
               </div>
             </div>
-          </div>
         ))}
       </div>
     </div>
