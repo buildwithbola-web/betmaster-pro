@@ -180,7 +180,7 @@ CRITICAL: Generate unique, realistic data for: ${query}. Do NOT copy example dat
     app.use(vite.middlewares);
   } else {
     app.use(express.static(path.join(__dirname, "dist/client")));
-    app.use("*", (req, res) => {
+    app.use((req, res) => {
       res.sendFile(path.join(__dirname, "dist/client/index.html"));
     });
   }
