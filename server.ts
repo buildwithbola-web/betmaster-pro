@@ -179,9 +179,10 @@ CRITICAL: Generate unique, realistic data for: ${query}. Do NOT copy example dat
     });
     app.use(vite.middlewares);
   } else {
-    app.use(express.static(path.join(__dirname, "dist/client")));
+    const distPath = path.join(process.cwd(), "dist");
+    app.use(express.static(distPath));
     app.use((req, res) => {
-      res.sendFile(path.join(__dirname, "dist/client/index.html"));
+      res.sendFile(path.join(distPath, "index.html"));
     });
   }
 
