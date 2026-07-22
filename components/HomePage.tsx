@@ -1,6 +1,6 @@
 import React from 'react';
 import Logo from './Logo';
-import { ChevronRight, Target, ShieldCheck, Activity, Gem, Receipt, Trophy, Shield, Users, CheckCircle, BrainCircuit } from 'lucide-react';
+import { ChevronRight, Target, ShieldCheck, Activity, Gem, Receipt, Trophy, Shield, Users, CheckCircle, BrainCircuit, TrendingUp } from 'lucide-react';
 
 interface HomePageProps {
   onLaunch: () => void;
@@ -55,7 +55,7 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
           
           <h1 className="text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-6 tracking-tight">
             Smarter Predictions.<br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600">Bigger Wins.</span>
+            Bigger <span className="text-purple-500">Wins.</span>
           </h1>
           
           <p className="text-lg text-zinc-400 mb-8 max-w-md leading-relaxed">
@@ -80,7 +80,7 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
           </div>
 
           <div className="flex flex-col sm:flex-row items-center gap-4">
-            <button onClick={onLaunch} className="w-full sm:w-auto bg-gradient-to-r from-emerald-400 to-emerald-600 hover:from-emerald-300 hover:to-emerald-500 text-black text-sm font-bold px-8 py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] flex items-center justify-center gap-2">
+            <button onClick={onLaunch} className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 text-white text-sm font-bold px-8 py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(168,85,247,0.3)] flex items-center justify-center gap-2">
               Get Started Free <ChevronRight size={18} />
             </button>
             <button onClick={onLaunch} className="w-full sm:w-auto bg-white/5 hover:bg-white/10 border border-white/10 text-white text-sm font-bold px-8 py-4 rounded-xl transition-all flex items-center justify-center gap-2">
@@ -93,27 +93,12 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
         </div>
 
         {/* Visual / Asset Placeholder */}
-        <div className="w-full md:w-1/2 mt-16 md:mt-0 relative z-10 flex justify-center">
-          <div className="relative w-full max-w-[400px] aspect-[9/16] bg-black border border-white/10 rounded-[40px] shadow-2xl overflow-hidden shadow-emerald-500/20 group">
-             {/* Fake Phone UI */}
-             <div className="absolute top-0 inset-x-0 h-6 bg-black flex justify-center items-center z-20">
-               <div className="w-24 h-4 bg-zinc-900 rounded-b-xl"></div>
-             </div>
-             <div className="p-6 pt-12 h-full w-full bg-gradient-to-b from-zinc-900 to-black relative">
-               <div className="text-[10px] text-emerald-400 font-bold mb-1">Top Pick</div>
-               <div className="text-lg font-bold text-white mb-4">Man City vs Real Madrid</div>
-               <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                 <div className="text-xs text-zinc-400 mb-2">Man City Win</div>
-                 <div className="flex justify-between items-end">
-                   <div className="text-3xl font-black text-emerald-400">95%</div>
-                   <div className="text-sm font-bold text-white bg-white/10 px-2 py-1 rounded">1.38</div>
-                 </div>
-                 <div className="mt-4 h-12 w-full bg-emerald-500/20 rounded relative overflow-hidden">
-                   <div className="absolute bottom-0 left-0 h-full w-full opacity-50" style={{ background: 'linear-gradient(90deg, transparent, rgba(16,185,129,0.5) 50%, transparent)'}}></div>
-                 </div>
-               </div>
-             </div>
-          </div>
+        <div className="w-full md:w-1/2 mt-16 md:mt-0 relative z-10 flex justify-center items-center">
+          <img 
+            src="/hero-asset.jpg" 
+            alt="BetMaster Pro App" 
+            className="w-full max-w-[700px] h-auto object-contain transform scale-110 md:scale-125"
+          />
         </div>
       </section>
 
@@ -268,7 +253,29 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
               </div>
             </div>
           </div>
-        </div>
+            {/* Card 4 */}
+            <div onClick={onLaunch} className="cursor-pointer min-w-[300px] bg-[#0a0a0a] border border-white/5 rounded-2xl p-5 shrink-0 hover:border-emerald-500/30 transition-colors">
+              <div className="flex justify-between items-center text-[10px] text-zinc-500 mb-4 font-semibold uppercase">
+                <span className="flex items-center gap-1"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Premier_League_Logo.svg/1200px-Premier_League_Logo.svg.png" className="w-3 h-3 object-contain invert"/> Premier League</span>
+                <span>18:30</span>
+              </div>
+              <div className="flex items-center justify-between mb-6">
+                <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Arsenal_FC.svg/1200px-Arsenal_FC.svg.png" className="w-full h-full object-contain p-1"/></div><span className="text-xs font-bold text-white">Arsenal</span></div>
+                <div className="text-[10px] font-bold text-zinc-600">VS</div>
+                <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/cc/Chelsea_FC.svg/1200px-Chelsea_FC.svg.png" className="w-full h-full object-contain p-1"/></div><span className="text-xs font-bold text-white">Chelsea</span></div>
+              </div>
+              <div className="flex justify-between items-end border-t border-white/5 pt-4">
+                <div>
+                  <div className="text-[10px] text-zinc-500 uppercase">1st Half Draw</div>
+                  <div className="text-sm font-bold text-white">Yes</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-[10px] text-zinc-500 uppercase">Confidence</div>
+                  <div className="text-xl font-black text-emerald-400">89%</div>
+                </div>
+              </div>
+            </div>
+          </div>
       </section>
 
       {/* 6. STATS ROW */}
@@ -276,7 +283,7 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 bg-[#0a0a0a] border border-white/5 rounded-3xl p-8 divide-x divide-white/5">
           <div className="flex items-center gap-4 px-4">
             <div className="w-12 h-12 rounded-full border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-              <Activity size={20} />
+              <TrendingUp size={20} />
             </div>
             <div>
               <div className="text-xl font-bold text-white">72.6%</div>
