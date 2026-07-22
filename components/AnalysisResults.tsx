@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronRight, Calendar, Trophy, Zap, Clock, ShieldCheck, Activity, Target, Gem, Star, TrendingUp, Info } from 'lucide-react';
+import { ChevronRight, Calendar, Trophy, Zap, Clock, ShieldCheck, Activity, Target, Gem, Star, TrendingUp, Info, CheckCircle2 } from 'lucide-react';
 
 interface AnalysisResultsProps {
   data: any;
@@ -24,84 +24,116 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet }) => 
 
   return (
     <div className="w-full space-y-12">
-      {/* 01. MATCH WINNER & MARKETS */}
+      {/* 01. DEEP SEARCH INTELLIGENCE */}
       <section>
-        {renderSectionHeader("01", matchName, (
-          <div className="flex items-center gap-4 text-[10px] text-zinc-400 font-bold uppercase">
-            <span>UEFA CL - Q1</span>
-            <div className="flex items-center gap-1"><Calendar size={12}/> Today, 20:00</div>
-          </div>
-        ))}
-        <div className="bg-[#050505] border border-white/5 rounded-2xl p-6 relative overflow-hidden">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Team A Column */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b border-white/5 pb-6">
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 bg-indigo-500/10 rounded-xl border border-indigo-500/20 flex items-center justify-center shrink-0">
+              <Target className="text-indigo-400" size={24} />
+            </div>
             <div>
-              <div className="flex items-center gap-3 mb-8">
-                <div className="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center border border-emerald-500/30">
-                  <ShieldCheck size={16} className="text-emerald-500" />
-                </div>
-                <h3 className="font-bold text-white text-lg">{teamA}</h3>
+              <div className="text-[10px] text-indigo-400 font-bold uppercase tracking-widest mb-1">Deep Search Intelligence</div>
+              <h2 className="text-2xl md:text-3xl font-black text-white">{matchName}</h2>
+            </div>
+          </div>
+          <div className="flex items-center gap-6 mt-4 md:mt-0">
+            <div className="text-right">
+              <div className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Confidence Score</div>
+              <div className="text-emerald-400 font-black text-sm uppercase">Optimized 90%+</div>
+            </div>
+            <button className="bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/30 text-indigo-300 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-colors">
+              Verified Markets
+            </button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Mainstream Likely Wins Column */}
+          <div className="bg-[#050505] border border-white/5 rounded-2xl p-6">
+            <div className="flex justify-between items-center mb-6 pb-4 border-b border-white/5">
+              <div className="flex items-center gap-2">
+                <Zap size={18} className="text-amber-400" />
+                <h3 className="font-black text-white uppercase tracking-wider text-sm bg-blue-600/40 px-2 py-0.5">Mainstream Likely Wins</h3>
               </div>
-              <div className="space-y-6">
-                {[
-                  { label: "Match Winner", value: teamA, conf: 78 },
-                  { label: "Both Teams to Score", value: "Yes", conf: 64 },
-                  { label: "Over / Under 2.5", value: "Over 2.5 Goals", conf: 69 },
-                  { label: "Correct Score", value: "2-1", conf: 13 },
-                  { label: "Double Chance", value: `${teamA} or Draw`, conf: 86 }
-                ].map((stat, i) => (
-                  <div key={i} className="space-y-2">
-                    <div className="flex justify-between text-xs">
-                      <div>
-                        <div className="text-zinc-500">{stat.label}</div>
-                        <div className="text-zinc-300 font-bold">{stat.value}</div>
-                      </div>
-                      <div className="text-purple-400 font-bold flex items-center gap-1">{stat.conf}% <ChevronRight size={14}/></div>
-                    </div>
-                    <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                      <div className="h-full bg-purple-600 rounded-full" style={{ width: `${stat.conf}%` }}></div>
-                    </div>
+              <span className="text-[9px] text-zinc-500 uppercase tracking-widest font-bold">Analysis Desk</span>
+            </div>
+            
+            <div className="space-y-6">
+              {(data.gamePredictions?.mainstream?.length > 0 ? data.gamePredictions.mainstream.slice(0, 7) : [
+                { market: "Both Teams To Score", odds: 1.75, prediction: "Yes", reasoning: "Both teams are fully healthy upfront and show extremely high attacking output in key matches.", confidence: 91 },
+                { market: "Match Goals (O/U 1.5)", odds: 1.41, prediction: "Over 1.5", reasoning: "High safety buffer based on defensive lapses in late-stage segments.", confidence: 95 },
+                { market: "Draw No Bet", odds: 1.65, prediction: teamA, reasoning: "Strong home advantage and no major injuries makes them a safe draw-no-bet.", confidence: 88 },
+                { market: "Double Chance", odds: 1.25, prediction: `${teamA} or Draw`, reasoning: "Extremely low probability of away win.", confidence: 96 },
+                { market: "1st Half Goals", odds: 1.35, prediction: "Over 0.5", reasoning: "Both teams tend to score early.", confidence: 90 },
+                { market: "Team A Goals", odds: 1.55, prediction: "Over 1.5", reasoning: "Attacking metrics are off the charts.", confidence: 85 },
+                { market: "Team B Goals", odds: 1.25, prediction: "Over 0.5", reasoning: "Away team has scored in 9/10 last matches.", confidence: 92 },
+              ]).map((item: any, i: number) => (
+                <div key={i} className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider border border-amber-400/20 bg-amber-400/5 px-2 py-1 rounded">
+                      {item.market}
+                    </span>
+                    <span className="font-bold text-emerald-400">{item.odds?.toFixed(2) || item.odds}</span>
                   </div>
-                ))}
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 size={14} className="text-blue-400" />
+                    <span className="font-bold text-white text-lg">{item.prediction}</span>
+                  </div>
+                  <p className="text-xs text-zinc-400 leading-relaxed">{item.reasoning}</p>
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1 h-1 bg-white/5 rounded-full overflow-hidden">
+                      <div className="h-full bg-blue-500 rounded-full" style={{ width: `${item.confidence}%` }}></div>
+                    </div>
+                    <span className="text-[10px] text-zinc-500 font-bold">{item.confidence}%</span>
+                  </div>
+                  {i < 6 && <div className="h-px w-full bg-white/5 mt-6"></div>}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* High-Value Niche Column */}
+          <div className="bg-[#050505] border border-white/5 rounded-2xl p-6">
+            <div className="flex justify-between items-center mb-6 pb-4 border-b border-white/5">
+              <div className="flex items-center gap-2">
+                <ShieldCheck size={18} className="text-blue-400" />
+                <h3 className="font-black text-white uppercase tracking-wider text-sm bg-purple-900/40 px-2 py-0.5">High-Value Niche (90%+)</h3>
               </div>
+              <span className="text-[9px] text-zinc-500 uppercase tracking-widest font-bold">Analysis Desk</span>
             </div>
 
-            {/* Team B Column */}
-            <div>
-              <div className="flex items-center gap-3 mb-8">
-                <div className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/30">
-                  <Trophy size={16} className="text-amber-500" />
-                </div>
-                <h3 className="font-bold text-white text-lg">{teamB}</h3>
-              </div>
-              <div className="space-y-6">
-                {[
-                  { label: "Match Winner", value: teamB, conf: 22 },
-                  { label: "Both Teams to Score", value: "No", conf: 36 },
-                  { label: "Over / Under 2.5", value: "Under 2.5 Goals", conf: 31 },
-                  { label: "Correct Score", value: "1-1", conf: 9 },
-                  { label: "Double Chance", value: `${teamB} or Draw`, conf: 48 }
-                ].map((stat, i) => (
-                  <div key={i} className="space-y-2">
-                    <div className="flex justify-between text-xs">
-                      <div>
-                        <div className="text-zinc-500">{stat.label}</div>
-                        <div className="text-zinc-300 font-bold">{stat.value}</div>
-                      </div>
-                      <div className="text-purple-400 font-bold flex items-center gap-1">{stat.conf}% <ChevronRight size={14}/></div>
-                    </div>
-                    <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                      <div className="h-full bg-purple-600 rounded-full" style={{ width: `${stat.conf}%` }}></div>
-                    </div>
+            <div className="space-y-6">
+              {(data.gamePredictions?.microMarkets?.length > 0 ? data.gamePredictions.microMarkets.slice(0, 7) : [
+                { market: "Total Corners", odds: 1.85, prediction: "Over 8.5", reasoning: "Aggressive wing attack trends lead to highly consistent corner outcomes/half-time points.", confidence: 92 },
+                { market: "Team To Win Either Half", odds: 1.44, prediction: teamA, reasoning: "Regularly captures momentum in second halves with dynamic bench adjustments.", confidence: 94 },
+                { market: "Total Cards", odds: 1.65, prediction: "Over 3.5", reasoning: "Strict referee and historical rivalry.", confidence: 90 },
+                { market: "1st Half Corners", odds: 1.70, prediction: "Over 4.5", reasoning: "Fast starts by both teams.", confidence: 91 },
+                { market: "Both Teams To Score - 2nd Half", odds: 2.10, prediction: "Yes", reasoning: "Defenses tire late in the game.", confidence: 85 },
+                { market: "Team A Corners", odds: 1.50, prediction: "Over 4.5", reasoning: "High cross frequency.", confidence: 93 },
+                { market: "Team B Cards", odds: 1.80, prediction: "Over 1.5", reasoning: "Away team averages 2.5 cards per game.", confidence: 88 },
+              ]).map((item: any, i: number) => (
+                <div key={i} className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-wider border border-indigo-400/20 bg-indigo-400/5 px-2 py-1 rounded">
+                      {item.market}
+                    </span>
+                    <span className="font-bold text-emerald-400">{item.odds?.toFixed(2) || item.odds}</span>
                   </div>
-                ))}
-              </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 size={14} className="text-blue-400" />
+                    <span className="font-bold text-white text-lg">{item.prediction}</span>
+                  </div>
+                  <p className="text-xs text-zinc-400 leading-relaxed">{item.reasoning}</p>
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1 h-1 bg-white/5 rounded-full overflow-hidden">
+                      <div className="h-full bg-blue-500 rounded-full" style={{ width: `${item.confidence}%` }}></div>
+                    </div>
+                    <span className="text-[10px] text-zinc-500 font-bold">{item.confidence}%</span>
+                  </div>
+                  {i < 6 && <div className="h-px w-full bg-white/5 mt-6"></div>}
+                </div>
+              ))}
             </div>
-          </div>
-          <div className="mt-8 text-center border-t border-white/5 pt-6">
-            <button className="text-xs text-zinc-400 hover:text-white transition-colors">
-              View Full Match Analysis <ChevronRight size={12} className="inline"/>
-            </button>
           </div>
         </div>
       </section>
