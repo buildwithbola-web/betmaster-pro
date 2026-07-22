@@ -37,6 +37,18 @@ const LOADING_MESSAGES = [
   "Finalizing Pro Analysis..."
 ];
 
+const AUTOCOMPLETE_SUGGESTIONS = [
+  "Real Madrid vs Barcelona",
+  "Manchester City vs Arsenal",
+  "Lakers vs Celtics",
+  "Carlos Alcaraz vs Jannik Sinner",
+  "Kansas City Chiefs vs 49ers",
+  "Novak Djokovic",
+  "Liverpool vs Chelsea",
+  "Golden State Warriors",
+  "Bayern Munich vs BVB"
+];
+
 const App: React.FC = () => {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -222,21 +234,20 @@ const App: React.FC = () => {
       <div className="relative z-10 max-w-6xl mx-auto px-4 py-8 md:py-12">
         
         {/* Sleek Navigation Bar */}
-        <nav className="relative z-20 flex items-center justify-between mb-16 border-b border-white/10 pb-4 bg-black/40 backdrop-blur-md px-6 py-4 rounded-3xl mt-4 shadow-xl">
+        <nav className="relative z-20 flex items-center justify-between mb-16 border-b border-white/5 pb-4 bg-transparent px-6 py-4 mt-2">
           <button
             onClick={() => setCurrentView('home')}
-            className="flex items-center gap-2 text-zinc-500 hover:text-emerald-400 transition-colors text-xs font-bold uppercase tracking-widest group"
+            className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors text-sm font-medium group"
           >
             <span className="group-hover:-translate-x-1 transition-transform">←</span> Back
           </button>
 
           <div className="flex items-center gap-2 opacity-90 hover:opacity-100 transition-opacity">
-            <div className="relative">
-              <BrainCircuit className="text-white relative z-10" size={24} />
-              <div className="absolute inset-0 bg-purple-500 blur-md opacity-50"></div>
+            <div className="relative flex items-center justify-center w-8 h-8 rounded-lg bg-white/5 border border-white/10 shadow-sm backdrop-blur-md">
+              <BrainCircuit className="text-zinc-300 relative z-10" size={16} />
             </div>
-            <span className="text-sm font-black tracking-[0.2em] uppercase text-white">
-              BETMASTER <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">PRO</span>
+            <span className="text-lg font-bold tracking-tight text-zinc-100">
+              BetMaster <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 font-semibold">Pro</span>
             </span>
           </div>
 
@@ -271,7 +282,7 @@ const App: React.FC = () => {
 
         {/* Central Search Hub */}
         <div className="max-w-3xl mx-auto mb-12 text-center relative z-20">
-          <h2 className="text-2xl md:text-3xl font-black text-white mb-8 tracking-tight">
+          <h2 className="text-3xl md:text-4xl font-semibold text-white mb-8 tracking-tight">
             Who are you analyzing today?
           </h2>
           
@@ -282,9 +293,9 @@ const App: React.FC = () => {
             }} 
             className="relative w-full group animate-fade-in-up"
           >
-            <div className="relative glass-panel rounded-full p-2 flex items-center focus-within:glow-purple transition-all duration-300 bg-zinc-900/80 backdrop-blur-md shadow-2xl">
-              <div className="pl-4 pr-2 text-zinc-400 group-focus-within:text-purple-400 transition-colors">
-                <Search size={28} />
+            <div className="relative bg-white/[0.02] border border-white/[0.05] rounded-full p-2 flex items-center focus-within:bg-white/[0.04] transition-all duration-300 shadow-sm">
+              <div className="pl-4 pr-2 text-zinc-500 group-focus-within:text-purple-400 transition-colors">
+                <Search size={24} />
               </div>
               <input
                 type="text"
@@ -296,40 +307,82 @@ const App: React.FC = () => {
                 onFocus={() => setShowHistory(true)}
                 onBlur={() => setTimeout(() => setShowHistory(false), 200)}
                 placeholder="e.g. Real Madrid, Lakers, Carlos Alcaraz..."
-                className="w-full bg-transparent border-none text-white px-2 py-4 focus:ring-0 text-xl md:text-2xl placeholder-zinc-500 font-mono tracking-wide outline-none"
+                className="w-full bg-transparent border-none text-white px-2 py-3 focus:ring-0 text-lg placeholder-zinc-600 font-sans outline-none"
               />
               <button
                 type="submit"
                 disabled={loading || !input.trim()}
-                className="bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white rounded-full px-8 py-4 transition-all font-bold uppercase tracking-widest text-sm flex items-center gap-2 shadow-[0_0_20px_rgba(168,85,247,0.4)]"
+                className="bg-white text-black hover:bg-zinc-200 disabled:opacity-50 rounded-full px-6 py-3 transition-all font-semibold text-sm flex items-center gap-2 shadow-[0_4px_14px_0_rgba(255,255,255,0.15)] hover:shadow-[0_6px_20px_rgba(255,255,255,0.23)]"
               >
                 Scan <Sparkles size={16} />
               </button>
             </div>
 
-            {showHistory && searchHistory.filter(h => h.toLowerCase().includes(input.toLowerCase())).length > 0 && (
-              <div className="absolute top-full left-0 right-0 mt-4 glass-panel rounded-2xl overflow-hidden z-50">
-                <div className="p-2">
-                  <div className="text-xs font-mono text-zinc-400 mb-2 px-3 flex items-center gap-2 pt-2 uppercase tracking-widest">
-                    <History size={12} /> RECENT SCANS
+            {showHistory && (
+              (() => {
+                const query = input.trim().toLowerCase();
+                const matchingHistory = query 
+                  ? searchHistory.filter(h => h.toLowerCase().includes(query))
+                  : searchHistory.slice(0, 5); // Show top 5 recent when empty
+                  
+                const matchingSuggestions = query 
+                  ? AUTOCOMPLETE_SUGGESTIONS.filter(s => s.toLowerCase().includes(query) && !searchHistory.some(h => h.toLowerCase() === s.toLowerCase()))
+                  : [];
+
+                if (matchingHistory.length === 0 && matchingSuggestions.length === 0) return null;
+
+                return (
+                  <div className="absolute top-full left-0 right-0 mt-3 bg-[#0a0a0a]/95 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden z-50 shadow-2xl">
+                    <div className="p-2">
+                      {matchingHistory.length > 0 && (
+                        <div className="mb-2">
+                          <div className="text-xs font-medium text-zinc-500 mb-1 px-3 flex items-center gap-2 pt-2">
+                            <History size={12} /> Recent Scans
+                          </div>
+                          {matchingHistory.map((item, idx) => (
+                            <button
+                              key={`history-${idx}`}
+                              type="button"
+                              onClick={() => {
+                                setInput(item);
+                                setShowHistory(false);
+                                handleAnalyze(undefined, item);
+                              }}
+                              className="w-full text-left px-4 py-3 text-sm font-medium text-zinc-300 hover:bg-white/5 hover:text-white rounded-xl transition-all flex items-center gap-3"
+                            >
+                              <Search size={14} className="text-zinc-500" />
+                              {item}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+
+                      {matchingSuggestions.length > 0 && (
+                        <div>
+                          <div className="text-xs font-medium text-zinc-500 mb-1 px-3 flex items-center gap-2 pt-2">
+                            <Sparkles size={12} className="text-purple-400" /> Suggestions
+                          </div>
+                          {matchingSuggestions.map((item, idx) => (
+                            <button
+                              key={`suggestion-${idx}`}
+                              type="button"
+                              onClick={() => {
+                                setInput(item);
+                                setShowHistory(false);
+                                handleAnalyze(undefined, item);
+                              }}
+                              className="w-full text-left px-4 py-3 text-sm font-medium text-zinc-300 hover:bg-white/5 hover:text-white rounded-xl transition-all flex items-center gap-3"
+                            >
+                              <Search size={14} className="text-purple-400/50" />
+                              {item}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                  {searchHistory.filter(h => h.toLowerCase().includes(input.toLowerCase())).map((historyItem, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => {
-                        setInput(historyItem);
-                        setShowHistory(false);
-                        handleAnalyze(undefined, historyItem);
-                      }}
-                      className="w-full text-left px-4 py-3 text-sm font-mono tracking-wide text-zinc-300 hover:bg-white/10 hover:text-white rounded-xl transition-all flex items-center gap-3"
-                    >
-                      <Search size={14} className="text-purple-400" />
-                      {historyItem}
-                    </button>
-                  ))}
-                </div>
-              </div>
+                );
+              })()
             )}
           </form>
         </div>
@@ -553,12 +606,12 @@ const App: React.FC = () => {
         {!data && !loading && (
           <div className="max-w-4xl mx-auto space-y-12 animate-fade-in relative z-20">
             {/* Minimal Terminal Status */}
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4 glass-panel rounded-2xl bg-zinc-900/60 backdrop-blur-md p-6 border-emerald-500/30 hover:glow-emerald transition-all duration-300">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-white/[0.02] border border-white/[0.05] rounded-2xl p-6 transition-colors">
               <div className="flex items-center gap-3">
-                <span className="h-3 w-3 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.8)]"></span>
-                <span className="text-sm font-mono font-bold text-white uppercase tracking-[0.2em]">PRO ENGINE ONLINE</span>
+                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span className="text-sm font-semibold text-zinc-200">Pro Engine Online</span>
               </div>
-              <div className="flex gap-6 text-xs font-mono text-zinc-400 uppercase tracking-widest">
+              <div className="flex gap-6 text-xs text-zinc-400 font-medium">
                 <span className="flex items-center gap-2"><BrainCircuit size={14} className="text-purple-400" /> DeepSeek V3</span>
                 <span className="flex items-center gap-2"><Zap size={14} className="text-amber-400" /> 14+ Cores</span>
                 <span className="flex items-center gap-2"><Globe size={14} className="text-cyan-400" /> Web Grounding</span>
@@ -566,10 +619,10 @@ const App: React.FC = () => {
             </div>
 
             {/* Quick Presets Section */}
-            <div className="space-y-4 pt-4">
+            <div className="space-y-4 pt-2">
               <div className="flex items-center gap-2 pb-2">
-                <Sparkles size={16} className="text-white" />
-                <h3 className="text-sm font-mono font-bold uppercase tracking-[0.2em] text-white">Popular Scans</h3>
+                <Sparkles size={16} className="text-zinc-400" />
+                <h3 className="text-sm font-semibold text-zinc-300">Popular Scans</h3>
               </div>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -586,18 +639,17 @@ const App: React.FC = () => {
                       setInput(preset.game);
                       handleAnalyze(undefined, preset.game);
                     }}
-                    className="group glass-panel rounded-[2rem] hover:glow-cyan p-6 transition-all duration-300 flex flex-col items-start gap-4 hover:-translate-y-1 relative overflow-hidden bg-gradient-to-br from-zinc-900/80 to-zinc-950/80"
+                    className="group bg-white/[0.02] border border-white/[0.05] rounded-[20px] p-6 hover:bg-white/[0.04] transition-all duration-300 flex flex-col items-start gap-4 relative overflow-hidden"
                   >
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-[40px] group-hover:bg-cyan-500/20 transition-colors"></div>
                     <div className="flex justify-between w-full items-center relative z-10">
-                      <div className="h-12 w-12 rounded-2xl bg-cyan-500/10 flex items-center justify-center text-2xl grayscale group-hover:grayscale-0 transition-all border border-cyan-500/20 group-hover:scale-110 shadow-[0_0_10px_rgba(6,182,212,0.2)]">
+                      <div className="h-10 w-10 rounded-xl bg-white/5 flex items-center justify-center text-xl grayscale group-hover:grayscale-0 transition-all border border-white/5">
                         {preset.icon}
                       </div>
-                      <span className="text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-widest bg-cyan-500/10 border border-cyan-500/20 px-3 py-1 rounded-full">
+                      <span className="text-xs font-medium text-zinc-400 bg-white/5 border border-white/5 px-2 py-1 rounded-md">
                         {preset.league}
                       </span>
                     </div>
-                    <div className="text-left text-sm font-mono uppercase tracking-wider font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug relative z-10">
+                    <div className="text-left text-sm font-semibold text-zinc-200 group-hover:text-white transition-colors leading-snug relative z-10">
                       {preset.game}
                     </div>
                   </button>
