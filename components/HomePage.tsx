@@ -23,16 +23,16 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
         </div>
         
         <div className="hidden md:flex items-center gap-8 text-sm font-medium">
-          <a href="#" className="text-emerald-400 relative">Home<div className="absolute -bottom-2 left-0 right-0 h-0.5 bg-emerald-400"></div></a>
-          <a href="#" className="text-zinc-400 hover:text-white transition-colors">Predictions</a>
-          <a href="#" className="text-zinc-400 hover:text-white transition-colors">1st Set & Half</a>
-          <a href="#" className="text-zinc-400 hover:text-white transition-colors">Banker Bets</a>
-          <a href="#" className="text-zinc-400 hover:text-white transition-colors">Micro-Markets</a>
-          <a href="#" className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1">More <ChevronRight size={14} className="rotate-90"/></a>
+          <button onClick={onLaunch} className="text-emerald-400 relative">Home<div className="absolute -bottom-2 left-0 right-0 h-0.5 bg-emerald-400"></div></button>
+          <button onClick={onLaunch} className="text-zinc-400 hover:text-white transition-colors">Predictions</button>
+          <button onClick={onLaunch} className="text-zinc-400 hover:text-white transition-colors">1st Set & Half</button>
+          <button onClick={onLaunch} className="text-zinc-400 hover:text-white transition-colors">Banker Bets</button>
+          <button onClick={onLaunch} className="text-zinc-400 hover:text-white transition-colors">Micro-Markets</button>
+          <button onClick={onLaunch} className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1">More <ChevronRight size={14} className="rotate-90"/></button>
         </div>
 
         <div className="hidden md:flex items-center gap-4">
-          <button className="text-sm font-medium text-zinc-300 hover:text-white transition-colors">Login</button>
+          <button onClick={onLaunch} className="text-sm font-medium text-zinc-300 hover:text-white transition-colors">Login</button>
           <button onClick={onLaunch} className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-400 hover:to-purple-500 text-white text-sm font-bold px-5 py-2.5 rounded-lg transition-all shadow-[0_0_15px_rgba(168,85,247,0.3)]">
             Sign Up
           </button>
@@ -120,7 +120,7 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
       {/* 3. SPORTS CATEGORIES */}
       <section className="max-w-7xl mx-auto px-6 mb-24">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 flex items-center justify-between group hover:border-emerald-500/30 transition-all cursor-pointer">
+          <div onClick={onLaunch} className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 flex items-center justify-between group hover:border-emerald-500/30 transition-all cursor-pointer">
             <div>
               <h3 className="text-lg font-bold text-emerald-400 mb-1 flex items-center gap-2">Football</h3>
               <p className="text-xs text-zinc-400 max-w-[150px] mb-4">AI predictions, score forecasts, micro-markets and more.</p>
@@ -129,7 +129,7 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
             <div className="w-24 h-24 rounded-full bg-gradient-to-br from-emerald-500/20 to-transparent flex items-center justify-center border border-emerald-500/20 shadow-[inset_0_0_20px_rgba(16,185,129,0.2)]">⚽</div>
           </div>
           
-          <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 flex items-center justify-between group hover:border-amber-500/30 transition-all cursor-pointer">
+          <div onClick={onLaunch} className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 flex items-center justify-between group hover:border-amber-500/30 transition-all cursor-pointer">
             <div>
               <h3 className="text-lg font-bold text-amber-400 mb-1 flex items-center gap-2">Basketball</h3>
               <p className="text-xs text-zinc-400 max-w-[150px] mb-4">1st half totals, player props, high probability picks.</p>
@@ -138,7 +138,7 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
             <div className="w-24 h-24 rounded-full bg-gradient-to-br from-amber-500/20 to-transparent flex items-center justify-center border border-amber-500/20 shadow-[inset_0_0_20px_rgba(245,158,11,0.2)]">🏀</div>
           </div>
 
-          <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 flex items-center justify-between group hover:border-blue-500/30 transition-all cursor-pointer">
+          <div onClick={onLaunch} className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 flex items-center justify-between group hover:border-blue-500/30 transition-all cursor-pointer">
             <div>
               <h3 className="text-lg font-bold text-blue-400 mb-1 flex items-center gap-2">Tennis</h3>
               <p className="text-xs text-zinc-400 max-w-[150px] mb-4">1st set winners, match predictions and deep analysis.</p>
@@ -194,14 +194,14 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
           <h3 className="text-2xl font-bold text-white flex items-center gap-3">
             Live Top Picks <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           </h3>
-          <button className="text-xs font-medium text-zinc-400 hover:text-white flex items-center gap-1 transition-colors">
+          <button onClick={onLaunch} className="text-xs font-medium text-zinc-400 hover:text-white flex items-center gap-1 transition-colors">
             View All Predictions <ChevronRight size={14}/>
           </button>
         </div>
 
         <div className="flex gap-4 overflow-x-auto pb-4 custom-scrollbar">
           {/* Card 1 */}
-          <div className="min-w-[300px] bg-[#0a0a0a] border border-white/5 rounded-2xl p-5 shrink-0">
+          <div onClick={onLaunch} className="cursor-pointer min-w-[300px] bg-[#0a0a0a] border border-white/5 rounded-2xl p-5 shrink-0 hover:border-emerald-500/30 transition-colors">
             <div className="flex justify-between items-center text-[10px] text-zinc-500 mb-4 font-semibold uppercase">
               <span className="flex items-center gap-1"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f5/UEFA_Champions_League.svg/1200px-UEFA_Champions_League.svg.png" className="w-3 h-3 object-contain invert"/> UEFA Champions League</span>
               <span>20:00</span>
@@ -224,7 +224,7 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
           </div>
 
           {/* Card 2 */}
-          <div className="min-w-[300px] bg-[#0a0a0a] border border-white/5 rounded-2xl p-5 shrink-0">
+          <div onClick={onLaunch} className="cursor-pointer min-w-[300px] bg-[#0a0a0a] border border-white/5 rounded-2xl p-5 shrink-0 hover:border-emerald-500/30 transition-colors">
             <div className="flex justify-between items-center text-[10px] text-zinc-500 mb-4 font-semibold uppercase">
               <span className="flex items-center gap-1">🎾 ATP Wimbledon</span>
               <span>14:30</span>
@@ -247,7 +247,7 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
           </div>
           
           {/* Card 3 */}
-          <div className="min-w-[300px] bg-[#0a0a0a] border border-white/5 rounded-2xl p-5 shrink-0">
+          <div onClick={onLaunch} className="cursor-pointer min-w-[300px] bg-[#0a0a0a] border border-white/5 rounded-2xl p-5 shrink-0 hover:border-emerald-500/30 transition-colors">
             <div className="flex justify-between items-center text-[10px] text-zinc-500 mb-4 font-semibold uppercase">
               <span className="flex items-center gap-1">🏀 NBA</span>
               <span>01:00</span>
