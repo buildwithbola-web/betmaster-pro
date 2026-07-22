@@ -33,10 +33,17 @@ const TopNav: React.FC<TopNavProps> = ({ currentView, setCurrentView }) => {
               onClick={() => {
                 if (link.id === 'search' || link.id === 'home') {
                   setCurrentView(link.id);
+                } else {
+                  setCurrentView('analysis');
+                  setTimeout(() => {
+                    if (link.id === '1st-half') document.getElementById('section-first-half')?.scrollIntoView({ behavior: 'smooth' });
+                    if (link.id === 'bankers') document.getElementById('section-bankers')?.scrollIntoView({ behavior: 'smooth' });
+                    if (link.id === 'micro') document.getElementById('section-micro')?.scrollIntoView({ behavior: 'smooth' });
+                  }, 50);
                 }
               }}
               className={`text-xs font-bold transition-colors uppercase tracking-widest flex items-center gap-1
-                ${currentView === link.id ? 'text-white' : 'text-zinc-500 hover:text-white'}`}
+                ${currentView === link.id || (currentView === 'analysis' && ['1st-half', 'bankers', 'micro'].includes(link.id)) ? 'text-white' : 'text-zinc-500 hover:text-white'}`}
             >
               {link.label}
               {link.isDropdown && <span className="ml-1 text-[8px] opacity-50">▼</span>}

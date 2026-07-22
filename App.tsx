@@ -22,6 +22,8 @@ import BetHistoryPage from './components/BetHistoryPage';
 import HomePage from './components/HomePage';
 import UserDashboard from './components/UserDashboard';
 import ArbitrageScanner from './components/ArbitrageScanner';
+import AllMicroMarketsPage from './components/AllMicroMarketsPage';
+import AllBankerBetsPage from './components/AllBankerBetsPage';
 import { 
   PredictionSkeleton, 
   MicroMarketsSkeleton,
@@ -229,9 +231,17 @@ const App: React.FC = () => {
           )}
 
           {(currentView === 'analysis' || data) && (
-            <div className="max-w-5xl mx-auto pb-12 animate-fade-in-up">
-              <AnalysisResults data={data} onAddBet={handleAddBet} />
+            <div className={`max-w-5xl mx-auto pb-12 animate-fade-in-up ${currentView === 'analysis' ? 'block' : 'hidden'}`}>
+              <AnalysisResults data={data} onAddBet={handleAddBet} setCurrentView={setCurrentView} />
             </div>
+          )}
+          
+          {currentView === 'all-micro' && data && (
+            <AllMicroMarketsPage data={data} onBack={() => setCurrentView('analysis')} />
+          )}
+
+          {currentView === 'all-bankers' && data && (
+            <AllBankerBetsPage data={data} onBack={() => setCurrentView('analysis')} onAddBet={handleAddBet} />
           )}
           
           {loading && (

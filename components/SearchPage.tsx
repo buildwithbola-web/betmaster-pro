@@ -5,9 +5,12 @@ interface SearchPageProps {
   onSearch: (query: string) => void;
   loading: boolean;
   hasData: boolean;
+  searchHistory?: string[];
+  activeTab: 'search' | 'recent';
+  setActiveTab: (tab: 'search' | 'recent') => void;
 }
 
-const SearchPage: React.FC<SearchPageProps> = ({ onSearch, loading, hasData }) => {
+const SearchPage: React.FC<SearchPageProps> = ({ onSearch, loading, hasData, searchHistory = [], activeTab, setActiveTab }) => {
   const [input, setInput] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -48,7 +51,7 @@ const SearchPage: React.FC<SearchPageProps> = ({ onSearch, loading, hasData }) =
         </form>
 
         {/* Suggestion Pills */}
-        {!hasData && (
+        {!hasData && activeTab === 'search' && (
           <div className="flex flex-wrap justify-center gap-3 relative z-20">
             {[
               { label: "Man City vs Real Madrid", icon: Trophy, color: "text-emerald-400" },
@@ -70,13 +73,46 @@ const SearchPage: React.FC<SearchPageProps> = ({ onSearch, loading, hasData }) =
 
       {/* Tabs */}
       <div className="flex gap-8 border-b border-white/10 mb-8 max-w-5xl mx-auto px-4 md:px-0">
-        <button className="pb-3 text-sm font-bold text-emerald-400 border-b-2 border-emerald-400 flex items-center gap-2">
-          <Search size={14} /> Search Results (12)
+        <button 
+          onClick={() => setActiveTab('search')}
+          className={`pb-3 text-sm font-bold flex items-center gap-2 ${activeTab === 'search' ? 'text-emerald-400 border-b-2 border-emerald-400' : 'text-zinc-500 hover:text-white'}`}
+        >
+          <Search size={14} /> Search Results
         </button>
-        <button className="pb-3 text-sm font-bold text-zinc-500 hover:text-white transition-colors flex items-center gap-2">
-          <Clock size={14} /> Recent Searches (8)
+        <button 
+          onClick={() => setActiveTab('recent')}
+          className={`pb-3 text-sm font-bold flex items-center gap-2 ${activeTab === 'recent' ? 'text-emerald-400 border-b-2 border-emerald-400' : 'text-zinc-500 hover:text-white'}`}
+        >
+          <Clock size={14} /> Recent Searches ({searchHistory.length})
         </button>
       </div>
+
+      {/* Recent Searches Content */}
+      {activeTab === 'recent' && (
+        <div className="max-w-5xl mx-auto px-4 md:px-0 mb-12">
+          {searchHistory.length === 0 ? (
+            <div className="text-center text-zinc-500 py-12 bg-[#050505] border border-white/5 rounded-2xl">
+              No recent searches found.
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {searchHistory.map((query, i) => (
+                <button 
+                  key={i}
+                  onClick={() => onSearch(query)}
+                  className="flex items-center justify-between p-4 bg-[#050505] hover:bg-white/5 border border-white/5 rounded-xl transition-colors text-left"
+                >
+                  <div className="flex items-center gap-3">
+                    <Clock size={16} className="text-zinc-500" />
+                    <span className="text-white font-bold">{query}</span>
+                  </div>
+                  <span className="text-xs text-purple-400">Re-analyze ➔</span>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

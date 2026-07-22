@@ -4,6 +4,7 @@ import { ChevronRight, Calendar, Trophy, Zap, Clock, ShieldCheck, Activity, Targ
 interface AnalysisResultsProps {
   data: any;
   onAddBet: (bet: any) => void;
+  setCurrentView?: (view: string) => void;
 }
 
 const renderSectionHeader = (number: string, title: string, rightContent?: React.ReactNode) => (
@@ -16,7 +17,7 @@ const renderSectionHeader = (number: string, title: string, rightContent?: React
   </div>
 );
 
-const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet }) => {
+const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCurrentView }) => {
   if (!data) return null;
   const matchName = data.gamePredictions?.gameName || "AC OMONIA NICOSIA VS FC KAIRAT";
   const teamA = data.teamComparison?.teamA || "AC Omonia Nicosia";
@@ -25,7 +26,7 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet }) => 
   return (
     <div className="w-full space-y-12">
       {/* 01. DEEP SEARCH INTELLIGENCE */}
-      <section>
+      <section id="section-predictions">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b border-white/5 pb-6">
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 bg-indigo-500/10 rounded-xl border border-indigo-500/20 flex items-center justify-center shrink-0">
@@ -139,7 +140,7 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet }) => 
       </section>
 
       {/* 02. MICRO-MARKETS */}
-      <section>
+      <section id="section-micro">
         {renderSectionHeader("02", "Micro-Markets & Player Props")}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
           {[
@@ -166,12 +167,17 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet }) => 
           ))}
         </div>
         <div className="mt-4 text-center">
-          <button className="text-[10px] text-zinc-500 hover:text-zinc-300">View All Micro-Markets +</button>
+          <button 
+            onClick={() => setCurrentView?.('all-micro')}
+            className="text-[10px] text-zinc-500 hover:text-zinc-300"
+          >
+            View All Micro-Markets +
+          </button>
         </div>
       </section>
 
       {/* 03. TEAM COMPARISON */}
-      <section>
+      <section id="section-comparison">
         {renderSectionHeader("03", "Team Comparison")}
         <div className="bg-[#050505] border border-white/5 rounded-2xl p-6 md:p-8">
           <div className="flex justify-between items-center mb-8">
@@ -235,7 +241,7 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet }) => 
       </section>
 
       {/* 04. 1ST SET & HALF */}
-      <section>
+      <section id="section-first-half">
         {renderSectionHeader("04", "1st Set & Half Critical Analysis")}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {[
@@ -260,8 +266,8 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet }) => 
         </div>
       </section>
 
-      {/* 05. SCORE & GOAL ANALYSIS */}
-      <section>
+      {/* 05. SCORE PREDICTIONS */}
+      <section id="section-scores">
         {renderSectionHeader("05", "Score & Goal Analysis")}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-[#050505] border border-white/5 rounded-2xl p-5 flex items-center justify-between">
@@ -292,7 +298,7 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet }) => 
       </section>
 
       {/* 06. BANKER BETS */}
-      <section>
+      <section id="section-bankers">
         {renderSectionHeader("06", "Surefire Banker Bets", <span className="text-[10px] text-pink-500 border border-pink-500/30 bg-pink-500/10 px-2 py-1 rounded-full">4 Today's Best Bankers</span>)}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
@@ -319,13 +325,18 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet }) => 
             </div>
           ))}
         </div>
-        <div className="mt-4 text-center">
-          <button className="text-[10px] text-zinc-500 hover:text-zinc-300">View All Banker Bets ➔</button>
+        <div className="mt-6 text-center">
+          <button 
+            onClick={() => setCurrentView?.('all-bankers')}
+            className="text-xs font-bold text-zinc-500 hover:text-white transition-colors uppercase tracking-widest"
+          >
+            View All Banker Bets ➔
+          </button>
         </div>
       </section>
 
-      {/* 07. HIDDEN GEMS & VALUE BETS */}
-      <section>
+      {/* 07. ODDS MOVEMENT */}
+      <section id="section-odds">
         {renderSectionHeader("07", "Hidden Gems & Value Bets")}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="bg-[#050505] border border-white/5 rounded-2xl p-6">
@@ -371,8 +382,8 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet }) => 
         </div>
       </section>
 
-      {/* 08. AI MATCH INSIGHT & FINAL VERDICT */}
-      <section>
+      {/* 08. FINAL VERDICT */}
+      <section id="section-verdict">
         {renderSectionHeader("08", "AI Match Insight & Final Verdict")}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="bg-[#050505] border border-white/5 rounded-2xl p-6">
