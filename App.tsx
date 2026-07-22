@@ -29,7 +29,7 @@ import {
   ScorePredictionsSkeleton,
   BankerBetsSkeleton
 } from './components/SkeletonLoader';
-import { Search, Loader2, BrainCircuit, Trophy, Globe, ExternalLink, Sparkles, Calendar, ListFilter, Zap, Receipt, History, Activity, Clock, BarChart2, Shield } from 'lucide-react';
+import { Search, Loader2, BrainCircuit, Trophy, Globe, ExternalLink, Sparkles, Calendar, ListFilter, Zap, Receipt, History, Activity, Clock, BarChart2, Shield, Bell } from 'lucide-react';
 import { BetSlipItem, BetHistoryItem } from './types';
 
 const LOADING_MESSAGES = [
