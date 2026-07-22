@@ -10,7 +10,7 @@ import FirstSetWinnersSection from './components/FirstSetWinnersSection';
 import ScorePredictionsSection from './components/ScorePredictionsSection';
 import BankerBetsSection from './components/BankerBetsSection';
 import SearchPage from './components/SearchPage';
-import Sidebar from './components/Sidebar';
+import TopNav from './components/TopNav';
 import AnalysisResults from './components/AnalysisResults';
 import BetSlipDrawer from './components/BetSlipDrawer';
 import OddsMovementSection from './components/OddsMovementSection';
@@ -186,8 +186,8 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="flex h-screen bg-[#000000] text-white overflow-hidden font-sans">
-      <Sidebar currentView={currentView} setCurrentView={setCurrentView} />
+    <div className="flex flex-col h-screen bg-[#000000] text-white overflow-hidden font-sans">
+      <TopNav currentView={currentView} setCurrentView={setCurrentView} />
       
       <main className="flex-1 overflow-y-auto bg-[#0a0a0a]/50 relative">
         {/* Dynamic Orbs background for main area */}
@@ -197,25 +197,14 @@ const App: React.FC = () => {
           <div className="absolute bottom-[20%] right-[10%] w-[25vw] h-[25vw] bg-emerald-600/10 rounded-full blur-[100px] animate-orb" style={{ animationDelay: '-5s' }}></div>
         </div>
 
-        <div className="relative z-10">
-          {/* Top User Nav */}
-          <div className="flex items-center justify-end p-6 gap-4">
-            <button className="text-zinc-400 hover:text-white transition-colors">
-              <Trophy size={20} />
-            </button>
-            <div className="relative">
-              <button className="text-zinc-400 hover:text-white transition-colors">
-                <Bell size={20} />
-              </button>
-              <span className="absolute -top-1 -right-1 w-2 h-2 bg-purple-500 rounded-full"></span>
-            </div>
-            <div className="w-8 h-8 rounded-full bg-zinc-800 border border-white/10 flex items-center justify-center ml-2 overflow-hidden">
-              <img src="https://ui-avatars.com/api/?name=User&background=27272a&color=fff" alt="User" className="w-full h-full object-cover" />
-            </div>
-          </div>
+        <div className="relative z-10 w-full max-w-7xl mx-auto p-4 md:p-8">
 
-          {currentView === 'search' && !data && (
-            <SearchPage onSearch={(query) => { handleAnalyze(undefined, query); setCurrentView('analysis'); }} loading={loading} />
+          {(currentView === 'search' || currentView === 'analysis') && (
+            <SearchPage 
+              onSearch={(query) => { handleAnalyze(undefined, query); setCurrentView('analysis'); }} 
+              loading={loading}
+              hasData={!!data}
+            />
           )}
 
           {currentView === 'history' && (
@@ -240,56 +229,24 @@ const App: React.FC = () => {
           )}
 
           {(currentView === 'analysis' || data) && (
-            <div className="max-w-5xl mx-auto p-6 md:p-8 animate-fade-in-up">
-              <div className="flex items-center justify-between mb-8">
-                <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-                  <BrainCircuit className="text-purple-400" /> DeepSeek Pro Analysis
-                </h1>
-                <button onClick={() => { setData(null); setCurrentView('search'); }} className="text-sm text-zinc-400 hover:text-white border border-white/10 px-3 py-1.5 rounded-lg bg-white/5 transition-colors">
-                  New Search
-                </button>
+            <div className="max-w-5xl mx-auto pb-12 animate-fade-in-up">
+              <AnalysisResults data={data} onAddBet={handleAddBet} />
+            </div>
+          )}
+          
+          {loading && (
+            <div className="flex flex-col items-center justify-center py-20">
+              <div className="w-16 h-16 rounded-full border-4 border-purple-500/30 flex items-center justify-center mb-6">
+                <div className="w-12 h-12 rounded-full border-4 border-emerald-500 border-t-transparent animate-spin"></div>
               </div>
+              <h3 className="text-xl font-bold text-white mb-2">Analyzing with DeepSeek...</h3>
+              <p className="text-sm text-zinc-400">Processing live odds and historical data.</p>
+            </div>
+          )}
 
-              {loading && (
-                <div className="flex flex-col items-center justify-center py-20">
-                  <div className="w-16 h-16 rounded-full border-4 border-purple-500/30 flex items-center justify-center mb-6">
-                    <div className="w-12 h-12 rounded-full border-4 border-emerald-500 border-t-transparent animate-spin"></div>
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-2">Analyzing with DeepSeek...</h3>
-                  <p className="text-sm text-zinc-400">Processing live odds and historical data.</p>
-                </div>
-              )}
-
-              {error && (
-                <div className="p-4 bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl mb-8">
-                  {error}
-                </div>
-              )}
-
-              {data && !loading && (
-                <div className="space-y-8">
-                  {/* Match Conditions Card */}
-                  {(data.stadium || data.weather) && (
-                    <div className="flex items-center gap-4 glass-panel rounded-full px-8 py-4 transition-all hover:-translate-y-1">
-                      {data.stadium && (
-                        <div className="flex items-center gap-3 border-r border-white/10 pr-6">
-                          <Trophy className="text-indigo-400" size={18} />
-                          <span className="text-zinc-300 font-mono text-sm uppercase tracking-wide">{data.stadium}</span>
-                        </div>
-                      )}
-                      {data.weather && (
-                        <div className="flex items-center gap-3 pl-2">
-                          <Globe className="text-amber-400" size={18} />
-                          <span className="text-zinc-300 font-mono text-sm uppercase tracking-wide">{data.weather}</span>
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Unified Analysis Results View */}
-                  <AnalysisResults data={data} onAddBet={handleAddBet} />
-                </div>
-              )}
+          {error && (
+            <div className="p-4 bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl mb-8">
+              {error}
             </div>
           )}
 
