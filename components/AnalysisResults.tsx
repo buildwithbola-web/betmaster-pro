@@ -60,24 +60,24 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet }) => 
             
             <div className="space-y-6">
               {(data.gamePredictions?.mainstream?.length > 0 ? data.gamePredictions.mainstream.slice(0, 7) : [
-                { market: "Both Teams To Score", odds: 1.75, prediction: "Yes", reasoning: "Both teams are fully healthy upfront and show extremely high attacking output in key matches.", confidence: 91 },
-                { market: "Match Goals (O/U 1.5)", odds: 1.41, prediction: "Over 1.5", reasoning: "High safety buffer based on defensive lapses in late-stage segments.", confidence: 95 },
-                { market: "Draw No Bet", odds: 1.65, prediction: teamA, reasoning: "Strong home advantage and no major injuries makes them a safe draw-no-bet.", confidence: 88 },
-                { market: "Double Chance", odds: 1.25, prediction: `${teamA} or Draw`, reasoning: "Extremely low probability of away win.", confidence: 96 },
-                { market: "1st Half Goals", odds: 1.35, prediction: "Over 0.5", reasoning: "Both teams tend to score early.", confidence: 90 },
-                { market: "Team A Goals", odds: 1.55, prediction: "Over 1.5", reasoning: "Attacking metrics are off the charts.", confidence: 85 },
-                { market: "Team B Goals", odds: 1.25, prediction: "Over 0.5", reasoning: "Away team has scored in 9/10 last matches.", confidence: 92 },
+                { market: "Both Teams To Score", odds: "1.75", selection: "Yes", reasoning: "Both teams are fully healthy upfront and show extremely high attacking output in key matches.", confidence: 91 },
+                { market: "Match Goals (O/U 1.5)", odds: "1.41", selection: "Over 1.5", reasoning: "High safety buffer based on defensive lapses in late-stage segments.", confidence: 95 },
+                { market: "Draw No Bet", odds: "1.65", selection: teamA, reasoning: "Strong home advantage and no major injuries makes them a safe draw-no-bet.", confidence: 88 },
+                { market: "Double Chance", odds: "1.25", selection: `${teamA} or Draw`, reasoning: "Extremely low probability of away win.", confidence: 96 },
+                { market: "1st Half Goals", odds: "1.35", selection: "Over 0.5", reasoning: "Both teams tend to score early.", confidence: 90 },
+                { market: "Team A Goals", odds: "1.55", selection: "Over 1.5", reasoning: "Attacking metrics are off the charts.", confidence: 85 },
+                { market: "Team B Goals", odds: "1.25", selection: "Over 0.5", reasoning: "Away team has scored in 9/10 last matches.", confidence: 92 },
               ]).map((item: any, i: number) => (
                 <div key={i} className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider border border-amber-400/20 bg-amber-400/5 px-2 py-1 rounded">
                       {item.market}
                     </span>
-                    <span className="font-bold text-emerald-400">{item.odds?.toFixed(2) || item.odds}</span>
+                    <span className="font-bold text-emerald-400">{typeof item.odds === 'number' ? item.odds.toFixed(2) : item.odds}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle2 size={14} className="text-blue-400" />
-                    <span className="font-bold text-white text-lg">{item.prediction}</span>
+                    <span className="font-bold text-white text-lg">{item.selection}</span>
                   </div>
                   <p className="text-xs text-zinc-400 leading-relaxed">{item.reasoning}</p>
                   <div className="flex items-center gap-3">
@@ -103,25 +103,25 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet }) => 
             </div>
 
             <div className="space-y-6">
-              {(data.gamePredictions?.microMarkets?.length > 0 ? data.gamePredictions.microMarkets.slice(0, 7) : [
-                { market: "Total Corners", odds: 1.85, prediction: "Over 8.5", reasoning: "Aggressive wing attack trends lead to highly consistent corner outcomes/half-time points.", confidence: 92 },
-                { market: "Team To Win Either Half", odds: 1.44, prediction: teamA, reasoning: "Regularly captures momentum in second halves with dynamic bench adjustments.", confidence: 94 },
-                { market: "Total Cards", odds: 1.65, prediction: "Over 3.5", reasoning: "Strict referee and historical rivalry.", confidence: 90 },
-                { market: "1st Half Corners", odds: 1.70, prediction: "Over 4.5", reasoning: "Fast starts by both teams.", confidence: 91 },
-                { market: "Both Teams To Score - 2nd Half", odds: 2.10, prediction: "Yes", reasoning: "Defenses tire late in the game.", confidence: 85 },
-                { market: "Team A Corners", odds: 1.50, prediction: "Over 4.5", reasoning: "High cross frequency.", confidence: 93 },
-                { market: "Team B Cards", odds: 1.80, prediction: "Over 1.5", reasoning: "Away team averages 2.5 cards per game.", confidence: 88 },
+              {(data.gamePredictions?.niche?.length > 0 ? data.gamePredictions.niche.slice(0, 7) : [
+                { market: "Total Corners", odds: "1.85", selection: "Over 8.5", reasoning: "Aggressive wing attack trends lead to highly consistent corner outcomes/half-time points.", confidence: 92 },
+                { market: "Team To Win Either Half", odds: "1.44", selection: teamA, reasoning: "Regularly captures momentum in second halves with dynamic bench adjustments.", confidence: 94 },
+                { market: "Total Cards", odds: "1.65", selection: "Over 3.5", reasoning: "Strict referee and historical rivalry.", confidence: 90 },
+                { market: "1st Half Corners", odds: "1.70", selection: "Over 4.5", reasoning: "Fast starts by both teams.", confidence: 91 },
+                { market: "Both Teams To Score - 2nd Half", odds: "2.10", selection: "Yes", reasoning: "Defenses tire late in the game.", confidence: 85 },
+                { market: "Team A Corners", odds: "1.50", selection: "Over 4.5", reasoning: "High cross frequency.", confidence: 93 },
+                { market: "Team B Cards", odds: "1.80", selection: "Over 1.5", reasoning: "Away team averages 2.5 cards per game.", confidence: 88 },
               ]).map((item: any, i: number) => (
                 <div key={i} className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-wider border border-indigo-400/20 bg-indigo-400/5 px-2 py-1 rounded">
                       {item.market}
                     </span>
-                    <span className="font-bold text-emerald-400">{item.odds?.toFixed(2) || item.odds}</span>
+                    <span className="font-bold text-emerald-400">{typeof item.odds === 'number' ? item.odds.toFixed(2) : item.odds}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle2 size={14} className="text-blue-400" />
-                    <span className="font-bold text-white text-lg">{item.prediction}</span>
+                    <span className="font-bold text-white text-lg">{item.selection}</span>
                   </div>
                   <p className="text-xs text-zinc-400 leading-relaxed">{item.reasoning}</p>
                   <div className="flex items-center gap-3">
