@@ -210,14 +210,19 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen relative overflow-x-hidden pb-20 bg-black text-white font-sans">
-      {/* Background Texture */}
-      <div className="fixed inset-0 bg-grid-pattern opacity-20 pointer-events-none z-0"></div>
+      {/* Dynamic Background Orbs (Colorful & Alive but strictly on black BG) */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPHBhdGggZD0iTTAgMGg4djhIMHoiIGZpbGw9Im5vbmUiLz4KPC9zdmc+')] opacity-20 mix-blend-overlay"></div>
+        <div className="absolute top-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-purple-600/30 rounded-full blur-[120px] animate-orb"></div>
+        <div className="absolute bottom-[10%] right-[-5%] w-[35vw] h-[35vw] bg-emerald-600/20 rounded-full blur-[100px] animate-orb" style={{ animationDelay: '-5s' }}></div>
+        <div className="absolute top-[40%] left-[30%] w-[25vw] h-[25vw] bg-blue-600/20 rounded-full blur-[80px] animate-orb" style={{ animationDelay: '-10s' }}></div>
+      </div>
       
       {/* Content */}
       <div className="relative z-10 max-w-6xl mx-auto px-4 py-8 md:py-12">
         
         {/* Sleek Navigation Bar */}
-        <nav className="flex items-center justify-between mb-16 border-b border-white/10 pb-4">
+        <nav className="relative z-20 flex items-center justify-between mb-16 border-b border-white/10 pb-4 bg-black/40 backdrop-blur-md px-6 py-4 rounded-3xl mt-4 shadow-xl">
           <button
             onClick={() => setCurrentView('home')}
             className="flex items-center gap-2 text-zinc-500 hover:text-emerald-400 transition-colors text-xs font-bold uppercase tracking-widest group"
@@ -225,10 +230,13 @@ const App: React.FC = () => {
             <span className="group-hover:-translate-x-1 transition-transform">←</span> Back
           </button>
 
-          <div className="flex items-center gap-2 opacity-50 hover:opacity-100 transition-opacity">
-            <BrainCircuit className="text-white" size={20} />
+          <div className="flex items-center gap-2 opacity-90 hover:opacity-100 transition-opacity">
+            <div className="relative">
+              <BrainCircuit className="text-white relative z-10" size={24} />
+              <div className="absolute inset-0 bg-purple-500 blur-md opacity-50"></div>
+            </div>
             <span className="text-sm font-black tracking-[0.2em] uppercase text-white">
-              BETMASTER <span className="text-emerald-500">PRO</span>
+              BETMASTER <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">PRO</span>
             </span>
           </div>
 
@@ -274,7 +282,7 @@ const App: React.FC = () => {
             }} 
             className="relative w-full group animate-fade-in-up"
           >
-            <div className="relative glass-panel rounded-full p-2 flex items-center focus-within:glow-purple transition-all duration-300">
+            <div className="relative glass-panel rounded-full p-2 flex items-center focus-within:glow-purple transition-all duration-300 bg-zinc-900/80 backdrop-blur-md shadow-2xl">
               <div className="pl-4 pr-2 text-zinc-400 group-focus-within:text-purple-400 transition-colors">
                 <Search size={28} />
               </div>
@@ -543,17 +551,17 @@ const App: React.FC = () => {
         )}
 
         {!data && !loading && (
-          <div className="max-w-4xl mx-auto space-y-10 animate-fade-in">
+          <div className="max-w-4xl mx-auto space-y-12 animate-fade-in relative z-20">
             {/* Minimal Terminal Status */}
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-black border border-white/10 p-4">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4 glass-panel rounded-2xl bg-zinc-900/60 backdrop-blur-md p-6 border-emerald-500/30 hover:glow-emerald transition-all duration-300">
               <div className="flex items-center gap-3">
-                <span className="h-2 w-2 bg-emerald-500 animate-pulse"></span>
-                <span className="text-xs font-mono font-bold text-white uppercase tracking-[0.2em]">PRO ENGINE ONLINE</span>
+                <span className="h-3 w-3 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.8)]"></span>
+                <span className="text-sm font-mono font-bold text-white uppercase tracking-[0.2em]">PRO ENGINE ONLINE</span>
               </div>
-              <div className="flex gap-4 text-[10px] font-mono text-zinc-500 uppercase tracking-widest">
-                <span className="flex items-center gap-1"><BrainCircuit size={12} className="text-white" /> DeepSeek V3</span>
-                <span className="flex items-center gap-1"><Zap size={12} className="text-white" /> 14+ Cores</span>
-                <span className="flex items-center gap-1"><Globe size={12} className="text-white" /> Web Grounding</span>
+              <div className="flex gap-6 text-xs font-mono text-zinc-400 uppercase tracking-widest">
+                <span className="flex items-center gap-2"><BrainCircuit size={14} className="text-purple-400" /> DeepSeek V3</span>
+                <span className="flex items-center gap-2"><Zap size={14} className="text-amber-400" /> 14+ Cores</span>
+                <span className="flex items-center gap-2"><Globe size={14} className="text-cyan-400" /> Web Grounding</span>
               </div>
             </div>
 
@@ -578,15 +586,18 @@ const App: React.FC = () => {
                       setInput(preset.game);
                       handleAnalyze(undefined, preset.game);
                     }}
-                    className="group bg-black hover:bg-white border border-white/10 hover:border-white p-4 transition-colors flex flex-col items-start gap-3"
+                    className="group glass-panel rounded-[2rem] hover:glow-cyan p-6 transition-all duration-300 flex flex-col items-start gap-4 hover:-translate-y-1 relative overflow-hidden bg-gradient-to-br from-zinc-900/80 to-zinc-950/80"
                   >
-                    <div className="flex justify-between w-full items-center">
-                      <span className="text-2xl grayscale group-hover:grayscale-0 transition-all">{preset.icon}</span>
-                      <span className="text-[10px] font-mono font-bold text-zinc-500 group-hover:text-black uppercase tracking-widest border border-white/10 group-hover:border-black px-2 py-0.5">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-[40px] group-hover:bg-cyan-500/20 transition-colors"></div>
+                    <div className="flex justify-between w-full items-center relative z-10">
+                      <div className="h-12 w-12 rounded-2xl bg-cyan-500/10 flex items-center justify-center text-2xl grayscale group-hover:grayscale-0 transition-all border border-cyan-500/20 group-hover:scale-110 shadow-[0_0_10px_rgba(6,182,212,0.2)]">
+                        {preset.icon}
+                      </div>
+                      <span className="text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-widest bg-cyan-500/10 border border-cyan-500/20 px-3 py-1 rounded-full">
                         {preset.league}
                       </span>
                     </div>
-                    <div className="text-left text-sm font-mono uppercase tracking-wider font-bold text-white group-hover:text-black transition-colors leading-snug">
+                    <div className="text-left text-sm font-mono uppercase tracking-wider font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug relative z-10">
                       {preset.game}
                     </div>
                   </button>
