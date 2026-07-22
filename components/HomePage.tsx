@@ -192,9 +192,9 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
               <span>17:00</span>
             </div>
             <div className="flex items-center justify-between mb-6">
-              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-1.5"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/b/b4/Tottenham_Hotspur.svg/1200px-Tottenham_Hotspur.svg.png" className="w-full h-full object-contain" alt="Spurs"/></div><span className="text-xs font-bold text-white">Tottenham</span></div>
+              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-0.5"><img src="https://ui-avatars.com/api/?name=TH&background=ffffff&color=000080&rounded=true&bold=true" className="w-full h-full object-contain" alt="Spurs"/></div><span className="text-xs font-bold text-white">Tottenham</span></div>
               <div className="text-[10px] font-bold text-zinc-600">VS</div>
-              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-1.5"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Milton_Keynes_Dons_FC_logo.svg/1200px-Milton_Keynes_Dons_FC_logo.svg.png" className="w-full h-full object-contain" alt="MK Dons"/></div><span className="text-xs font-bold text-white">MK Dons</span></div>
+              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-0.5"><img src="https://ui-avatars.com/api/?name=MK&background=ffffff&color=ff0000&rounded=true&bold=true" className="w-full h-full object-contain" alt="MK Dons"/></div><span className="text-xs font-bold text-white">MK Dons</span></div>
             </div>
             <div className="flex justify-between items-end border-t border-white/5 pt-4">
               <div>
@@ -215,9 +215,9 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
               <span>12:00</span>
             </div>
             <div className="flex items-center justify-between mb-6">
-              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-1.5"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/1a/Minnesota_Lynx_logo.svg/1200px-Minnesota_Lynx_logo.svg.png" className="w-full h-full object-contain" alt="Lynx"/></div><span className="text-xs font-bold text-white">Lynx</span></div>
+              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-0.5"><img src="https://ui-avatars.com/api/?name=ML&background=002B5C&color=78BE20&rounded=true&bold=true" className="w-full h-full object-contain" alt="Lynx"/></div><span className="text-xs font-bold text-white">Lynx</span></div>
               <div className="text-[10px] font-bold text-zinc-600">VS</div>
-              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-1.5"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a0/Seattle_Storm_%282021%29_logo.svg/1200px-Seattle_Storm_%282021%29_logo.svg.png" className="w-full h-full object-contain" alt="Storm"/></div><span className="text-xs font-bold text-white">Storm</span></div>
+              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-0.5"><img src="https://ui-avatars.com/api/?name=SS&background=2C5234&color=FBE122&rounded=true&bold=true" className="w-full h-full object-contain" alt="Storm"/></div><span className="text-xs font-bold text-white">Storm</span></div>
             </div>
             <div className="flex justify-between items-end border-t border-white/5 pt-4">
               <div>
@@ -238,9 +238,9 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
               <span>20:00</span>
             </div>
             <div className="flex items-center justify-between mb-6">
-              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-1.5"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/30/Connecticut_Sun_logo.svg/1200px-Connecticut_Sun_logo.svg.png" className="w-full h-full object-contain" alt="Sun"/></div><span className="text-xs font-bold text-white">Sun</span></div>
+              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-0.5"><img src="https://ui-avatars.com/api/?name=CS&background=FC4C02&color=041E42&rounded=true&bold=true" className="w-full h-full object-contain" alt="Sun"/></div><span className="text-xs font-bold text-white">Sun</span></div>
               <div className="text-[10px] font-bold text-zinc-600">VS</div>
-              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-1.5"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/7/7b/Indiana_Fever_logo.svg/1200px-Indiana_Fever_logo.svg.png" className="w-full h-full object-contain" alt="Fever"/></div><span className="text-xs font-bold text-white">Fever</span></div>
+              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-0.5"><img src="https://ui-avatars.com/api/?name=IF&background=041E42&color=C8102E&rounded=true&bold=true" className="w-full h-full object-contain" alt="Fever"/></div><span className="text-xs font-bold text-white">Fever</span></div>
             </div>
             <div className="flex justify-between items-end border-t border-white/5 pt-4">
               <div>
@@ -261,9 +261,9 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
               <span>14:30</span>
             </div>
             <div className="flex items-center justify-between mb-6">
-              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 overflow-hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Huesler_WM22_%281%29_%28cropped%29.jpg/1200px-Huesler_WM22_%281%29_%28cropped%29.jpg" className="w-full h-full object-cover" alt="Hüsler"/></div><span className="text-xs font-bold text-white">M. Hüsler</span></div>
+              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 overflow-hidden"><img src="https://ui-avatars.com/api/?name=MH&background=10B981&color=fff&rounded=true&bold=true" className="w-full h-full object-cover" alt="Hüsler"/></div><span className="text-xs font-bold text-white">M. Hüsler</span></div>
               <div className="text-[10px] font-bold text-zinc-600">VS</div>
-              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 overflow-hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Jo%C3%A3o_Fonseca_2024.jpg/1200px-Jo%C3%A3o_Fonseca_2024.jpg" className="w-full h-full object-cover" alt="Fonseca"/></div><span className="text-xs font-bold text-white">J. Fonseca</span></div>
+              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 overflow-hidden"><img src="https://ui-avatars.com/api/?name=JF&background=3B82F6&color=fff&rounded=true&bold=true" className="w-full h-full object-cover" alt="Fonseca"/></div><span className="text-xs font-bold text-white">J. Fonseca</span></div>
             </div>
             <div className="flex justify-between items-end border-t border-white/5 pt-4">
               <div>
