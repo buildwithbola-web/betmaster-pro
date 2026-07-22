@@ -103,7 +103,11 @@ export async function searchMatchData(query: string, sport: Sport = "Unknown"): 
   try {
     console.log(`[Scraper] Fetching live sports data from API-SPORTS for: "${query}"`);
     
-    const today = new Date().toISOString().split("T")[0];
+    const now = new Date();
+    const offset = now.getTimezoneOffset();
+    const localDate = new Date(now.getTime() - (offset*60*1000));
+    const today = localDate.toISOString().split("T")[0];
+    const currentYear = localDate.getFullYear().toString();
     let apiSportsEndpoints: string[] = [];
     let useRapidApiTennis = false;
     let sportApiEndpoints: string[] = [];
@@ -182,7 +186,8 @@ export async function searchMatchData(query: string, sport: Sport = "Unknown"): 
       }
     }
     
-    const searchTerms = q.replace(/(vs|live|score|update|today|2026|-)/g, " ").trim().split(/\s+/).filter(x=>x.length > 2);
+    const regex = new RegExp(`(vs|live|score|update|today|${currentYear}|-)`, 'g');
+    const searchTerms = q.replace(regex, " ").trim().split(/\s+/).filter(x=>x.length > 2);
     
     let matchedEvent = null;
     for (const event of allEvents) {
@@ -201,7 +206,7 @@ export async function searchMatchData(query: string, sport: Sport = "Unknown"): 
     if (!matchedEvent) {
       console.log(`[Scraper] No live match found on API-SPORTS for ${query}, falling back to Bing Deep Scraping.`);
       
-      const year = "2026";
+      const year = currentYear;
       const searches = [
         `${query} live score update today ${year}`,
         `${query} match betting odds predictions ${year}`,
