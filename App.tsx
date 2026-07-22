@@ -40,7 +40,7 @@ const LOADING_MESSAGES = [
 ];
 
 const App: React.FC = () => {
-  const [currentView, setCurrentView] = useState('home');
+  const [currentView, setCurrentView] = useState<string>('home');
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [loadingMsgIndex, setLoadingMsgIndex] = useState(0);
@@ -49,7 +49,6 @@ const App: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   // App Navigation State
-  const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'history' | 'user-dashboard' | 'arbitrage'>('home');
 
   // Modal State
   const [modalOpen, setModalOpen] = useState(false);
