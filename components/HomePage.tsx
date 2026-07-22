@@ -111,7 +111,9 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
               <p className="text-xs text-zinc-400 max-w-[150px] mb-4">AI predictions, score forecasts, micro-markets and more.</p>
               <div className="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500 group-hover:text-black transition-colors"><ChevronRight size={14}/></div>
             </div>
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-emerald-500/20 to-transparent flex items-center justify-center border border-emerald-500/20 shadow-[inset_0_0_20px_rgba(16,185,129,0.2)]">⚽</div>
+            <div className="w-24 h-24 rounded-full border border-emerald-500/20 shadow-[0_0_20px_rgba(16,185,129,0.2)] overflow-hidden shrink-0">
+              <img src="/category-football.jpg" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Football" />
+            </div>
           </div>
           
           <div onClick={onLaunch} className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 flex items-center justify-between group hover:border-amber-500/30 transition-all cursor-pointer">
@@ -120,7 +122,9 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
               <p className="text-xs text-zinc-400 max-w-[150px] mb-4">1st half totals, player props, high probability picks.</p>
               <div className="w-6 h-6 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400 group-hover:bg-amber-500 group-hover:text-black transition-colors"><ChevronRight size={14}/></div>
             </div>
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-amber-500/20 to-transparent flex items-center justify-center border border-amber-500/20 shadow-[inset_0_0_20px_rgba(245,158,11,0.2)]">🏀</div>
+            <div className="w-24 h-24 rounded-full border border-amber-500/20 shadow-[0_0_20px_rgba(245,158,11,0.2)] overflow-hidden shrink-0">
+              <img src="/category-basketball.jpg" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Basketball" />
+            </div>
           </div>
 
           <div onClick={onLaunch} className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 flex items-center justify-between group hover:border-blue-500/30 transition-all cursor-pointer">
@@ -129,7 +133,9 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
               <p className="text-xs text-zinc-400 max-w-[150px] mb-4">1st set winners, match predictions and deep analysis.</p>
               <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 group-hover:bg-blue-500 group-hover:text-black transition-colors"><ChevronRight size={14}/></div>
             </div>
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-500/20 to-transparent flex items-center justify-center border border-blue-500/20 shadow-[inset_0_0_20px_rgba(59,130,246,0.2)]">🎾</div>
+            <div className="w-24 h-24 rounded-full border border-blue-500/20 shadow-[0_0_20px_rgba(59,130,246,0.2)] overflow-hidden shrink-0">
+              <img src="/category-tennis.jpg" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Tennis" />
+            </div>
           </div>
         </div>
       </section>
