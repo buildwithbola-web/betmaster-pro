@@ -185,96 +185,97 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
         </div>
 
         <div className="flex gap-4 overflow-x-auto pb-4 custom-scrollbar">
-          {/* Card 1 */}
+          {/* Card 1: Tottenham vs MK Dons */}
           <div onClick={onLaunch} className="cursor-pointer min-w-[300px] bg-[#0a0a0a] border border-white/5 rounded-2xl p-5 shrink-0 hover:border-emerald-500/30 transition-colors">
             <div className="flex justify-between items-center text-[10px] text-zinc-500 mb-4 font-semibold uppercase">
-              <span className="flex items-center gap-1"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f5/UEFA_Champions_League.svg/1200px-UEFA_Champions_League.svg.png" className="w-3 h-3 object-contain invert"/> UEFA Champions League</span>
-              <span>20:00</span>
+              <span className="flex items-center gap-1">⚽ Club Friendlies</span>
+              <span>17:00</span>
             </div>
             <div className="flex items-center justify-between mb-6">
-              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/e/eb/Manchester_City_FC_badge.svg/1200px-Manchester_City_FC_badge.svg.png" className="w-full h-full object-contain p-1"/></div><span className="text-xs font-bold text-white">Man City</span></div>
+              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-1.5"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/b/b4/Tottenham_Hotspur.svg/120px-Tottenham_Hotspur.svg.png" className="w-full h-full object-contain" alt="Spurs"/></div><span className="text-xs font-bold text-white">Tottenham</span></div>
               <div className="text-[10px] font-bold text-zinc-600">VS</div>
-              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Real_Madrid_CF.svg/1200px-Real_Madrid_CF.svg.png" className="w-full h-full object-contain p-1"/></div><span className="text-xs font-bold text-white">Real Madrid</span></div>
+              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-1.5"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Milton_Keynes_Dons_FC_logo.svg/120px-Milton_Keynes_Dons_FC_logo.svg.png" className="w-full h-full object-contain" alt="MK Dons"/></div><span className="text-xs font-bold text-white">MK Dons</span></div>
             </div>
             <div className="flex justify-between items-end border-t border-white/5 pt-4">
               <div>
                 <div className="text-[10px] text-zinc-500 uppercase">1X2</div>
-                <div className="text-sm font-bold text-white">Man City Win</div>
+                <div className="text-sm font-bold text-white">Tottenham Win</div>
               </div>
               <div className="text-right">
                 <div className="text-[10px] text-zinc-500 uppercase">Confidence</div>
-                <div className="text-xl font-black text-emerald-400">95%</div>
+                <div className="text-xl font-black text-emerald-400">92%</div>
               </div>
             </div>
           </div>
 
-          {/* Card 2 */}
+          {/* Card 2: Lynx vs Storm */}
           <div onClick={onLaunch} className="cursor-pointer min-w-[300px] bg-[#0a0a0a] border border-white/5 rounded-2xl p-5 shrink-0 hover:border-emerald-500/30 transition-colors">
             <div className="flex justify-between items-center text-[10px] text-zinc-500 mb-4 font-semibold uppercase">
-              <span className="flex items-center gap-1">🎾 ATP Wimbledon</span>
-              <span>14:30</span>
+              <span className="flex items-center gap-1">🏀 WNBA</span>
+              <span>12:00</span>
             </div>
             <div className="flex items-center justify-between mb-6">
-              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 overflow-hidden"><img src="https://ui-avatars.com/api/?name=JS&background=10B981&color=fff" className="w-full h-full object-cover"/></div><span className="text-xs font-bold text-white">Jannik Sinner</span></div>
+              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-1.5"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/1a/Minnesota_Lynx_logo.svg/120px-Minnesota_Lynx_logo.svg.png" className="w-full h-full object-contain" alt="Lynx"/></div><span className="text-xs font-bold text-white">Lynx</span></div>
               <div className="text-[10px] font-bold text-zinc-600">VS</div>
-              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 overflow-hidden"><img src="https://ui-avatars.com/api/?name=DM&background=3B82F6&color=fff" className="w-full h-full object-cover"/></div><span className="text-xs font-bold text-white">Daniil Medvedev</span></div>
+              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-1.5"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a0/Seattle_Storm_%282021%29_logo.svg/120px-Seattle_Storm_%282021%29_logo.svg.png" className="w-full h-full object-contain" alt="Storm"/></div><span className="text-xs font-bold text-white">Storm</span></div>
             </div>
             <div className="flex justify-between items-end border-t border-white/5 pt-4">
               <div>
-                <div className="text-[10px] text-zinc-500 uppercase">1st Set Winner</div>
-                <div className="text-sm font-bold text-white">Jannik Sinner</div>
+                <div className="text-[10px] text-zinc-500 uppercase">Total Points</div>
+                <div className="text-sm font-bold text-white">Over 155.5</div>
               </div>
               <div className="text-right">
                 <div className="text-[10px] text-zinc-500 uppercase">Confidence</div>
-                <div className="text-xl font-black text-emerald-400">94%</div>
+                <div className="text-xl font-black text-emerald-400">88%</div>
               </div>
             </div>
           </div>
           
-          {/* Card 3 */}
+          {/* Card 3: Sun vs Fever */}
           <div onClick={onLaunch} className="cursor-pointer min-w-[300px] bg-[#0a0a0a] border border-white/5 rounded-2xl p-5 shrink-0 hover:border-emerald-500/30 transition-colors">
             <div className="flex justify-between items-center text-[10px] text-zinc-500 mb-4 font-semibold uppercase">
-              <span className="flex items-center gap-1">🏀 NBA</span>
-              <span>01:00</span>
+              <span className="flex items-center gap-1">🏀 WNBA</span>
+              <span>20:00</span>
             </div>
             <div className="flex items-center justify-between mb-6">
-              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Los_Angeles_Lakers_logo.svg/1200px-Los_Angeles_Lakers_logo.svg.png" className="w-full h-full object-contain p-1"/></div><span className="text-xs font-bold text-white">Lakers</span></div>
+              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-1.5"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/30/Connecticut_Sun_logo.svg/120px-Connecticut_Sun_logo.svg.png" className="w-full h-full object-contain" alt="Sun"/></div><span className="text-xs font-bold text-white">Sun</span></div>
               <div className="text-[10px] font-bold text-zinc-600">VS</div>
-              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/7/76/Denver_Nuggets.svg/1200px-Denver_Nuggets.svg.png" className="w-full h-full object-contain p-1"/></div><span className="text-xs font-bold text-white">Nuggets</span></div>
+              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-1.5"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/7/7b/Indiana_Fever_logo.svg/120px-Indiana_Fever_logo.svg.png" className="w-full h-full object-contain" alt="Fever"/></div><span className="text-xs font-bold text-white">Fever</span></div>
             </div>
             <div className="flex justify-between items-end border-t border-white/5 pt-4">
               <div>
-                <div className="text-[10px] text-zinc-500 uppercase">1st Half Total Points</div>
-                <div className="text-sm font-bold text-white">Over 110.5</div>
+                <div className="text-[10px] text-zinc-500 uppercase">Moneyline</div>
+                <div className="text-sm font-bold text-white">Sun Win</div>
               </div>
               <div className="text-right">
                 <div className="text-[10px] text-zinc-500 uppercase">Confidence</div>
-                <div className="text-xl font-black text-emerald-400">91%</div>
+                <div className="text-xl font-black text-emerald-400">90%</div>
               </div>
             </div>
           </div>
-            {/* Card 4 */}
-            <div onClick={onLaunch} className="cursor-pointer min-w-[300px] bg-[#0a0a0a] border border-white/5 rounded-2xl p-5 shrink-0 hover:border-emerald-500/30 transition-colors">
-              <div className="flex justify-between items-center text-[10px] text-zinc-500 mb-4 font-semibold uppercase">
-                <span className="flex items-center gap-1"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Premier_League_Logo.svg/1200px-Premier_League_Logo.svg.png" className="w-3 h-3 object-contain invert"/> Premier League</span>
-                <span>18:30</span>
+
+          {/* Card 4: Hüsler vs Fonseca */}
+          <div onClick={onLaunch} className="cursor-pointer min-w-[300px] bg-[#0a0a0a] border border-white/5 rounded-2xl p-5 shrink-0 hover:border-emerald-500/30 transition-colors">
+            <div className="flex justify-between items-center text-[10px] text-zinc-500 mb-4 font-semibold uppercase">
+              <span className="flex items-center gap-1">🎾 ATP Zug Challenger</span>
+              <span>14:30</span>
+            </div>
+            <div className="flex items-center justify-between mb-6">
+              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 overflow-hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Huesler_WM22_%281%29_%28cropped%29.jpg/120px-Huesler_WM22_%281%29_%28cropped%29.jpg" className="w-full h-full object-cover" alt="Hüsler"/></div><span className="text-xs font-bold text-white">M. Hüsler</span></div>
+              <div className="text-[10px] font-bold text-zinc-600">VS</div>
+              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 overflow-hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Jo%C3%A3o_Fonseca_2024.jpg/120px-Jo%C3%A3o_Fonseca_2024.jpg" className="w-full h-full object-cover" alt="Fonseca"/></div><span className="text-xs font-bold text-white">J. Fonseca</span></div>
+            </div>
+            <div className="flex justify-between items-end border-t border-white/5 pt-4">
+              <div>
+                <div className="text-[10px] text-zinc-500 uppercase">1st Set Winner</div>
+                <div className="text-sm font-bold text-white">Fonseca</div>
               </div>
-              <div className="flex items-center justify-between mb-6">
-                <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Arsenal_FC.svg/1200px-Arsenal_FC.svg.png" className="w-full h-full object-contain p-1"/></div><span className="text-xs font-bold text-white">Arsenal</span></div>
-                <div className="text-[10px] font-bold text-zinc-600">VS</div>
-                <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/cc/Chelsea_FC.svg/1200px-Chelsea_FC.svg.png" className="w-full h-full object-contain p-1"/></div><span className="text-xs font-bold text-white">Chelsea</span></div>
-              </div>
-              <div className="flex justify-between items-end border-t border-white/5 pt-4">
-                <div>
-                  <div className="text-[10px] text-zinc-500 uppercase">1st Half Draw</div>
-                  <div className="text-sm font-bold text-white">Yes</div>
-                </div>
-                <div className="text-right">
-                  <div className="text-[10px] text-zinc-500 uppercase">Confidence</div>
-                  <div className="text-xl font-black text-emerald-400">89%</div>
-                </div>
+              <div className="text-right">
+                <div className="text-[10px] text-zinc-500 uppercase">Confidence</div>
+                <div className="text-xl font-black text-emerald-400">85%</div>
               </div>
             </div>
+          </div>
           </div>
       </section>
 
