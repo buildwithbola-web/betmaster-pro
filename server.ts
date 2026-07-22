@@ -171,6 +171,74 @@ CRITICAL: Generate unique, realistic data for: ${query}. Do NOT copy example dat
     }
   });
 
+  app.get("/api/matches/upcoming", (req, res) => {
+    // Returns realistic upcoming matches for the search list UI based on the design
+    res.json({
+      matches: [
+        {
+          id: "m1",
+          sport: "Football",
+          league: "UEFA Champions League",
+          time: "Today, 20:00",
+          homeTeam: "Man City",
+          awayTeam: "Real Madrid",
+          homeLogo: "https://upload.wikimedia.org/wikipedia/en/thumb/e/eb/Manchester_City_FC_badge.svg/1200px-Manchester_City_FC_badge.svg.png",
+          awayLogo: "https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Real_Madrid_CF.svg/1200px-Real_Madrid_CF.svg.png",
+          primaryPrediction: { label: "Score Prediction", value: "2-1 Man City Win" },
+          aiConfidence: 92
+        },
+        {
+          id: "m2",
+          sport: "Tennis",
+          league: "ATP Wimbledon",
+          time: "Today, 14:30",
+          homeTeam: "Jannik Sinner",
+          awayTeam: "Daniil Medvedev",
+          homeLogo: "https://ui-avatars.com/api/?name=JS&background=10B981&color=fff&rounded=true",
+          awayLogo: "https://ui-avatars.com/api/?name=DM&background=3B82F6&color=fff&rounded=true",
+          primaryPrediction: { label: "1st Set Winner", value: "Jannik Sinner" },
+          aiConfidence: 94
+        },
+        {
+          id: "m3",
+          sport: "Football",
+          league: "Premier League",
+          time: "Today, 18:30",
+          homeTeam: "Arsenal",
+          awayTeam: "Chelsea",
+          homeLogo: "https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Arsenal_FC.svg/1200px-Arsenal_FC.svg.png",
+          awayLogo: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cc/Chelsea_FC.svg/1200px-Chelsea_FC.svg.png",
+          primaryPrediction: { label: "1st Half Draw", value: "No" },
+          aiConfidence: 89
+        },
+        {
+          id: "m4",
+          sport: "Football",
+          league: "Eredivisie",
+          time: "Today, 20:00",
+          homeTeam: "PSV",
+          awayTeam: "Excelsior",
+          homeLogo: "https://upload.wikimedia.org/wikipedia/en/thumb/0/05/PSV_Eindhoven.svg/1200px-PSV_Eindhoven.svg.png",
+          awayLogo: "https://upload.wikimedia.org/wikipedia/en/thumb/1/13/SBV_Excelsior_logo.svg/1200px-SBV_Excelsior_logo.svg.png",
+          primaryPrediction: { label: "Banker Bet", value: "PSV Win 1X2" },
+          aiConfidence: 96
+        },
+        {
+          id: "m5",
+          sport: "Basketball",
+          league: "NBA",
+          time: "Today, 02:00",
+          homeTeam: "Lakers",
+          awayTeam: "Nuggets",
+          homeLogo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Los_Angeles_Lakers_logo.svg/1200px-Los_Angeles_Lakers_logo.svg.png",
+          awayLogo: "https://upload.wikimedia.org/wikipedia/en/thumb/7/76/Denver_Nuggets.svg/1200px-Denver_Nuggets.svg.png",
+          primaryPrediction: { label: "1st Half Total", value: "Over 110.5 Points" },
+          aiConfidence: 91
+        }
+      ]
+    });
+  });
+
   // --- VITE MIDDLEWARE (Must be after API routes) ---
   if (isDev) {
     const vite = await createViteServer({
