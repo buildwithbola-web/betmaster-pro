@@ -6,8 +6,8 @@ interface TeamComparisonSectionProps {
   comparison: TeamComparison;
 }
 
-const renderForm = (formStr: string, align: 'left' | 'right') => {
-  if (!formStr) return null;
+const renderForm = (formStr: any, align: 'left' | 'right') => {
+  if (!formStr || typeof formStr !== 'string') return null;
   const chars = formStr.split('').filter(c => c.match(/[WDLH]/i));
   return (
     <div className={`flex gap-3 ${align === 'right' ? 'justify-end' : 'justify-start'}`}>
@@ -23,7 +23,7 @@ const renderForm = (formStr: string, align: 'left' | 'right') => {
 };
 
 const TeamComparisonSection: React.FC<TeamComparisonSectionProps> = ({ comparison }) => {
-  const { teamA, teamB, teamAStats, teamBStats } = comparison;
+  const { teamA, teamB, teamAStats = {} as any, teamBStats = {} as any } = comparison || {};
 
   const renderStatRow = (label: string, valA: number | string | undefined, valB: number | string | undefined, maxVal: number, suffix: string = '') => {
     const numA = typeof valA === 'number' ? valA : parseFloat(valA as string) || 0;
