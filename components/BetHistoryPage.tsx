@@ -101,12 +101,12 @@ const BetHistoryPage: React.FC<BetHistoryPageProps> = ({ history, onBack, onUpda
                   {item.bets.map((bet, idx) => (
                     <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/10 last:border-0 last:pb-0">
                       <div>
-                        <div className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest mb-1.5 bg-emerald-500/10 px-2 py-0.5 rounded-md inline-block">{bet.market}</div>
-                        <div className="text-sm font-bold text-white mb-1 uppercase tracking-wider">{bet.game}</div>
-                        <div className="text-xs text-zinc-400 font-mono uppercase tracking-widest">{bet.selection}</div>
+                        <div className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest mb-1.5 bg-emerald-500/10 px-2 py-0.5 rounded-md inline-block">{typeof bet.market === 'string' ? bet.market : "MARKET"}</div>
+                        <div className="text-sm font-bold text-white mb-1 uppercase tracking-wider">{typeof bet.game === 'string' ? bet.game : "UNKNOWN GAME"}</div>
+                        <div className="text-xs text-zinc-400 font-mono uppercase tracking-widest">{typeof bet.selection === 'string' ? bet.selection : "SELECTION"}</div>
                       </div>
                       <div className="text-sm font-mono font-bold text-emerald-400 bg-white/5 px-4 py-2 rounded-xl border border-white/10">
-                        {bet.odds}
+                        {typeof bet.odds === 'string' ? bet.odds : bet.odds?.toString() || "N/A"}
                       </div>
                     </div>
                   ))}

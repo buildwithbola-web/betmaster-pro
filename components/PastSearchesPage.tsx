@@ -49,7 +49,10 @@ const PastSearchesPage: React.FC<PastSearchesPageProps> = ({ searches, onBack, o
                   </div>
                   <ChevronRight size={18} className="text-zinc-600 group-hover:text-purple-400 transition-colors" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">{item.data.gamePredictions?.gameName || item.query}</h3>
+                <h3 className="text-xl font-bold text-white mb-2">
+                  {typeof item.data?.gamePredictions?.gameName === 'string' ? item.data.gamePredictions.gameName : 
+                   (typeof item.query === 'string' ? item.query : 'Unknown Search')}
+                </h3>
                 <div className="text-[10px] text-purple-400 uppercase tracking-widest font-bold">
                   {item.data.microMarkets?.length || 0} Micro Markets • {item.data.bankerBets?.length || 0} Bankers
                 </div>

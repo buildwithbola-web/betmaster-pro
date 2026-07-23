@@ -299,11 +299,13 @@ const App: React.FC = () => {
           )}
 
           {currentView === 'history' && (
-            <BetHistoryPage 
-              history={betHistory} 
-              onBack={() => setCurrentView('search')} 
-              onUpdateStatus={handleUpdateBetStatus}
-            />
+            <ErrorBoundary>
+              <BetHistoryPage 
+                history={betHistory} 
+                onBack={() => setCurrentView('analysis')} 
+                onUpdateStatus={handleUpdateBetStatus}
+              />
+            </ErrorBoundary>
           )}
 
           {currentView === 'user-dashboard' && (
@@ -315,15 +317,17 @@ const App: React.FC = () => {
           )}
 
           {currentView === 'past-searches' && (
-            <PastSearchesPage 
-              searches={searchHistory}
-              onBack={() => setCurrentView('search')}
-              onSelectSearch={(search) => {
-                setData(search.data);
-                setCurrentPastSearchId(search.id);
-                setCurrentView('analysis');
-              }}
-            />
+            <ErrorBoundary>
+              <PastSearchesPage 
+                searches={searchHistory}
+                onBack={() => setCurrentView('home')}
+                onSelectSearch={(search) => {
+                  setData(search.data);
+                  setCurrentPastSearchId(search.id);
+                  setCurrentView('analysis');
+                }}
+              />
+            </ErrorBoundary>
           )}
 
           {currentView === 'arbitrage' && (
