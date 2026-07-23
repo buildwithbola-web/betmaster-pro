@@ -115,7 +115,7 @@ const App: React.FC = () => {
     setBetSlip([]);
   }, [betSlip]);
 
-  const handleUpdateBetStatus = useCallback((id: string, status: 'won' | 'lost' | 'pending') => {
+  const handleUpdateBetStatus = useCallback((id: string, status: 'won' | 'lost' | 'pending' | 'void') => {
     setBetHistory(prev => prev.map(item => item.id === id ? { ...item, status } : item));
   }, []);
 

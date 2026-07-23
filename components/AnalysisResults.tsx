@@ -1,7 +1,6 @@
 import React from 'react';
 import { ChevronRight, Calendar, Trophy, Zap, Clock, ShieldCheck, Activity, Target, Gem, Star, TrendingUp, Info, CheckCircle2 } from 'lucide-react';
 import TeamComparisonSection from './TeamComparisonSection';
-import TeamDuelsSection from './TeamDuelsSection';
 import MicroMarketsSection from './MicroMarketsSection';
 import FirstSetWinnersSection from './FirstSetWinnersSection';
 import ScorePredictionsSection from './ScorePredictionsSection';
@@ -298,11 +297,6 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
             )}
           </div>
         </section>
-      )}
-
-      {/* 09. HEAD TO HEAD */}
-      {data.headToHeadMatches && data.headToHeadMatches.length > 0 && (
-        <TeamDuelsSection matches={data.headToHeadMatches} teamA={teamA} teamB={teamB} />
       )}
 
       

@@ -13,7 +13,7 @@ export interface BetHistoryItem {
   bets: BetSlipItem[];
   totalOdds: number;
   stakeAmount: number;
-  status: 'won' | 'lost' | 'pending';
+  status: 'won' | 'lost' | 'pending' | 'void';
 }
 
 export interface ArbitrageOpportunity {

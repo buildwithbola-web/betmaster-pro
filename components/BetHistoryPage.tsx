@@ -9,7 +9,7 @@ interface BetHistoryPageProps {
 }
 
 const BetHistoryPage: React.FC<BetHistoryPageProps> = ({ history, onBack, onUpdateStatus }) => {
-  const [filter, setFilter] = useState<'all' | 'won' | 'lost' | 'pending'>('all');
+  const [filter, setFilter] = useState<'all' | 'won' | 'lost' | 'pending' | 'void'>('all');
 
   const filteredHistory = history.filter(item => filter === 'all' || item.status === filter);
 
@@ -33,11 +33,11 @@ const BetHistoryPage: React.FC<BetHistoryPageProps> = ({ history, onBack, onUpda
 
           {/* Filters */}
           <div className="flex bg-white/5 rounded-full p-1 border border-white/10 backdrop-blur-md">
-            {['all', 'pending', 'won', 'lost'].map(f => (
+            {['all', 'pending', 'won', 'lost', 'void'].map(f => (
               <button
                 key={f}
                 onClick={() => setFilter(f as any)}
-                className={`px-5 py-2 rounded-full text-[10px] font-mono font-bold uppercase tracking-widest transition-all ${
+                className={`px-3 sm:px-5 py-2 rounded-full text-[10px] font-mono font-bold uppercase tracking-widest transition-all ${
                   filter === f ? 'bg-emerald-500 text-black shadow-[0_0_15px_rgba(16,185,129,0.4)]' : 'text-zinc-400 hover:text-white hover:bg-white/5'
                 }`}
               >
@@ -77,10 +77,12 @@ const BetHistoryPage: React.FC<BetHistoryPageProps> = ({ history, onBack, onUpda
                     <span className={`px-4 py-1.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-widest border flex items-center gap-2 ${
                       item.status === 'won' ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.2)]' :
                       item.status === 'lost' ? 'bg-red-500/20 border-red-500/50 text-red-400 shadow-[0_0_10px_rgba(239,68,68,0.2)]' :
-                      'bg-amber-500/20 border-amber-500/50 text-amber-400 shadow-[0_0_10px_rgba(245,158,11,0.2)]'
+                      item.status === 'void' ? 'bg-yellow-500/20 border-yellow-500/50 text-yellow-400 shadow-[0_0_10px_rgba(234,179,8,0.2)]' :
+                      'bg-zinc-500/20 border-zinc-500/50 text-zinc-400 shadow-[0_0_10px_rgba(161,161,170,0.2)]'
                     }`}>
-                      {item.status === 'won' && <Trophy size={14} />}
-                      {item.status === 'lost' && <XCircle size={14} />}
+                      {item.status === 'won' && <span>✅</span>}
+                      {item.status === 'lost' && <span>❌</span>}
+                      {item.status === 'void' && <span>🟡</span>}
                       {item.status === 'pending' && <Clock size={14} />}
                       {item.status}
                     </span>
@@ -88,7 +90,8 @@ const BetHistoryPage: React.FC<BetHistoryPageProps> = ({ history, onBack, onUpda
                     {/* Developer test toggles */}
                     <div className="flex border border-white/10 rounded-xl overflow-hidden opacity-30 hover:opacity-100 transition-opacity">
                       <button onClick={() => onUpdateStatus(item.id, 'won')} className="px-3 py-1 bg-white/5 hover:bg-emerald-500 hover:text-white border-r border-white/10 text-[10px] text-zinc-400 transition-colors font-bold">W</button>
-                      <button onClick={() => onUpdateStatus(item.id, 'lost')} className="px-3 py-1 bg-white/5 hover:bg-red-500 hover:text-white text-[10px] text-zinc-400 transition-colors font-bold">L</button>
+                      <button onClick={() => onUpdateStatus(item.id, 'lost')} className="px-3 py-1 bg-white/5 hover:bg-red-500 hover:text-white border-r border-white/10 text-[10px] text-zinc-400 transition-colors font-bold">L</button>
+                      <button onClick={() => onUpdateStatus(item.id, 'void')} className="px-3 py-1 bg-white/5 hover:bg-yellow-500 hover:text-white text-[10px] text-zinc-400 transition-colors font-bold">V</button>
                     </div>
                   </div>
                 </div>
@@ -124,7 +127,11 @@ const BetHistoryPage: React.FC<BetHistoryPageProps> = ({ history, onBack, onUpda
                   </div>
                   <div className="flex flex-col text-right w-full sm:w-auto border-t sm:border-0 border-white/10 pt-4 sm:pt-0">
                     <span className="text-[10px] text-zinc-500 font-mono uppercase tracking-widest">Potential Returns</span>
-                    <span className={`text-2xl font-black font-mono ${item.status === 'lost' ? 'text-zinc-600 line-through' : 'text-emerald-400'}`}>
+                    <span className={`text-2xl font-black font-mono ${
+                      item.status === 'lost' ? 'text-zinc-600 line-through' :
+                      item.status === 'void' ? 'text-zinc-400' :
+                      'text-emerald-400'
+                    }`}>
                       ₦{((item as any).stakeAmount * item.totalOdds || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </span>
                   </div>
