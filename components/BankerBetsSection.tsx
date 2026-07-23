@@ -6,9 +6,10 @@ interface BankerBetsSectionProps {
   bets: BankerBet[];
   onGameClick: (gameName: string) => void;
   onAddBet?: (bet: BetSlipItem) => void;
+  onViewAll?: () => void;
 }
 
-const BankerBetsSection: React.FC<BankerBetsSectionProps> = ({ bets, onGameClick, onAddBet }) => {
+const BankerBetsSection: React.FC<BankerBetsSectionProps> = ({ bets, onGameClick, onAddBet, onViewAll }) => {
   // Find the bet with the highest confidence
   const bestBet = bets.length > 0 ? bets.reduce((prev, current) => (prev.confidence > current.confidence) ? prev : current) : null;
 
@@ -24,6 +25,11 @@ const BankerBetsSection: React.FC<BankerBetsSectionProps> = ({ bets, onGameClick
             <ShieldCheck size={12} className="text-rose-500" /> Lowest Odds • Uncommon Markets • Maximum Confidence
           </p>
         </div>
+        {onViewAll && (
+          <button onClick={onViewAll} className="text-xs font-bold text-rose-400 hover:text-rose-300 uppercase tracking-widest border border-rose-500/30 px-3 py-1 rounded-full hover:bg-rose-500/10 transition-colors shrink-0">
+            View All
+          </button>
+        )}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

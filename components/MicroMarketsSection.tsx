@@ -6,9 +6,10 @@ import { Target, Swords, BarChart2, Zap, ShieldAlert, TrendingDown, Flame, Plus 
 interface MicroMarketsSectionProps {
   insights: MicroMarketInsight[];
   onAddBet?: (bet: BetSlipItem) => void;
+  onViewAll?: () => void;
 }
 
-const MicroMarketsSection: React.FC<MicroMarketsSectionProps> = ({ insights, onAddBet }) => {
+const MicroMarketsSection: React.FC<MicroMarketsSectionProps> = ({ insights, onAddBet, onViewAll }) => {
   if (!insights || insights.length === 0) return null;
 
   const getIcon = (type: string) => {
@@ -44,13 +45,20 @@ const MicroMarketsSection: React.FC<MicroMarketsSectionProps> = ({ insights, onA
   return (
     <div className="space-y-6">
       <div className="flex items-end justify-between border-b border-white/10 pb-4">
-        <h3 className="text-2xl font-black uppercase tracking-widest text-white flex items-center gap-3">
-          <span className="text-blue-500 text-3xl">07.</span>
-          MICRO-MARKETS & PLAYER PROPS
-        </h3>
-        <span className="text-[10px] tracking-widest font-mono text-zinc-500 uppercase flex items-center gap-1">
-          Deep Prop Scanner
-        </span>
+        <div>
+          <h3 className="text-2xl font-black uppercase tracking-widest text-white flex items-center gap-3">
+            <span className="text-blue-500 text-3xl">07.</span>
+            MICRO-MARKETS & PLAYER PROPS
+          </h3>
+          <span className="text-[10px] tracking-widest font-mono text-zinc-500 uppercase flex items-center gap-1">
+            Deep Prop Scanner
+          </span>
+        </div>
+        {onViewAll && (
+          <button onClick={onViewAll} className="text-xs font-bold text-blue-400 hover:text-blue-300 uppercase tracking-widest border border-blue-500/30 px-3 py-1 rounded-full hover:bg-blue-500/10 transition-colors shrink-0">
+            View All
+          </button>
+        )}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

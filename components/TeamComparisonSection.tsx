@@ -6,6 +6,21 @@ interface TeamComparisonSectionProps {
   comparison: TeamComparison;
 }
 
+const renderForm = (formStr: string) => {
+  if (!formStr) return null;
+  const chars = formStr.split('').filter(c => c.match(/[WDL]/i));
+  return (
+    <div className="flex gap-2">
+      {chars.map((char, idx) => {
+        let colorClass = "text-zinc-500";
+        if (char.toUpperCase() === 'W') colorClass = "text-emerald-500";
+        if (char.toUpperCase() === 'L') colorClass = "text-red-500";
+        return <span key={idx} className={`font-bold ${colorClass}`}>{char.toUpperCase()}</span>;
+      })}
+    </div>
+  );
+};
+
 const TeamComparisonSection: React.FC<TeamComparisonSectionProps> = ({ comparison }) => {
   return (
     <div className="space-y-6">
@@ -46,7 +61,7 @@ const TeamComparisonSection: React.FC<TeamComparisonSectionProps> = ({ compariso
               <div className="text-xs text-zinc-500 uppercase font-bold mb-2 flex items-center gap-2">
                 <Trophy size={14} className="text-emerald-500" /> Recent Form
               </div>
-              <div className="text-lg font-mono font-bold text-emerald-400">{comparison.teamAStats.form}</div>
+              <div className="text-lg font-mono font-bold">{renderForm(comparison.teamAStats.form)}</div>
             </div>
             
             <div>
@@ -89,7 +104,7 @@ const TeamComparisonSection: React.FC<TeamComparisonSectionProps> = ({ compariso
               <div className="text-xs text-zinc-500 uppercase font-bold mb-2 flex items-center gap-2">
                 <Trophy size={14} className="text-emerald-500" /> Recent Form
               </div>
-              <div className="text-lg font-mono font-bold text-emerald-400">{comparison.teamBStats.form}</div>
+              <div className="text-lg font-mono font-bold">{renderForm(comparison.teamBStats.form)}</div>
             </div>
             
             <div>

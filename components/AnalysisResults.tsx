@@ -140,7 +140,7 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
       {/* 02. MICRO-MARKETS */}
       {data.microMarkets && data.microMarkets.length > 0 && (
         <section id="section-micro">
-          <MicroMarketsSection insights={data.microMarkets} onAddBet={onAddBet} />
+          <MicroMarketsSection insights={data.microMarkets} onAddBet={onAddBet} onViewAll={() => setCurrentView?.('all-micro')} />
         </section>
       )}
 
@@ -234,7 +234,7 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
       {/* 06. BANKER BETS */}
       {data.bankerBets && data.bankerBets.length > 0 && (
         <section id="section-bankers">
-          <BankerBetsSection bets={data.bankerBets} onAddBet={onAddBet} />
+          <BankerBetsSection bets={data.bankerBets} onGameClick={() => {}} onAddBet={onAddBet} onViewAll={() => setCurrentView?.('all-bankers')} />
         </section>
       )}
 
