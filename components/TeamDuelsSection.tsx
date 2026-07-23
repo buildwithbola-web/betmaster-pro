@@ -12,8 +12,9 @@ const TeamDuelsSection: React.FC<TeamDuelsSectionProps> = ({ matches, teamA = "T
 
   // Group matches
   const teamAWins = matches.filter(m => {
+    if (!m.score || !m.teamA || !m.teamB) return false;
     const scores = m.score.split('-').map(Number);
-    if (scores.length !== 2) return false;
+    if (scores.length !== 2 || isNaN(scores[0]) || isNaN(scores[1])) return false;
     if (m.teamA.toLowerCase().includes(teamA.toLowerCase())) {
       return scores[0] > scores[1];
     }
@@ -24,8 +25,9 @@ const TeamDuelsSection: React.FC<TeamDuelsSectionProps> = ({ matches, teamA = "T
   });
 
   const teamBWins = matches.filter(m => {
+    if (!m.score || !m.teamA || !m.teamB) return false;
     const scores = m.score.split('-').map(Number);
-    if (scores.length !== 2) return false;
+    if (scores.length !== 2 || isNaN(scores[0]) || isNaN(scores[1])) return false;
     if (m.teamA.toLowerCase().includes(teamB.toLowerCase())) {
       return scores[0] > scores[1];
     }
@@ -36,8 +38,9 @@ const TeamDuelsSection: React.FC<TeamDuelsSectionProps> = ({ matches, teamA = "T
   });
 
   const draws = matches.filter(m => {
+    if (!m.score) return false;
     const scores = m.score.split('-').map(Number);
-    if (scores.length !== 2) return false;
+    if (scores.length !== 2 || isNaN(scores[0]) || isNaN(scores[1])) return false;
     return scores[0] === scores[1];
   });
 
@@ -60,9 +63,9 @@ const TeamDuelsSection: React.FC<TeamDuelsSectionProps> = ({ matches, teamA = "T
           <div className="space-y-2 text-xs">
             {teamAWins.map((m, i) => (
               <div key={i} className="flex justify-between text-zinc-400">
-                <span className="truncate w-32">vs {m.teamA === teamA ? m.teamB : m.teamA}</span>
-                <span className="text-white font-bold">{m.score}</span>
-                <span>{m.date.split('-')[0] || m.date}</span>
+                <span className="truncate w-32">vs {m.teamA === teamA ? m.teamB : m.teamA || 'Unknown'}</span>
+                <span className="text-white font-bold">{m.score || '?'}</span>
+                <span>{m.date ? (m.date.split('-')[0] || m.date) : ''}</span>
               </div>
             ))}
             {teamAWins.length === 0 && <div className="text-zinc-600 italic text-center py-2">No wins found</div>}
@@ -78,9 +81,9 @@ const TeamDuelsSection: React.FC<TeamDuelsSectionProps> = ({ matches, teamA = "T
           <div className="space-y-2 text-xs">
             {draws.map((m, i) => (
               <div key={i} className="flex justify-between text-zinc-400">
-                <span className="truncate w-32">vs {m.teamA === teamA ? m.teamB : m.teamA}</span>
-                <span className="text-white font-bold">{m.score}</span>
-                <span>{m.date.split('-')[0] || m.date}</span>
+                <span className="truncate w-32">vs {m.teamA === teamA ? m.teamB : m.teamA || 'Unknown'}</span>
+                <span className="text-white font-bold">{m.score || '?'}</span>
+                <span>{m.date ? (m.date.split('-')[0] || m.date) : ''}</span>
               </div>
             ))}
             {draws.length === 0 && <div className="text-zinc-600 italic text-center py-2">No draws found</div>}
@@ -96,9 +99,9 @@ const TeamDuelsSection: React.FC<TeamDuelsSectionProps> = ({ matches, teamA = "T
           <div className="space-y-2 text-xs">
             {teamBWins.map((m, i) => (
               <div key={i} className="flex justify-between text-zinc-400">
-                <span className="truncate w-32">vs {m.teamA === teamB ? m.teamB : m.teamA}</span>
-                <span className="text-white font-bold">{m.score}</span>
-                <span>{m.date.split('-')[0] || m.date}</span>
+                <span className="truncate w-32">vs {m.teamA === teamB ? m.teamB : m.teamA || 'Unknown'}</span>
+                <span className="text-white font-bold">{m.score || '?'}</span>
+                <span>{m.date ? (m.date.split('-')[0] || m.date) : ''}</span>
               </div>
             ))}
             {teamBWins.length === 0 && <div className="text-zinc-600 italic text-center py-2">No wins found</div>}

@@ -271,14 +271,14 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
                 <div className="flex items-center justify-between z-10 relative">
                   <div>
                     <h3 className="text-2xl font-black text-emerald-400 uppercase mb-2">Most Likely Score</h3>
-                    <div className="text-lg font-bold text-white">{data.scorePredictions[0].correctScores?.[0]?.score || "N/A"}</div>
+                    <div className="text-lg font-bold text-white">{data.scorePredictions[0]?.correctScores?.[0]?.score || "N/A"}</div>
                   </div>
                   <div className="w-20 h-20 rounded-full border-[6px] border-emerald-500/20 flex flex-col items-center justify-center relative">
                     <svg className="absolute inset-0 w-full h-full transform -rotate-90">
-                      <circle cx="34" cy="34" r="34" stroke="currentColor" strokeWidth="6" fill="none" className="text-emerald-500" strokeDasharray="213" strokeDashoffset={`${213 - (213 * ((data.scorePredictions[0].correctScores?.[0]?.confidence || 75) / 100))}`} />
+                      <circle cx="34" cy="34" r="34" stroke="currentColor" strokeWidth="6" fill="none" className="text-emerald-500" strokeDasharray="213" strokeDashoffset={`${213 - (213 * ((data.scorePredictions[0]?.correctScores?.[0]?.confidence || 75) / 100))}`} />
                     </svg>
                     <span className="text-[10px] text-zinc-500 -mb-1">Confidence</span>
-                    <span className="text-lg font-black text-white">{data.scorePredictions[0].correctScores?.[0]?.confidence || 75}%</span>
+                    <span className="text-lg font-black text-white">{data.scorePredictions[0]?.correctScores?.[0]?.confidence || 75}%</span>
                   </div>
                 </div>
               </div>

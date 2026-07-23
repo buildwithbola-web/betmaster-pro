@@ -39,7 +39,7 @@ const ScorePredictionsSection: React.FC<ScorePredictionsSectionProps> = ({ predi
               <div className="bg-white/5 p-4 rounded-2xl border border-white/10 hover:border-teal-500/30 transition-colors">
                 <div className="text-[10px] text-zinc-400 uppercase font-mono tracking-widest mb-3">Correct Score</div>
                 <div className="space-y-3">
-                  {match.correctScores.map((cs, idx) => (
+                  {(match.correctScores || []).map((cs, idx) => (
                     <div key={idx} className="flex justify-between items-center group/score">
                       <span className="text-sm font-bold text-white">{cs.score}</span>
                       <div className="flex items-center gap-3">
@@ -67,58 +67,62 @@ const ScorePredictionsSection: React.FC<ScorePredictionsSectionProps> = ({ predi
               </div>
 
               {/* Exact Goal Range */}
-              <div className="bg-white/5 p-4 rounded-2xl border border-white/10 hover:border-teal-500/30 transition-colors group/range">
-                <div className="text-[10px] text-zinc-400 uppercase font-mono tracking-widest mb-3">Exact Goal Range</div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm font-bold text-white">{match.exactGoalRange.range}</span>
-                  <div className="flex items-center gap-3">
-                    <span className="text-[10px] text-zinc-400">{match.exactGoalRange.confidence}%</span>
-                    <span className="text-xs font-mono font-bold text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded">{match.exactGoalRange.odds}</span>
-                    <button 
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onAddBet?.({
-                          id: `range-${index}`,
-                          game: match.game,
-                          market: 'Exact Goal Range',
-                          selection: match.exactGoalRange.range,
-                          odds: match.exactGoalRange.odds
-                        });
-                      }}
-                      className="opacity-0 group-hover/range:opacity-100 text-teal-300 hover:text-white transition-all p-1.5 bg-white/5 hover:bg-teal-500 rounded-full shadow-[0_0_10px_rgba(20,184,166,0.3)] hover:shadow-[0_0_15px_rgba(20,184,166,0.6)]"
-                    >
-                      <Plus size={14} />
-                    </button>
+              {match.exactGoalRange && (
+                <div className="bg-white/5 p-4 rounded-2xl border border-white/10 hover:border-teal-500/30 transition-colors group/range">
+                  <div className="text-[10px] text-zinc-400 uppercase font-mono tracking-widest mb-3">Exact Goal Range</div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm font-bold text-white">{match.exactGoalRange.range}</span>
+                    <div className="flex items-center gap-3">
+                      <span className="text-[10px] text-zinc-400">{match.exactGoalRange.confidence}%</span>
+                      <span className="text-xs font-mono font-bold text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded">{match.exactGoalRange.odds}</span>
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onAddBet?.({
+                            id: `range-${index}`,
+                            game: match.game,
+                            market: 'Exact Goal Range',
+                            selection: match.exactGoalRange.range,
+                            odds: match.exactGoalRange.odds
+                          });
+                        }}
+                        className="opacity-0 group-hover/range:opacity-100 text-teal-300 hover:text-white transition-all p-1.5 bg-white/5 hover:bg-teal-500 rounded-full shadow-[0_0_10px_rgba(20,184,166,0.3)] hover:shadow-[0_0_15px_rgba(20,184,166,0.6)]"
+                      >
+                        <Plus size={14} />
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
 
               {/* Multi Scores */}
-              <div className="bg-white/5 p-4 rounded-2xl border border-white/10 hover:border-teal-500/30 transition-colors group/multi">
-                <div className="text-[10px] text-zinc-400 uppercase font-mono tracking-widest mb-3">Multi Scores</div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm font-bold text-white">{match.multiScores.scores}</span>
-                  <div className="flex items-center gap-3">
-                    <span className="text-[10px] text-zinc-400">{match.multiScores.confidence}%</span>
-                    <span className="text-xs font-mono font-bold text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded">{match.multiScores.odds}</span>
-                    <button 
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onAddBet?.({
-                          id: `multi-${index}`,
-                          game: match.game,
-                          market: 'Multi Scores',
-                          selection: match.multiScores.scores,
-                          odds: match.multiScores.odds
-                        });
-                      }}
-                      className="opacity-0 group-hover/multi:opacity-100 text-teal-300 hover:text-white transition-all p-1.5 bg-white/5 hover:bg-teal-500 rounded-full shadow-[0_0_10px_rgba(20,184,166,0.3)] hover:shadow-[0_0_15px_rgba(20,184,166,0.6)]"
-                    >
-                      <Plus size={14} />
-                    </button>
+              {match.multiScores && (
+                <div className="bg-white/5 p-4 rounded-2xl border border-white/10 hover:border-teal-500/30 transition-colors group/multi">
+                  <div className="text-[10px] text-zinc-400 uppercase font-mono tracking-widest mb-3">Multi Scores</div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm font-bold text-white">{match.multiScores.scores}</span>
+                    <div className="flex items-center gap-3">
+                      <span className="text-[10px] text-zinc-400">{match.multiScores.confidence}%</span>
+                      <span className="text-xs font-mono font-bold text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded">{match.multiScores.odds}</span>
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onAddBet?.({
+                            id: `multi-${index}`,
+                            game: match.game,
+                            market: 'Multi Scores',
+                            selection: match.multiScores.scores,
+                            odds: match.multiScores.odds
+                          });
+                        }}
+                        className="opacity-0 group-hover/multi:opacity-100 text-teal-300 hover:text-white transition-all p-1.5 bg-white/5 hover:bg-teal-500 rounded-full shadow-[0_0_10px_rgba(20,184,166,0.3)] hover:shadow-[0_0_15px_rgba(20,184,166,0.6)]"
+                      >
+                        <Plus size={14} />
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
             
             <div className="mt-5 pt-4 border-t border-white/10 flex items-center justify-between text-[10px] font-mono tracking-widest text-zinc-500 group-hover:text-teal-400 transition-colors">
