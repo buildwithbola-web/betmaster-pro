@@ -80,7 +80,8 @@ const App: React.FC = () => {
     const saved = localStorage.getItem('betmaster_search_history');
     if (saved) {
       try {
-        setSearchHistory(JSON.parse(saved));
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) setSearchHistory(parsed);
       } catch (e) {
         console.error('Failed to load search history');
       }
@@ -290,12 +291,14 @@ const App: React.FC = () => {
         <div className="relative z-10 w-full max-w-7xl mx-auto p-4 md:p-8">
 
           {(currentView === 'search' || currentView === 'analysis') && (
-            <SearchPage 
-              onSearch={(query) => { handleAnalyze(undefined, query); setCurrentView('analysis'); }} 
-              loading={loading}
-              hasData={!!data}
-              searchHistory={searchHistory}
-            />
+            <ErrorBoundary>
+              <SearchPage 
+                onSearch={(query) => { handleAnalyze(undefined, query); setCurrentView('analysis'); }} 
+                loading={loading}
+                hasData={!!data}
+                searchHistory={searchHistory}
+              />
+            </ErrorBoundary>
           )}
 
           {currentView === 'history' && (

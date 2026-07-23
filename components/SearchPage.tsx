@@ -100,12 +100,12 @@ const SearchPage: React.FC<SearchPageProps> = ({ onSearch, loading, hasData, sea
                 return (
                   <button 
                     key={i}
-                    onClick={() => onSearch(query)}
+                    onClick={() => onSearch(typeof query === 'string' ? query : 'Unknown Search')}
                     className="flex items-center justify-between p-4 bg-[#050505] hover:bg-white/5 border border-white/5 rounded-xl transition-colors text-left"
                   >
                     <div className="flex items-center gap-3">
                       <Clock size={16} className="text-zinc-500" />
-                      <span className="text-white font-bold">{query}</span>
+                      <span className="text-white font-bold">{typeof query === 'string' ? query : 'Unknown Search'}</span>
                     </div>
                     <span className="text-xs text-purple-400">Re-analyze ➔</span>
                   </button>
