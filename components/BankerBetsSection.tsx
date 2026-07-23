@@ -71,6 +71,9 @@ const BankerBetsSection: React.FC<BankerBetsSectionProps> = ({ bets, onGameClick
                   }`}>
                     <Zap size={16} className={isBestBet ? 'text-rose-400' : 'text-zinc-400'} />
                     {bet.selection}
+                    {bet.status === 'won' && <span className="text-sm ml-1" title="Won">✅</span>}
+                    {bet.status === 'lost' && <span className="text-sm ml-1" title="Lost">❌</span>}
+                    {bet.status === 'void' && <span className="text-sm ml-1" title="Void">🟡</span>}
                   </div>
                 </div>
 

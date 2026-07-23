@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { analyzeBets, fetchGameDetails } from './services/geminiService';
-import { BetMasterResponse, GameDetails } from './types';
+import { BetMasterResponse, GameDetails, PastSearchItem, AggregateStats } from './types';
 import TeamComparisonSection from './components/TeamComparisonSection';
 import AnalysisCard from './components/AnalysisCard';
 import GamePredictionsCard from './components/GamePredictionsCard';
@@ -22,8 +22,8 @@ import BetHistoryPage from './components/BetHistoryPage';
 import HomePage from './components/HomePage';
 import UserDashboard from './components/UserDashboard';
 import ArbitrageScanner from './components/ArbitrageScanner';
-import AllMicroMarketsPage from './components/AllMicroMarketsPage';
 import AllBankerBetsPage from './components/AllBankerBetsPage';
+import PastSearchesPage from './components/PastSearchesPage';
 import { 
   PredictionSkeleton, 
   MicroMarketsSkeleton,
@@ -64,8 +64,17 @@ const App: React.FC = () => {
   const [isBetSlipOpen, setIsBetSlipOpen] = useState(false);
 
   // Search History State
-  const [searchHistory, setSearchHistory] = useState<string[]>([]);
+  const [searchHistory, setSearchHistory] = useState<PastSearchItem[]>([]);
+  const [currentPastSearchId, setCurrentPastSearchId] = useState<string | null>(null);
   const [showHistory, setShowHistory] = useState(false);
+
+  // Aggregate Stats State
+  const [aggregateStats, setAggregateStats] = useState<AggregateStats>({
+    totalGradedMatches: 0,
+    totalWon: 0,
+    totalLost: 0,
+    totalVoid: 0
+  });
 
   useEffect(() => {
     const saved = localStorage.getItem('betmaster_search_history');
@@ -76,11 +85,23 @@ const App: React.FC = () => {
         console.error('Failed to load search history');
       }
     }
+    const savedStats = localStorage.getItem('betmaster_aggregate_stats');
+    if (savedStats) {
+      try {
+        setAggregateStats(JSON.parse(savedStats));
+      } catch (e) {
+        console.error('Failed to load aggregate stats');
+      }
+    }
   }, []);
 
   useEffect(() => {
     localStorage.setItem('betmaster_search_history', JSON.stringify(searchHistory));
   }, [searchHistory]);
+
+  useEffect(() => {
+    localStorage.setItem('betmaster_aggregate_stats', JSON.stringify(aggregateStats));
+  }, [aggregateStats]);
 
   const handleAddBet = useCallback((bet: BetSlipItem) => {
     setBetSlip(prev => {
@@ -140,19 +161,25 @@ const App: React.FC = () => {
     const promptToUse = overridePrompt || input;
     if (!promptToUse.trim()) return;
 
-    setSearchHistory(prev => {
-      const query = promptToUse.trim();
-      const filtered = prev.filter(h => h.toLowerCase() !== query.toLowerCase());
-      return [query, ...filtered].slice(0, 5); // Keep last 5 searches
-    });
-
     setLoading(true);
     setError(null);
     setData(null);
+    setCurrentPastSearchId(null);
 
     try {
       const result = await analyzeBets(promptToUse);
       setData(result);
+      
+      setSearchHistory(prev => {
+        const newItem: PastSearchItem = {
+          id: Math.random().toString(36).substring(7),
+          query: promptToUse.trim(),
+          date: new Date().toISOString(),
+          data: result
+        };
+        const filtered = prev.filter(h => h.query.toLowerCase() !== promptToUse.trim().toLowerCase());
+        return [newItem, ...filtered].slice(0, 10);
+      });
     } catch (err: any) {
       const errorMessage = err.message || err.toString();
       if (errorMessage.includes("429") || errorMessage.includes("quota")) {
@@ -160,6 +187,67 @@ const App: React.FC = () => {
       } else {
         setError(`Analysis interrupted. The algorithm is recalibrating live data streams. Error: ${errorMessage}`);
       }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGradePredictions = async () => {
+    if (!currentPastSearchId || !data || !data.gamePredictions?.gameName) return;
+    
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const response = await fetch('/api/grade-predictions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ matchName: data.gamePredictions.gameName, predictionsData: data })
+      });
+      
+      if (!response.ok) throw new Error("Grading failed");
+      
+      const gradedData = await response.json();
+      
+      // Calculate won/lost/void
+      let won = 0; let lost = 0; let voidCount = 0;
+      const countStatus = (status?: string) => {
+        if (status === 'won') won++;
+        else if (status === 'lost') lost++;
+        else if (status === 'void') voidCount++;
+      };
+
+      const checkItems = (items: any[]) => {
+        if (!items) return;
+        items.forEach(item => countStatus(item.status));
+      };
+
+      if (gradedData.gamePredictions) {
+        checkItems(gradedData.gamePredictions.mainstream);
+        checkItems(gradedData.gamePredictions.niche);
+      }
+      checkItems(gradedData.microMarkets);
+      checkItems(gradedData.bankerBets);
+      if (gradedData.scorePredictions) {
+        gradedData.scorePredictions.forEach((p: any) => checkItems(p.correctScores));
+      }
+      
+      setAggregateStats(prev => ({
+        totalGradedMatches: prev.totalGradedMatches + 1,
+        totalWon: prev.totalWon + won,
+        totalLost: prev.totalLost + lost,
+        totalVoid: prev.totalVoid + voidCount
+      }));
+
+      setData(gradedData);
+
+      // Update in history
+      setSearchHistory(prev => prev.map(h => 
+        h.id === currentPastSearchId ? { ...h, data: gradedData } : h
+      ));
+
+    } catch (err: any) {
+      setError(`Failed to auto-grade predictions: ${err.message}`);
     } finally {
       setLoading(false);
     }
@@ -222,6 +310,19 @@ const App: React.FC = () => {
             <UserDashboard 
               history={betHistory} 
               onBack={() => setCurrentView('search')} 
+              aggregateStats={aggregateStats}
+            />
+          )}
+
+          {currentView === 'past-searches' && (
+            <PastSearchesPage 
+              searches={searchHistory}
+              onBack={() => setCurrentView('search')}
+              onSelectSearch={(search) => {
+                setData(search.data);
+                setCurrentPastSearchId(search.id);
+                setCurrentView('analysis');
+              }}
             />
           )}
 
@@ -233,7 +334,14 @@ const App: React.FC = () => {
 
           {(currentView === 'analysis' || data) && (
             <div className={`max-w-5xl mx-auto pb-12 animate-fade-in-up ${currentView === 'analysis' ? 'block' : 'hidden'}`}>
-              <AnalysisResults data={data} onAddBet={handleAddBet} setCurrentView={setCurrentView} />
+              <AnalysisResults 
+                data={data} 
+                onAddBet={handleAddBet} 
+                setCurrentView={setCurrentView}
+                isPastSearch={!!currentPastSearchId}
+                onGradePredictions={handleGradePredictions}
+                isGrading={loading}
+              />
             </div>
           )}
           

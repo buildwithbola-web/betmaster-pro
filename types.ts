@@ -16,6 +16,20 @@ export interface BetHistoryItem {
   status: 'won' | 'lost' | 'pending' | 'void';
 }
 
+export interface PastSearchItem {
+  id: string;
+  query: string;
+  date: string;
+  data: BetMasterResponse;
+}
+
+export interface AggregateStats {
+  totalGradedMatches: number;
+  totalWon: number;
+  totalLost: number;
+  totalVoid: number;
+}
+
 export interface ArbitrageOpportunity {
   game: string;
   sport: string;
@@ -56,7 +70,9 @@ export interface MicroMarketInsight {
   team: string;
   insight: string;
   prediction: string;
+  reasoning: string;
   confidence: number;
+  status?: 'won' | 'lost' | 'void';
 }
 
 export interface FirstSetWinner {
@@ -71,7 +87,7 @@ export interface FirstSetWinner {
 
 export interface ScorePredictionMatch {
   game: string;
-  correctScores: { score: string; confidence: number; odds: string }[];
+  correctScores: { score: string; confidence: number; odds: string; status?: 'won' | 'lost' | 'void' }[];
   exactGoalRange: { range: string; confidence: number; odds: string };
   multiScores: { scores: string; confidence: number; odds: string };
 }
@@ -83,6 +99,7 @@ export interface BankerBet {
   odds: string;
   confidence: number;
   reasoning: string;
+  status?: 'won' | 'lost' | 'void';
 }
 
 export interface TeamStats {
@@ -119,10 +136,11 @@ export interface OddsMovement {
 export interface EvScannerBet {
   market: string;
   selection: string;
-  bookmakerOdds: string;
+  bookmaker: string;
   aiProbability: number;
   trueOdds: string;
   evPercentage: number;
+  status?: 'won' | 'lost' | 'void';
 }
 
 export interface AbsenceImpact {

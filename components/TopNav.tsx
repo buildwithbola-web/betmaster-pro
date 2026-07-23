@@ -15,7 +15,7 @@ const TopNav: React.FC<TopNavProps> = ({ currentView, setCurrentView, onOpenBetS
     { id: '1st-half', label: '1st Set & Half' },
     { id: 'bankers', label: 'Banker Bets' },
     { id: 'micro', label: 'Micro-Markets' },
-    { id: 'more', label: 'More', isDropdown: true },
+    { id: 'past-searches', label: 'Past Searches' },
   ];
 
   return (
@@ -32,7 +32,7 @@ const TopNav: React.FC<TopNavProps> = ({ currentView, setCurrentView, onOpenBetS
             <button
               key={link.id}
               onClick={() => {
-                if (link.id === 'search' || link.id === 'home') {
+                if (link.id === 'search' || link.id === 'home' || link.id === 'past-searches') {
                   setCurrentView(link.id);
                 } else {
                   setCurrentView('analysis');

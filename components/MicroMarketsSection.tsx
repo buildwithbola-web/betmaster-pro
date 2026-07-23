@@ -88,8 +88,11 @@ const MicroMarketsSection: React.FC<MicroMarketsSectionProps> = ({ insights, onA
             <div className="bg-white/5 p-4 rounded-2xl flex justify-between items-center gap-2">
               <div className="flex flex-col gap-1">
                 <span className="text-[9px] tracking-widest font-mono text-zinc-500 uppercase">Value Prediction</span>
-                <span className="text-xs font-mono font-bold text-blue-400">
+                <span className="text-xs font-mono font-bold text-blue-400 flex items-center gap-2">
                   {insight.prediction}
+                  {insight.status === 'won' && <span className="text-sm" title="Won">✅</span>}
+                  {insight.status === 'lost' && <span className="text-sm" title="Lost">❌</span>}
+                  {insight.status === 'void' && <span className="text-sm" title="Void">🟡</span>}
                 </span>
               </div>
               <button 

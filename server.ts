@@ -171,6 +171,58 @@ CRITICAL: Generate unique, realistic data for: ${query}. Do NOT copy example dat
     }
   });
 
+  app.post("/api/grade-predictions", async (req, res) => {
+    try {
+      const { matchName, predictionsData } = req.body;
+      const client = getDeepseekClient();
+      console.log("Grading predictions for:", matchName);
+
+      console.log("[Pipeline] Step 1: Fetching actual match results...");
+      const webContext = await searchMatchData(`${matchName} final score match result`, "Football");
+
+      console.log("[Pipeline] Step 2: Sending to DeepSeek for grading...");
+      const userMessage = `You are a Settlement Judge.
+MATCH: ${matchName}
+
+=== ACTUAL MATCH RESULTS (scraped just now) ===
+${webContext}
+=== END ACTUAL RESULTS ===
+
+=== ORIGINAL PREDICTIONS ===
+${JSON.stringify(predictionsData, null, 2)}
+=== END ORIGINAL PREDICTIONS ===
+
+INSTRUCTIONS:
+1. Compare the ORIGINAL PREDICTIONS against the ACTUAL MATCH RESULTS.
+2. For EVERY prediction item in the JSON (e.g. inside mainstream, niche, microMarkets, bankerBets, correctScores), add a "status" field with exactly one of these values: "won", "lost", or "void".
+3. Use "void" ONLY if the match was cancelled/postponed, or if the exact niche market cannot be verified from the web context (e.g., specific player tackles).
+4. Return the EXACT SAME JSON structure as the ORIGINAL PREDICTIONS, but with the "status" field populated for every bet/prediction.
+
+Do not include any markdown fences or extra text. Output pure JSON.`;
+
+      const completion = await client.chat.completions.create({
+        model: MODEL_NAME,
+        messages: [
+          { role: "system", content: "You are an expert sports betting grader." },
+          { role: "user", content: userMessage },
+        ],
+        response_format: { type: "json_object" },
+        temperature: 0.1,
+        max_tokens: 8000,
+      });
+
+      const rawText = completion.choices[0]?.message?.content;
+      if (!rawText) throw new Error("Empty response from AI");
+      const jsonData = JSON.parse(cleanJsonResponse(rawText));
+      console.log("[Pipeline] Grading complete ✓");
+      res.json(jsonData);
+    } catch (error: any) {
+      console.error("Grading error:", error.message);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+
   app.get("/api/matches/upcoming", (req, res) => {
     // Returns realistic upcoming matches for the search list UI based on the design
     res.json({

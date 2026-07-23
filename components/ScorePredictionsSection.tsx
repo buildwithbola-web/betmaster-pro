@@ -41,7 +41,12 @@ const ScorePredictionsSection: React.FC<ScorePredictionsSectionProps> = ({ predi
                 <div className="space-y-3">
                   {(match.correctScores || []).map((cs, idx) => (
                     <div key={idx} className="flex justify-between items-center group/score">
-                      <span className="text-sm font-bold text-white">{cs.score}</span>
+                      <span className="text-sm font-bold text-white flex items-center gap-2">
+                        {cs.score}
+                        {cs.status === 'won' && <span className="text-sm" title="Won">✅</span>}
+                        {cs.status === 'lost' && <span className="text-sm" title="Lost">❌</span>}
+                        {cs.status === 'void' && <span className="text-sm" title="Void">🟡</span>}
+                      </span>
                       <div className="flex items-center gap-3">
                         <span className="text-[10px] text-zinc-400">{cs.confidence}%</span>
                         <span className="text-xs font-mono font-bold text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded">{cs.odds}</span>

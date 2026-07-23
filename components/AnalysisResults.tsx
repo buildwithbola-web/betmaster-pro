@@ -12,6 +12,9 @@ interface AnalysisResultsProps {
   data: any;
   onAddBet: (bet: any) => void;
   setCurrentView?: (view: string) => void;
+  isPastSearch?: boolean;
+  onGradePredictions?: () => void;
+  isGrading?: boolean;
 }
 
 const renderSectionHeader = (number: string, title: string, rightContent?: React.ReactNode) => (
@@ -24,7 +27,7 @@ const renderSectionHeader = (number: string, title: string, rightContent?: React
   </div>
 );
 
-const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCurrentView }) => {
+const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCurrentView, isPastSearch, onGradePredictions, isGrading }) => {
   if (!data) return null;
   const matchName = data.gamePredictions?.gameName || "AC OMONIA NICOSIA VS FC KAIRAT";
   const teamA = data.teamComparison?.teamA || "AC Omonia Nicosia";
@@ -56,6 +59,25 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
                 )}
               </div>
             </div>
+            {isPastSearch && (
+              <button 
+                onClick={onGradePredictions}
+                disabled={isGrading}
+                className="mt-4 md:mt-0 flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all disabled:opacity-50"
+              >
+                {isGrading ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    Grading...
+                  </>
+                ) : (
+                  <>
+                    <Star size={16} className="text-yellow-400" />
+                    Auto-Grade Predictions
+                  </>
+                )}
+              </button>
+            )}
           </div>
           <div className="flex items-center gap-6 mt-4 md:mt-0">
             <div className="text-right">
@@ -94,6 +116,9 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
                   <div className="flex items-center gap-2">
                     <CheckCircle2 size={14} className="text-blue-400" />
                     <span className="font-bold text-white text-lg">{item.selection}</span>
+                    {item.status === 'won' && <span className="ml-2 text-sm" title="Won">✅</span>}
+                    {item.status === 'lost' && <span className="ml-2 text-sm" title="Lost">❌</span>}
+                    {item.status === 'void' && <span className="ml-2 text-sm" title="Void">🟡</span>}
                   </div>
                   <p className="text-xs text-zinc-400 leading-relaxed">{item.reasoning}</p>
                   <div className="flex items-center gap-3">
@@ -133,6 +158,9 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
                   <div className="flex items-center gap-2">
                     <CheckCircle2 size={14} className="text-blue-400" />
                     <span className="font-bold text-white text-lg">{item.selection}</span>
+                    {item.status === 'won' && <span className="ml-2 text-sm" title="Won">✅</span>}
+                    {item.status === 'lost' && <span className="ml-2 text-sm" title="Lost">❌</span>}
+                    {item.status === 'void' && <span className="ml-2 text-sm" title="Void">🟡</span>}
                   </div>
                   <p className="text-xs text-zinc-400 leading-relaxed">{item.reasoning}</p>
                   <div className="flex items-center gap-3">

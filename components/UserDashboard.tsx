@@ -1,13 +1,14 @@
 import React from 'react';
-import { ArrowLeft, TrendingUp, TrendingDown, Target, DollarSign, BarChart2, Trophy, Percent, Activity, Zap } from 'lucide-react';
-import { BetHistoryItem } from '../types';
+import { ArrowLeft, TrendingUp, TrendingDown, Target, DollarSign, BarChart2, Trophy, Percent, Activity, Zap, Star } from 'lucide-react';
+import { BetHistoryItem, AggregateStats } from '../types';
 
 interface UserDashboardProps {
   history: BetHistoryItem[];
   onBack: () => void;
+  aggregateStats?: AggregateStats;
 }
 
-const UserDashboard: React.FC<UserDashboardProps> = ({ history, onBack }) => {
+const UserDashboard: React.FC<UserDashboardProps> = ({ history, onBack, aggregateStats }) => {
   // Compute all stats from history
   const totalBets = history.length;
   const wonBets = history.filter(b => b.status === 'won');
@@ -65,6 +66,40 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ history, onBack }) => {
         </div>
 
         {/* KPI Grid */}
+        {aggregateStats && aggregateStats.totalGradedMatches > 0 && (
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
+              <Star size={16} className="text-yellow-400" />
+              <h3 className="text-sm font-mono font-bold uppercase tracking-[0.2em] text-white">AI Automated Grading Accuracy</h3>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border border-white/10 bg-white/5">
+              <div className="p-4 border-r border-b md:border-b-0 border-white/10">
+                <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest mb-1">Total Graded</div>
+                <div className="text-xl md:text-2xl font-black font-mono text-white">{aggregateStats.totalGradedMatches} matches</div>
+              </div>
+              <div className="p-4 border-r border-b md:border-b-0 border-white/10">
+                <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest mb-1">Win Rate</div>
+                <div className="text-xl md:text-2xl font-black font-mono text-emerald-400">
+                  {aggregateStats.totalWon + aggregateStats.totalLost > 0 
+                    ? ((aggregateStats.totalWon / (aggregateStats.totalWon + aggregateStats.totalLost)) * 100).toFixed(1) + '%' 
+                    : 'N/A'}
+                </div>
+              </div>
+              <div className="p-4 border-r border-white/10">
+                <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest mb-1">Won Predictions</div>
+                <div className="text-xl md:text-2xl font-black font-mono text-emerald-400">{aggregateStats.totalWon}</div>
+              </div>
+              <div className="p-4">
+                <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest mb-1">Lost / Void</div>
+                <div className="text-xl md:text-2xl font-black font-mono text-zinc-400">
+                  <span className="text-red-400">{aggregateStats.totalLost}</span> / <span className="text-yellow-400">{aggregateStats.totalVoid}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* User Betting Stats Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-0 border border-white/10">
           {kpis.map((kpi, idx) => (
             <div 
