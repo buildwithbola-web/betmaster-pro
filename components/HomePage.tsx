@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Logo from './Logo';
 import { ChevronRight, Target, ShieldCheck, Activity, Gem, Receipt, Trophy, Shield, Users, CheckCircle, BrainCircuit, TrendingUp } from 'lucide-react';
+import { analyzeBets } from '../services/geminiService';
+import { BetMasterResponse } from '../types';
 
 interface HomePageProps {
   onLaunch: () => void;
@@ -9,6 +11,23 @@ interface HomePageProps {
 }
 
 const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage }) => {
+  const [topPicksData, setTopPicksData] = useState<BetMasterResponse | null>(null);
+  const [isLoadingPicks, setIsLoadingPicks] = useState(true);
+
+  useEffect(() => {
+    const fetchTopPicks = async () => {
+      try {
+        const data = await analyzeBets("today's best picks");
+        setTopPicksData(data);
+      } catch (error) {
+        console.error("Failed to fetch top picks", error);
+      } finally {
+        setIsLoadingPicks(false);
+      }
+    };
+    fetchTopPicks();
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#000000] text-white font-sans overflow-x-hidden selection:bg-purple-500/30">
       
@@ -191,98 +210,36 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
         </div>
 
         <div className="flex gap-4 overflow-x-auto pb-4 custom-scrollbar">
-          {/* Card 1: Tottenham vs MK Dons */}
-          <div onClick={onLaunch} className="cursor-pointer min-w-[300px] bg-[#0a0a0a] border border-white/5 rounded-2xl p-5 shrink-0 hover:border-emerald-500/30 transition-colors">
-            <div className="flex justify-between items-center text-[10px] text-zinc-500 mb-4 font-semibold uppercase">
-              <span className="flex items-center gap-1">⚽ Club Friendlies</span>
-              <span>17:00</span>
-            </div>
-            <div className="flex items-center justify-between mb-6">
-              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-0.5"><img src="https://ui-avatars.com/api/?name=TH&background=ffffff&color=000080&rounded=true&bold=true" className="w-full h-full object-contain" alt="Spurs"/></div><span className="text-xs font-bold text-white">Tottenham</span></div>
-              <div className="text-[10px] font-bold text-zinc-600">VS</div>
-              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-0.5"><img src="https://ui-avatars.com/api/?name=MK&background=ffffff&color=ff0000&rounded=true&bold=true" className="w-full h-full object-contain" alt="MK Dons"/></div><span className="text-xs font-bold text-white">MK Dons</span></div>
-            </div>
-            <div className="flex justify-between items-end border-t border-white/5 pt-4">
-              <div>
-                <div className="text-[10px] text-zinc-500 uppercase">1X2</div>
-                <div className="text-sm font-bold text-white">Tottenham Win</div>
+          {isLoadingPicks ? (
+            <div className="text-zinc-500 text-sm animate-pulse flex-1 text-center py-8">Scanning markets for live top picks...</div>
+          ) : topPicksData?.gamePredictions?.mainstream && topPicksData.gamePredictions.mainstream.length > 0 ? (
+            topPicksData.gamePredictions.mainstream.slice(0, 3).map((pick: any, index: number) => (
+              <div key={index} onClick={onLaunch} className="cursor-pointer min-w-[300px] bg-[#0a0a0a] border border-white/5 rounded-2xl p-5 shrink-0 hover:border-emerald-500/30 transition-colors flex flex-col justify-between">
+                <div>
+                  <div className="flex justify-between items-center text-[10px] text-zinc-500 mb-4 font-semibold uppercase">
+                    <span className="flex items-center gap-1">⚽ Top Pick</span>
+                    <span className="text-emerald-500">Live</span>
+                  </div>
+                  <div className="text-sm font-bold text-white mb-2 leading-tight">
+                    {topPicksData.gamePredictions?.gameName || "Featured Match"}
+                  </div>
+                </div>
+                <div className="flex justify-between items-end border-t border-white/5 pt-4 mt-6">
+                  <div>
+                    <div className="text-[10px] text-zinc-500 uppercase">{pick.market}</div>
+                    <div className="text-sm font-bold text-white">{pick.selection}</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-[10px] text-zinc-500 uppercase">Confidence</div>
+                    <div className="text-xl font-black text-emerald-400">{pick.confidence}%</div>
+                  </div>
+                </div>
               </div>
-              <div className="text-right">
-                <div className="text-[10px] text-zinc-500 uppercase">Confidence</div>
-                <div className="text-xl font-black text-emerald-400">92%</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 2: Lynx vs Storm */}
-          <div onClick={onLaunch} className="cursor-pointer min-w-[300px] bg-[#0a0a0a] border border-white/5 rounded-2xl p-5 shrink-0 hover:border-emerald-500/30 transition-colors">
-            <div className="flex justify-between items-center text-[10px] text-zinc-500 mb-4 font-semibold uppercase">
-              <span className="flex items-center gap-1">🏀 WNBA</span>
-              <span>12:00</span>
-            </div>
-            <div className="flex items-center justify-between mb-6">
-              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-0.5"><img src="https://ui-avatars.com/api/?name=ML&background=002B5C&color=78BE20&rounded=true&bold=true" className="w-full h-full object-contain" alt="Lynx"/></div><span className="text-xs font-bold text-white">Lynx</span></div>
-              <div className="text-[10px] font-bold text-zinc-600">VS</div>
-              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-0.5"><img src="https://ui-avatars.com/api/?name=SS&background=2C5234&color=FBE122&rounded=true&bold=true" className="w-full h-full object-contain" alt="Storm"/></div><span className="text-xs font-bold text-white">Storm</span></div>
-            </div>
-            <div className="flex justify-between items-end border-t border-white/5 pt-4">
-              <div>
-                <div className="text-[10px] text-zinc-500 uppercase">Total Points</div>
-                <div className="text-sm font-bold text-white">Over 155.5</div>
-              </div>
-              <div className="text-right">
-                <div className="text-[10px] text-zinc-500 uppercase">Confidence</div>
-                <div className="text-xl font-black text-emerald-400">88%</div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Card 3: Sun vs Fever */}
-          <div onClick={onLaunch} className="cursor-pointer min-w-[300px] bg-[#0a0a0a] border border-white/5 rounded-2xl p-5 shrink-0 hover:border-emerald-500/30 transition-colors">
-            <div className="flex justify-between items-center text-[10px] text-zinc-500 mb-4 font-semibold uppercase">
-              <span className="flex items-center gap-1">🏀 WNBA</span>
-              <span>20:00</span>
-            </div>
-            <div className="flex items-center justify-between mb-6">
-              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-0.5"><img src="https://ui-avatars.com/api/?name=CS&background=FC4C02&color=041E42&rounded=true&bold=true" className="w-full h-full object-contain" alt="Sun"/></div><span className="text-xs font-bold text-white">Sun</span></div>
-              <div className="text-[10px] font-bold text-zinc-600">VS</div>
-              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 flex items-center justify-center p-0.5"><img src="https://ui-avatars.com/api/?name=IF&background=041E42&color=C8102E&rounded=true&bold=true" className="w-full h-full object-contain" alt="Fever"/></div><span className="text-xs font-bold text-white">Fever</span></div>
-            </div>
-            <div className="flex justify-between items-end border-t border-white/5 pt-4">
-              <div>
-                <div className="text-[10px] text-zinc-500 uppercase">Moneyline</div>
-                <div className="text-sm font-bold text-white">Sun Win</div>
-              </div>
-              <div className="text-right">
-                <div className="text-[10px] text-zinc-500 uppercase">Confidence</div>
-                <div className="text-xl font-black text-emerald-400">90%</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 4: Hüsler vs Fonseca */}
-          <div onClick={onLaunch} className="cursor-pointer min-w-[300px] bg-[#0a0a0a] border border-white/5 rounded-2xl p-5 shrink-0 hover:border-emerald-500/30 transition-colors">
-            <div className="flex justify-between items-center text-[10px] text-zinc-500 mb-4 font-semibold uppercase">
-              <span className="flex items-center gap-1">🎾 ATP Zug Challenger</span>
-              <span>14:30</span>
-            </div>
-            <div className="flex items-center justify-between mb-6">
-              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 overflow-hidden"><img src="https://ui-avatars.com/api/?name=MH&background=10B981&color=fff&rounded=true&bold=true" className="w-full h-full object-cover" alt="Hüsler"/></div><span className="text-xs font-bold text-white">M. Hüsler</span></div>
-              <div className="text-[10px] font-bold text-zinc-600">VS</div>
-              <div className="text-center"><div className="w-10 h-10 rounded-full bg-white/5 mx-auto mb-2 overflow-hidden"><img src="https://ui-avatars.com/api/?name=JF&background=3B82F6&color=fff&rounded=true&bold=true" className="w-full h-full object-cover" alt="Fonseca"/></div><span className="text-xs font-bold text-white">J. Fonseca</span></div>
-            </div>
-            <div className="flex justify-between items-end border-t border-white/5 pt-4">
-              <div>
-                <div className="text-[10px] text-zinc-500 uppercase">1st Set Winner</div>
-                <div className="text-sm font-bold text-white">Fonseca</div>
-              </div>
-              <div className="text-right">
-                <div className="text-[10px] text-zinc-500 uppercase">Confidence</div>
-                <div className="text-xl font-black text-emerald-400">85%</div>
-              </div>
-            </div>
-          </div>
-          </div>
+            ))
+          ) : (
+            <div className="text-zinc-500 text-sm flex-1 text-center py-8">No live top picks currently available. Try searching.</div>
+          )}
+        </div>
       </section>
 
       {/* 6. STATS ROW */}

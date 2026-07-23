@@ -2,6 +2,12 @@ import React from 'react';
 import { ChevronRight, Calendar, Trophy, Zap, Clock, ShieldCheck, Activity, Target, Gem, Star, TrendingUp, Info, CheckCircle2 } from 'lucide-react';
 import TeamComparisonSection from './TeamComparisonSection';
 import TeamDuelsSection from './TeamDuelsSection';
+import MicroMarketsSection from './MicroMarketsSection';
+import FirstSetWinnersSection from './FirstSetWinnersSection';
+import ScorePredictionsSection from './ScorePredictionsSection';
+import BankerBetsSection from './BankerBetsSection';
+import OddsMovementSection from './OddsMovementSection';
+import EvScannerSection from './EvScannerSection';
 
 interface AnalysisResultsProps {
   data: any;
@@ -62,15 +68,10 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
             </div>
             
             <div className="space-y-6">
-              {(data.gamePredictions?.mainstream?.length > 0 ? data.gamePredictions.mainstream.slice(0, 7) : [
-                { market: "Both Teams To Score", odds: "1.75", selection: "Yes", reasoning: "Both teams are fully healthy upfront and show extremely high attacking output in key matches.", confidence: 91 },
-                { market: "Match Goals (O/U 1.5)", odds: "1.41", selection: "Over 1.5", reasoning: "High safety buffer based on defensive lapses in late-stage segments.", confidence: 95 },
-                { market: "Draw No Bet", odds: "1.65", selection: teamA, reasoning: "Strong home advantage and no major injuries makes them a safe draw-no-bet.", confidence: 88 },
-                { market: "Double Chance", odds: "1.25", selection: `${teamA} or Draw`, reasoning: "Extremely low probability of away win.", confidence: 96 },
-                { market: "1st Half Goals", odds: "1.35", selection: "Over 0.5", reasoning: "Both teams tend to score early.", confidence: 90 },
-                { market: "Team A Goals", odds: "1.55", selection: "Over 1.5", reasoning: "Attacking metrics are off the charts.", confidence: 85 },
-                { market: "Team B Goals", odds: "1.25", selection: "Over 0.5", reasoning: "Away team has scored in 9/10 last matches.", confidence: 92 },
-              ]).map((item: any, i: number) => (
+              {(!data.gamePredictions?.mainstream || data.gamePredictions.mainstream.length === 0) && (
+                <div className="text-zinc-500 text-sm italic">No mainstream predictions available for this match.</div>
+              )}
+              {(data.gamePredictions?.mainstream?.slice(0, 7) || []).map((item: any, i: number) => (
                 <div key={i} className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider border border-amber-400/20 bg-amber-400/5 px-2 py-1 rounded">
@@ -106,15 +107,10 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
             </div>
 
             <div className="space-y-6">
-              {(data.gamePredictions?.niche?.length > 0 ? data.gamePredictions.niche.slice(0, 7) : [
-                { market: "Total Corners", odds: "1.85", selection: "Over 8.5", reasoning: "Aggressive wing attack trends lead to highly consistent corner outcomes/half-time points.", confidence: 92 },
-                { market: "Team To Win Either Half", odds: "1.44", selection: teamA, reasoning: "Regularly captures momentum in second halves with dynamic bench adjustments.", confidence: 94 },
-                { market: "Total Cards", odds: "1.65", selection: "Over 3.5", reasoning: "Strict referee and historical rivalry.", confidence: 90 },
-                { market: "1st Half Corners", odds: "1.70", selection: "Over 4.5", reasoning: "Fast starts by both teams.", confidence: 91 },
-                { market: "Both Teams To Score - 2nd Half", odds: "2.10", selection: "Yes", reasoning: "Defenses tire late in the game.", confidence: 85 },
-                { market: "Team A Corners", odds: "1.50", selection: "Over 4.5", reasoning: "High cross frequency.", confidence: 93 },
-                { market: "Team B Cards", odds: "1.80", selection: "Over 1.5", reasoning: "Away team averages 2.5 cards per game.", confidence: 88 },
-              ]).map((item: any, i: number) => (
+              {(!data.gamePredictions?.niche || data.gamePredictions.niche.length === 0) && (
+                <div className="text-zinc-500 text-sm italic">No niche predictions available for this match.</div>
+              )}
+              {(data.gamePredictions?.niche?.slice(0, 7) || []).map((item: any, i: number) => (
                 <div key={i} className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-wider border border-indigo-400/20 bg-indigo-400/5 px-2 py-1 rounded">
@@ -142,41 +138,11 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
       </section>
 
       {/* 02. MICRO-MARKETS */}
-      <section id="section-micro">
-        {renderSectionHeader("02", "Micro-Markets & Player Props")}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-          {[
-            { market: "Over 0.5 Goals", time: "1st Half", conf: 82, level: "High Confidence", color: "text-red-400", bg: "bg-red-400/10" },
-            { market: "Over 2.5 Corners", time: "Match", conf: 67, level: "Medium Confidence", color: "text-amber-400", bg: "bg-amber-400/10" },
-            { market: "Over 1.5 Cards", time: "Match", conf: 58, level: "Medium Confidence", color: "text-amber-400", bg: "bg-amber-400/10" },
-            { market: "1st Goal Scorer", time: teamA, conf: 41, level: "Low Confidence", color: "text-emerald-400", bg: "bg-emerald-400/10" },
-            { market: "Most Shots On Target", time: teamA, conf: 63, level: "Medium Confidence", color: "text-amber-400", bg: "bg-amber-400/10" }
-          ].map((item, i) => (
-            <div key={i} className="bg-[#050505] border border-white/5 rounded-xl p-4 hover:border-white/20 transition-all cursor-pointer">
-              <div className="flex items-start justify-between mb-4">
-                <div className={`w-6 h-6 rounded-full ${item.bg} flex items-center justify-center ${item.color}`}>
-                  <Activity size={12}/>
-                </div>
-                <div className="text-lg font-bold text-white">{item.conf}%</div>
-              </div>
-              <div className="text-[10px] font-bold text-white mb-0.5">{item.market}</div>
-              <div className="text-[9px] text-zinc-500 mb-4">{item.time}</div>
-              <div className={`text-[8px] font-bold uppercase flex items-center gap-1 ${item.color}`}>
-                <div className={`w-1.5 h-1.5 rounded-full ${item.color.replace('text-', 'bg-')}`}></div>
-                {item.level}
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="mt-4 text-center">
-          <button 
-            onClick={() => setCurrentView?.('all-micro')}
-            className="text-[10px] text-zinc-500 hover:text-zinc-300"
-          >
-            View All Micro-Markets +
-          </button>
-        </div>
-      </section>
+      {data.microMarkets && data.microMarkets.length > 0 && (
+        <section id="section-micro">
+          <MicroMarketsSection insights={data.microMarkets} onAddBet={onAddBet} />
+        </section>
+      )}
 
       {/* 03. TEAM COMPARISON */}
       <section id="section-comparison">
@@ -252,185 +218,74 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
       </section>
 
       {/* 04. 1ST SET & HALF */}
-      <section id="section-first-half">
-        {renderSectionHeader("04", "1st Set & Half Critical Analysis")}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {[
-            { label: "1ST HALF DRAW", sub: "Will the 1st half end in a draw?", ans: "No", conf: "70%", text: `${teamA}'s strong home record and early goal tendency suggest a winner in the 1st half.` },
-            { label: "1ST HALF OVER 0.5 GOALS", sub: "Over 0.5 goals in 1st half?", ans: "Yes", conf: "81%", text: `Both teams average over 0.5 goals in 1st half in 7/10 recent matches.` }
-          ].map((item, i) => (
-            <div key={i} className="bg-[#050505] border border-white/5 rounded-2xl p-6 flex gap-6 items-center">
-              <div className="w-16 h-16 bg-white/5 rounded flex items-center justify-center shrink-0 border border-white/10">
-                <Target size={24} className="text-zinc-600"/>
-              </div>
-              <div className="flex-1">
-                <div className="text-[10px] text-purple-400 font-bold uppercase mb-1">{item.label}</div>
-                <div className="text-xs text-zinc-500 mb-3">{item.sub}</div>
-                <div className="flex justify-between items-end mb-2">
-                  <div className="text-2xl font-bold text-white">{item.ans}</div>
-                  <div className="text-[10px] text-emerald-400 font-bold">{item.conf} Confidence</div>
-                </div>
-                <p className="text-[10px] text-zinc-400 leading-tight">Reasoning: {item.text}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      {data.firstSetWinners && data.firstSetWinners.length > 0 && (
+        <section id="section-first-half">
+          <FirstSetWinnersSection winners={data.firstSetWinners} onGameClick={() => {}} onAddBet={onAddBet} />
+        </section>
+      )}
 
       {/* 05. SCORE PREDICTIONS */}
-      <section id="section-scores">
-        {renderSectionHeader("05", "Score & Goal Analysis")}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-[#050505] border border-white/5 rounded-2xl p-5 flex items-center justify-between">
-            <div>
-              <div className="text-[10px] text-zinc-500 uppercase font-bold mb-1">Correct Score Prediction</div>
-              <div className="text-xl font-bold text-white">2 - 1</div>
-              <div className="text-[9px] text-zinc-500 mt-1">Most Likely</div>
-            </div>
-            <div className="text-lg font-bold text-emerald-400">11.2%</div>
-          </div>
-          <div className="bg-[#050505] border border-white/5 rounded-2xl p-5 flex items-center justify-between">
-            <div>
-              <div className="text-[10px] text-zinc-500 uppercase font-bold mb-1">Score Range</div>
-              <div className="text-xl font-bold text-white">2-0 / 2-1 / 3-1</div>
-              <div className="text-[9px] text-zinc-500 mt-1">High Probability</div>
-            </div>
-            <div className="text-lg font-bold text-purple-500">64%</div>
-          </div>
-          <div className="bg-[#050505] border border-white/5 rounded-2xl p-5 flex items-center justify-between">
-            <div>
-              <div className="text-[10px] text-zinc-500 uppercase font-bold mb-1">Total Goals</div>
-              <div className="text-xl font-bold text-white">Over 2.5 Goals</div>
-              <div className="text-[9px] text-zinc-500 mt-1">Confidence</div>
-            </div>
-            <div className="text-lg font-bold text-purple-500">69%</div>
-          </div>
-        </div>
-      </section>
+      {data.scorePredictions && data.scorePredictions.length > 0 && (
+        <section id="section-scores">
+          <ScorePredictionsSection predictions={data.scorePredictions} onAddBet={onAddBet} />
+        </section>
+      )}
 
       {/* 06. BANKER BETS */}
-      <section id="section-bankers">
-        {renderSectionHeader("06", "Surefire Banker Bets", <span className="text-[10px] text-pink-500 border border-pink-500/30 bg-pink-500/10 px-2 py-1 rounded-full">4 Today's Best Bankers</span>)}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { tag: "Best Banker", title: "Over 1.5 Goals", sub: "Match", conf: 95, odds: "1.28", glow: true },
-            { tag: "Banker", title: `${teamA} or Draw`, sub: "Double Chance", conf: 93, odds: "1.35", glow: false },
-            { tag: "Banker", title: "Over 0.5 Goals", sub: "1st Half", conf: 90, odds: "1.22", glow: false },
-            { tag: "Banker", title: "Over 3.5 Corners", sub: "Match", conf: 89, odds: "1.30", glow: false }
-          ].map((bet, i) => (
-            <div key={i} className={`bg-[#050505] rounded-2xl p-5 relative overflow-hidden flex flex-col items-center justify-center text-center ${bet.glow ? 'border border-pink-500/50 shadow-[0_0_20px_rgba(236,72,153,0.15)]' : 'border border-white/5 hover:border-white/20'}`}>
-              {bet.glow && <div className="absolute top-0 inset-x-0 h-6 bg-pink-500 flex items-center justify-center text-[9px] font-bold text-white uppercase tracking-widest">{bet.tag}</div>}
-              {!bet.glow && <div className="text-[9px] text-zinc-500 uppercase font-bold mb-3">{bet.tag}</div>}
-              <div className={`font-bold text-white mb-1 ${bet.glow ? 'mt-6 text-lg' : 'text-sm'}`}>{bet.title}</div>
-              <div className="text-[10px] text-zinc-500 mb-6">{bet.sub}</div>
-              <div className="flex w-full justify-between items-end">
-                <div className="text-left">
-                  <div className={`font-bold ${bet.glow ? 'text-amber-400 text-xl' : 'text-emerald-400 text-lg'}`}>{bet.conf}%</div>
-                  <div className="text-[9px] text-zinc-500">Confidence</div>
-                </div>
-                <div className="text-right">
-                  <div className={`font-bold text-white ${bet.glow ? 'text-xl' : 'text-lg'}`}>{bet.odds}</div>
-                  <div className="text-[9px] text-zinc-500">Odds</div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="mt-6 text-center">
-          <button 
-            onClick={() => setCurrentView?.('all-bankers')}
-            className="text-xs font-bold text-zinc-500 hover:text-white transition-colors uppercase tracking-widest"
-          >
-            View All Banker Bets ➔
-          </button>
-        </div>
-      </section>
+      {data.bankerBets && data.bankerBets.length > 0 && (
+        <section id="section-bankers">
+          <BankerBetsSection bets={data.bankerBets} onAddBet={onAddBet} />
+        </section>
+      )}
 
       {/* 07. ODDS MOVEMENT */}
-      <section id="section-odds">
-        {renderSectionHeader("07", "Hidden Gems & Value Bets")}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-[#050505] border border-white/5 rounded-2xl p-6">
-            <div className="flex items-center gap-2 mb-6 text-[10px] text-zinc-400 uppercase font-bold">
-              <Gem size={14} className="text-zinc-500"/> Hidden Gems
-            </div>
-            <div className="space-y-4">
-              {[
-                { title: `${teamA} to Score First`, odds: "2.10", tag: "Good Value", tagColor: "text-emerald-400" },
-                { title: "Over 9.5 Corners", odds: "1.95", tag: "Good Value", tagColor: "text-emerald-400" },
-                { title: "Exact Score 3-1", odds: "2.80", tag: "High Value", tagColor: "text-emerald-400" }
-              ].map((bet, i) => (
-                <div key={i} className="flex justify-between items-center text-sm border-b border-white/5 pb-4 last:border-0 last:pb-0">
-                  <span className="text-zinc-300">{bet.title}</span>
-                  <div className="flex items-center gap-4">
-                    <span className="font-bold text-white">{bet.odds} <ChevronRight size={12} className="inline text-red-500"/></span>
-                    <span className={`text-[10px] font-bold ${bet.tagColor}`}>{bet.tag}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="bg-[#050505] border border-white/5 rounded-2xl p-6">
-            <div className="flex items-center gap-2 mb-6 text-[10px] text-zinc-400 uppercase font-bold">
-              <TrendingUp size={14} className="text-zinc-500"/> Value Bets
-            </div>
-            <div className="space-y-4">
-              {[
-                { title: "Over 2.5 Goals", odds: "1.68", tag: "Value", tagColor: "text-emerald-400" },
-                { title: "Both Teams to Score - Yes", odds: "1.75", tag: "Value", tagColor: "text-emerald-400" },
-                { title: `${teamA} Win & Over 1.5 Goals`, odds: "2.20", tag: "Great Value", tagColor: "text-emerald-400" }
-              ].map((bet, i) => (
-                <div key={i} className="flex justify-between items-center text-sm border-b border-white/5 pb-4 last:border-0 last:pb-0">
-                  <span className="text-zinc-300">{bet.title}</span>
-                  <div className="flex items-center gap-4">
-                    <span className="font-bold text-white">{bet.odds} <ChevronRight size={12} className="inline text-red-500"/></span>
-                    <span className={`text-[10px] font-bold ${bet.tagColor}`}>{bet.tag}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      {((data.oddsMovement && data.oddsMovement.length > 0) || (data.evScanner && data.evScanner.length > 0)) && (
+        <section id="section-odds" className="space-y-8">
+          {data.oddsMovement && data.oddsMovement.length > 0 && <OddsMovementSection movements={data.oddsMovement} onAddBet={onAddBet} />}
+          {data.evScanner && data.evScanner.length > 0 && <EvScannerSection bets={data.evScanner} onAddBet={onAddBet} />}
+        </section>
+      )}
 
       {/* 08. FINAL VERDICT */}
-      <section id="section-verdict">
-        {renderSectionHeader("08", "AI Match Insight & Final Verdict")}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-[#050505] border border-white/5 rounded-2xl p-6">
-            <div className="flex items-center gap-2 mb-4 text-[10px] text-purple-400 uppercase font-bold">
-              <Star size={14} className="text-purple-500"/> AI Match Insight
-            </div>
-            <p className="text-sm text-zinc-400 leading-relaxed mb-6">
-              {teamA}'s home advantage, attacking form and {teamB}'s defensive weaknesses make the hosts strong favorites. Expect an early goal and control throughout the match.
-            </p>
-            <div className="flex gap-2 flex-wrap">
-              <span className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[9px] px-2 py-1 rounded font-bold uppercase">High Confidence</span>
-              <span className="bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[9px] px-2 py-1 rounded font-bold uppercase">Good Form</span>
-              <span className="bg-purple-500/10 border border-purple-500/20 text-purple-400 text-[9px] px-2 py-1 rounded font-bold uppercase">Home Advantage</span>
-            </div>
-          </div>
-          <div className="bg-[#050505] border border-emerald-500/20 rounded-2xl p-6 relative overflow-hidden">
-            <div className="absolute right-0 bottom-0 w-48 h-48 bg-emerald-500/10 rounded-full blur-[60px] pointer-events-none"></div>
-            <div className="flex items-center gap-2 mb-6 text-[10px] text-emerald-400 uppercase font-bold">
-              <Zap size={14} className="text-emerald-500"/> Final Verdict
-            </div>
-            <div className="flex items-center justify-between z-10 relative">
-              <div>
-                <h3 className="text-2xl font-black text-emerald-400 uppercase mb-2">{teamA} WIN</h3>
-                <div className="text-lg font-bold text-white">2 - 1</div>
+      {data.teamComparison?.prediction && (
+        <section id="section-verdict">
+          {renderSectionHeader("08", "AI Match Insight & Final Verdict")}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-[#050505] border border-white/5 rounded-2xl p-6">
+              <div className="flex items-center gap-2 mb-4 text-[10px] text-purple-400 uppercase font-bold">
+                <Star size={14} className="text-purple-500"/> AI Match Insight
               </div>
-              <div className="w-20 h-20 rounded-full border-[6px] border-emerald-500/20 flex flex-col items-center justify-center relative">
-                <svg className="absolute inset-0 w-full h-full transform -rotate-90">
-                  <circle cx="34" cy="34" r="34" stroke="currentColor" strokeWidth="6" fill="none" className="text-emerald-500" strokeDasharray="213" strokeDashoffset="46" />
-                </svg>
-                <span className="text-xs text-zinc-500 -mb-1">Confidence</span>
-                <span className="text-xl font-black text-white">78%</span>
+              <p className="text-sm text-zinc-400 leading-relaxed mb-6">
+                {data.teamComparison.prediction}
+              </p>
+              <div className="flex gap-2 flex-wrap">
+                <span className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[9px] px-2 py-1 rounded font-bold uppercase">AI Analyzed</span>
               </div>
             </div>
+            {data.scorePredictions && data.scorePredictions.length > 0 && (
+              <div className="bg-[#050505] border border-emerald-500/20 rounded-2xl p-6 relative overflow-hidden">
+                <div className="absolute right-0 bottom-0 w-48 h-48 bg-emerald-500/10 rounded-full blur-[60px] pointer-events-none"></div>
+                <div className="flex items-center gap-2 mb-6 text-[10px] text-emerald-400 uppercase font-bold">
+                  <Zap size={14} className="text-emerald-500"/> Final Verdict
+                </div>
+                <div className="flex items-center justify-between z-10 relative">
+                  <div>
+                    <h3 className="text-2xl font-black text-emerald-400 uppercase mb-2">Most Likely Score</h3>
+                    <div className="text-lg font-bold text-white">{data.scorePredictions[0].prediction}</div>
+                  </div>
+                  <div className="w-20 h-20 rounded-full border-[6px] border-emerald-500/20 flex flex-col items-center justify-center relative">
+                    <svg className="absolute inset-0 w-full h-full transform -rotate-90">
+                      <circle cx="34" cy="34" r="34" stroke="currentColor" strokeWidth="6" fill="none" className="text-emerald-500" strokeDasharray="213" strokeDashoffset={`${213 - (213 * (data.scorePredictions[0].probability / 100))}`} />
+                    </svg>
+                    <span className="text-[10px] text-zinc-500 -mb-1">Prob</span>
+                    <span className="text-lg font-black text-white">{data.scorePredictions[0].probability}%</span>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* 09. HEAD TO HEAD (If Team Comparison is rendered, this might be redundant but keeping for fallback unless it has real data, but TeamComparisonSection already has Head-to-Head) */}
       {!data.teamComparison && (
