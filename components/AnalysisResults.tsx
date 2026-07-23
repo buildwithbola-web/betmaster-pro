@@ -1,5 +1,7 @@
 import React from 'react';
 import { ChevronRight, Calendar, Trophy, Zap, Clock, ShieldCheck, Activity, Target, Gem, Star, TrendingUp, Info, CheckCircle2 } from 'lucide-react';
+import TeamComparisonSection from './TeamComparisonSection';
+import TeamDuelsSection from './TeamDuelsSection';
 
 interface AnalysisResultsProps {
   data: any;
@@ -178,66 +180,75 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
 
       {/* 03. TEAM COMPARISON */}
       <section id="section-comparison">
-        {renderSectionHeader("03", "Team Comparison")}
-        <div className="bg-[#050505] border border-white/5 rounded-2xl p-6 md:p-8">
-          <div className="flex justify-between items-center mb-8">
-            <div className="flex items-center gap-3">
-              <div className="w-6 h-6 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center">
-                <ShieldCheck size={12} className="text-emerald-500"/>
-              </div>
-              <span className="font-bold text-white uppercase text-sm">{teamA}</span>
-            </div>
-            <div className="w-8 h-8 rounded-full bg-zinc-900 border border-white/10 flex items-center justify-center text-[10px] font-black text-zinc-500">VS</div>
-            <div className="flex items-center gap-3">
-              <span className="font-bold text-white uppercase text-sm">{teamB}</span>
-              <div className="w-6 h-6 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center">
-                <Trophy size={12} className="text-amber-500"/>
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-6">
-            <div className="flex items-center justify-between text-xs font-mono">
-              <div className="flex gap-2 text-emerald-500"><span>W</span><span>W</span><span>D</span><span>W</span><span className="text-red-500">L</span></div>
-              <div className="text-[10px] text-zinc-500 uppercase">Form (Last 5)</div>
-              <div className="flex gap-2 text-emerald-500"><span>W</span><span className="text-zinc-500">D</span><span className="text-zinc-500">D</span><span className="text-red-500">L</span><span>W</span></div>
-            </div>
-
-            {[
-              { label: "Goals Scored (Avg)", home: "1.80", away: "1.20", hColor: "bg-emerald-500", aColor: "bg-purple-600" },
-              { label: "Goals Conceded (Avg)", home: "0.80", away: "1.40", hColor: "bg-emerald-500", aColor: "bg-purple-600" },
-              { label: "Possession (Avg)", home: "56%", away: "48%", hColor: "bg-emerald-500", aColor: "bg-purple-600" },
-              { label: "Shots (Avg)", home: "12.4", away: "9.1", hColor: "bg-emerald-500", aColor: "bg-purple-600" },
-              { label: "Pass Accuracy", home: "84%", away: "78%", hColor: "bg-emerald-500", aColor: "bg-purple-600" }
-            ].map((stat, i) => (
-              <div key={i} className="flex items-center justify-between gap-4 text-xs relative">
-                <span className="w-8 text-emerald-400 font-mono text-left">{stat.home}</span>
-                <div className="flex-1 flex gap-2 items-center justify-center">
-                  <div className="h-0.5 w-1/3 bg-white/5 relative">
-                    <div className={`absolute right-0 top-0 h-full ${stat.hColor}`} style={{ width: `${Math.random()*60+40}%` }}></div>
+        {data.teamComparison ? (
+          <>
+            {renderSectionHeader("03", "Team Comparison")}
+            <TeamComparisonSection comparison={data.teamComparison} />
+          </>
+        ) : (
+          <>
+            {renderSectionHeader("03", "Team Comparison")}
+            <div className="bg-[#050505] border border-white/5 rounded-2xl p-6 md:p-8">
+              <div className="flex justify-between items-center mb-8">
+                <div className="flex items-center gap-3">
+                  <div className="w-6 h-6 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center">
+                    <ShieldCheck size={12} className="text-emerald-500"/>
                   </div>
-                  <span className="w-32 text-center text-[10px] text-zinc-500 uppercase">{stat.label}</span>
-                  <div className="h-0.5 w-1/3 bg-white/5 relative">
-                    <div className={`absolute left-0 top-0 h-full ${stat.aColor}`} style={{ width: `${Math.random()*60+40}%` }}></div>
+                  <span className="font-bold text-white uppercase text-sm">{teamA}</span>
+                </div>
+                <div className="w-8 h-8 rounded-full bg-zinc-900 border border-white/10 flex items-center justify-center text-[10px] font-black text-zinc-500">VS</div>
+                <div className="flex items-center gap-3">
+                  <span className="font-bold text-white uppercase text-sm">{teamB}</span>
+                  <div className="w-6 h-6 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center">
+                    <Trophy size={12} className="text-amber-500"/>
                   </div>
                 </div>
-                <span className="w-8 text-amber-400 font-mono text-right">{stat.away}</span>
               </div>
-            ))}
-          </div>
 
-          <div className="mt-8 bg-purple-500/10 border border-purple-500/20 rounded-xl p-4 flex gap-4 items-center">
-            <div className="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center shrink-0">
-              <Zap size={14} className="text-purple-400"/>
+              <div className="space-y-6">
+                <div className="flex items-center justify-between text-xs font-mono">
+                  <div className="flex gap-2 text-emerald-500"><span>W</span><span>W</span><span>D</span><span>W</span><span className="text-red-500">L</span></div>
+                  <div className="text-[10px] text-zinc-500 uppercase">Form (Last 5)</div>
+                  <div className="flex gap-2 text-emerald-500"><span>W</span><span className="text-zinc-500">D</span><span className="text-zinc-500">D</span><span className="text-red-500">L</span><span>W</span></div>
+                </div>
+
+                {[
+                  { label: "Goals Scored (Avg)", home: "1.80", away: "1.20", hColor: "bg-emerald-500", aColor: "bg-purple-600" },
+                  { label: "Goals Conceded (Avg)", home: "0.80", away: "1.40", hColor: "bg-emerald-500", aColor: "bg-purple-600" },
+                  { label: "Possession (Avg)", home: "56%", away: "48%", hColor: "bg-emerald-500", aColor: "bg-purple-600" },
+                  { label: "Shots (Avg)", home: "12.4", away: "9.1", hColor: "bg-emerald-500", aColor: "bg-purple-600" },
+                  { label: "Pass Accuracy", home: "84%", away: "78%", hColor: "bg-emerald-500", aColor: "bg-purple-600" }
+                ].map((stat, i) => (
+                  <div key={i} className="flex items-center justify-between gap-4 text-xs relative">
+                    <span className="w-8 text-emerald-400 font-mono text-left">{stat.home}</span>
+                    <div className="flex-1 flex gap-2 items-center justify-center">
+                      <div className="h-0.5 w-1/3 bg-white/5 relative">
+                        <div className={`absolute right-0 top-0 h-full ${stat.hColor}`} style={{ width: `${Math.random()*60+40}%` }}></div>
+                      </div>
+                      <span className="w-32 text-center text-[10px] text-zinc-500 uppercase">{stat.label}</span>
+                      <div className="h-0.5 w-1/3 bg-white/5 relative">
+                        <div className={`absolute left-0 top-0 h-full ${stat.aColor}`} style={{ width: `${Math.random()*60+40}%` }}></div>
+                      </div>
+                    </div>
+                    <span className="w-8 text-amber-400 font-mono text-right">{stat.away}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8 bg-purple-500/10 border border-purple-500/20 rounded-xl p-4 flex gap-4 items-center">
+                <div className="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center shrink-0">
+                  <Zap size={14} className="text-purple-400"/>
+                </div>
+                <div>
+                  <h4 className="text-[10px] font-bold text-purple-400 uppercase mb-1">AI Match Insight</h4>
+                  <p className="text-xs text-zinc-300">
+                    {data.teamComparison?.prediction || `${teamA} have been strong at home with a solid defense and high possession. ${teamB} are dangerous on the counter but struggle against high-pressing teams.`}
+                  </p>
+                </div>
+              </div>
             </div>
-            <div>
-              <h4 className="text-[10px] font-bold text-purple-400 uppercase mb-1">AI Match Insight</h4>
-              <p className="text-xs text-zinc-300">
-                {data.teamComparison?.prediction || `${teamA} have been strong at home with a solid defense and high possession. ${teamB} are dangerous on the counter but struggle against high-pressing teams.`}
-              </p>
-            </div>
-          </div>
-        </div>
+          </>
+        )}
       </section>
 
       {/* 04. 1ST SET & HALF */}
@@ -421,42 +432,52 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
         </div>
       </section>
 
-      {/* 09. HEAD TO HEAD */}
-      <section>
-        {renderSectionHeader("09", "Head to Head (Last 5 Matches)")}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-[#050505] border border-white/5 rounded-2xl p-5">
-            <div className="flex justify-between items-center text-xs text-emerald-400 font-bold mb-4 border-b border-white/5 pb-2">
-              <span>{teamA} Wins</span>
-              <span>2</span>
+      {/* 09. HEAD TO HEAD (If Team Comparison is rendered, this might be redundant but keeping for fallback unless it has real data, but TeamComparisonSection already has Head-to-Head) */}
+      {!data.teamComparison && (
+        <section>
+          {renderSectionHeader("09", "Head to Head (Last 5 Matches)")}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-[#050505] border border-white/5 rounded-2xl p-5">
+              <div className="flex justify-between items-center text-xs text-emerald-400 font-bold mb-4 border-b border-white/5 pb-2">
+                <span>{teamA} Wins</span>
+                <span>2</span>
+              </div>
+              <div className="space-y-2 text-xs">
+                <div className="flex justify-between text-zinc-400"><span className="truncate w-32">vs {teamB}</span><span className="text-white font-bold">2-1</span><span>2022</span></div>
+                <div className="flex justify-between text-zinc-400"><span className="truncate w-32">vs {teamB}</span><span className="text-white font-bold">1-0</span><span>2019</span></div>
+              </div>
             </div>
-            <div className="space-y-2 text-xs">
-              <div className="flex justify-between text-zinc-400"><span className="truncate w-32">vs {teamB}</span><span className="text-white font-bold">2-1</span><span>2022</span></div>
-              <div className="flex justify-between text-zinc-400"><span className="truncate w-32">vs {teamB}</span><span className="text-white font-bold">1-0</span><span>2019</span></div>
+            <div className="bg-[#050505] border border-white/5 rounded-2xl p-5">
+              <div className="flex justify-between items-center text-xs text-zinc-400 font-bold mb-4 border-b border-white/5 pb-2">
+                <span>Draws</span>
+                <span>2</span>
+              </div>
+              <div className="space-y-2 text-xs">
+                <div className="flex justify-between text-zinc-400"><span className="truncate w-32">vs {teamB}</span><span className="text-white font-bold">1-1</span><span>2021</span></div>
+                <div className="flex justify-between text-zinc-400"><span className="truncate w-32">vs {teamB}</span><span className="text-white font-bold">0-0</span><span>2018</span></div>
+              </div>
+            </div>
+            <div className="bg-[#050505] border border-white/5 rounded-2xl p-5">
+              <div className="flex justify-between items-center text-xs text-amber-400 font-bold mb-4 border-b border-white/5 pb-2">
+                <span>{teamB} Wins</span>
+                <span>1</span>
+              </div>
+              <div className="space-y-2 text-xs">
+                <div className="flex justify-between text-zinc-400"><span className="truncate w-32">vs {teamA}</span><span className="text-white font-bold">0-1</span><span>2022</span></div>
+                <div className="flex justify-between text-zinc-400"><span className="truncate w-32">vs {teamA}</span><span className="text-white font-bold">3-0</span><span>2017</span></div>
+              </div>
             </div>
           </div>
-          <div className="bg-[#050505] border border-white/5 rounded-2xl p-5">
-            <div className="flex justify-between items-center text-xs text-zinc-400 font-bold mb-4 border-b border-white/5 pb-2">
-              <span>Draws</span>
-              <span>2</span>
-            </div>
-            <div className="space-y-2 text-xs">
-              <div className="flex justify-between text-zinc-400"><span className="truncate w-32">vs {teamB}</span><span className="text-white font-bold">1-1</span><span>2021</span></div>
-              <div className="flex justify-between text-zinc-400"><span className="truncate w-32">vs {teamB}</span><span className="text-white font-bold">0-0</span><span>2018</span></div>
-            </div>
-          </div>
-          <div className="bg-[#050505] border border-white/5 rounded-2xl p-5">
-            <div className="flex justify-between items-center text-xs text-amber-400 font-bold mb-4 border-b border-white/5 pb-2">
-              <span>{teamB} Wins</span>
-              <span>1</span>
-            </div>
-            <div className="space-y-2 text-xs">
-              <div className="flex justify-between text-zinc-400"><span className="truncate w-32">vs {teamA}</span><span className="text-white font-bold">0-1</span><span>2022</span></div>
-              <div className="flex justify-between text-zinc-400"><span className="truncate w-32">vs {teamA}</span><span className="text-white font-bold">3-0</span><span>2017</span></div>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* TEAM DUELS */}
+      {data.teamDuels && data.teamDuels.length > 0 && (
+        <section id="section-duels" className="mt-12">
+          <TeamDuelsSection duels={data.teamDuels} />
+        </section>
+      )}
+
       
       <div className="text-center pb-8 pt-4">
         <p className="text-[10px] text-zinc-600">Data is AI-generated & for informational purposes only. Bet responsibly.</p>
