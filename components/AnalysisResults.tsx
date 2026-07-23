@@ -29,9 +29,9 @@ const renderSectionHeader = (number: string, title: string, rightContent?: React
 
 const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCurrentView, isPastSearch, onGradePredictions, isGrading }) => {
   if (!data) return null;
-  const matchName = data.gamePredictions?.gameName || "AC OMONIA NICOSIA VS FC KAIRAT";
-  const teamA = data.teamComparison?.teamA || "AC Omonia Nicosia";
-  const teamB = data.teamComparison?.teamB || "FC Kairat";
+  const matchName = typeof data.gamePredictions?.gameName === 'string' ? data.gamePredictions.gameName : "AC OMONIA NICOSIA VS FC KAIRAT";
+  const teamA = typeof data.teamComparison?.teamA === 'string' ? data.teamComparison.teamA : "AC Omonia Nicosia";
+  const teamB = typeof data.teamComparison?.teamB === 'string' ? data.teamComparison.teamB : "FC Kairat";
 
   return (
     <div className="w-full space-y-12">
@@ -46,13 +46,13 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
               <div className="text-[10px] text-indigo-400 font-bold uppercase tracking-widest mb-1">Deep Search Intelligence</div>
               <div className="flex items-center gap-3 flex-wrap">
                 <h2 className="text-2xl md:text-3xl font-black text-white">{matchName}</h2>
-                {data.matchStatus && data.matchStatus.startsWith("LIVE") && (
+                {typeof data.matchStatus === 'string' && data.matchStatus.startsWith("LIVE") && (
                   <span className="px-2 py-1 bg-red-500/10 text-red-400 border border-red-500/30 rounded text-xs font-bold uppercase tracking-widest animate-pulse flex items-center gap-1.5 shadow-[0_0_10px_rgba(239,68,68,0.2)]">
                     <span className="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
                     {data.matchStatus}
                   </span>
                 )}
-                {data.matchStatus && !data.matchStatus.startsWith("LIVE") && (
+                {typeof data.matchStatus === 'string' && !data.matchStatus.startsWith("LIVE") && (
                   <span className="px-2 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/30 rounded text-[10px] font-bold uppercase tracking-widest">
                     {data.matchStatus}
                   </span>
@@ -102,10 +102,10 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
             </div>
             
             <div className="space-y-6">
-              {(!data.gamePredictions?.mainstream || data.gamePredictions.mainstream.length === 0) && (
+              {(!Array.isArray(data.gamePredictions?.mainstream) || data.gamePredictions.mainstream.length === 0) && (
                 <div className="text-zinc-500 text-sm italic">No mainstream predictions available for this match.</div>
               )}
-              {(data.gamePredictions?.mainstream?.slice(0, 7) || []).map((item: any, i: number) => (
+              {(Array.isArray(data.gamePredictions?.mainstream) ? data.gamePredictions.mainstream.slice(0, 7) : []).map((item: any, i: number) => (
                 <div key={i} className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider border border-amber-400/20 bg-amber-400/5 px-2 py-1 rounded">
@@ -144,10 +144,10 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
             </div>
 
             <div className="space-y-6">
-              {(!data.gamePredictions?.niche || data.gamePredictions.niche.length === 0) && (
+              {(!Array.isArray(data.gamePredictions?.niche) || data.gamePredictions.niche.length === 0) && (
                 <div className="text-zinc-500 text-sm italic">No niche predictions available for this match.</div>
               )}
-              {(data.gamePredictions?.niche?.slice(0, 7) || []).map((item: any, i: number) => (
+              {(Array.isArray(data.gamePredictions?.niche) ? data.gamePredictions.niche.slice(0, 7) : []).map((item: any, i: number) => (
                 <div key={i} className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-wider border border-indigo-400/20 bg-indigo-400/5 px-2 py-1 rounded">

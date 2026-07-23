@@ -95,19 +95,22 @@ const SearchPage: React.FC<SearchPageProps> = ({ onSearch, loading, hasData, sea
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {searchHistory.map((query, i) => (
-                <button 
-                  key={i}
-                  onClick={() => onSearch(query)}
-                  className="flex items-center justify-between p-4 bg-[#050505] hover:bg-white/5 border border-white/5 rounded-xl transition-colors text-left"
-                >
-                  <div className="flex items-center gap-3">
-                    <Clock size={16} className="text-zinc-500" />
-                    <span className="text-white font-bold">{query}</span>
-                  </div>
-                  <span className="text-xs text-purple-400">Re-analyze ➔</span>
-                </button>
-              ))}
+              {searchHistory.map((item: any, i) => {
+                const query = typeof item === 'string' ? item : (item.query || 'Unknown Search');
+                return (
+                  <button 
+                    key={i}
+                    onClick={() => onSearch(query)}
+                    className="flex items-center justify-between p-4 bg-[#050505] hover:bg-white/5 border border-white/5 rounded-xl transition-colors text-left"
+                  >
+                    <div className="flex items-center gap-3">
+                      <Clock size={16} className="text-zinc-500" />
+                      <span className="text-white font-bold">{query}</span>
+                    </div>
+                    <span className="text-xs text-purple-400">Re-analyze ➔</span>
+                  </button>
+                );
+              })}
             </div>
           )}
         </div>

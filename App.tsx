@@ -23,6 +23,7 @@ import AllBankerBetsPage from './components/AllBankerBetsPage';
 import PastSearchesPage from './components/PastSearchesPage';
 import AllMicroMarketsPage from './components/AllMicroMarketsPage';
 import GameDetailModal from './components/GameDetailModal';
+import ErrorBoundary from './components/ErrorBoundary';
 import { 
   PredictionSkeleton, 
   MicroMarketsSkeleton,
@@ -333,14 +334,16 @@ const App: React.FC = () => {
 
           {(currentView === 'analysis' || data) && (
             <div className={`max-w-5xl mx-auto pb-12 animate-fade-in-up ${currentView === 'analysis' ? 'block' : 'hidden'}`}>
-              <AnalysisResults 
-                data={data} 
-                onAddBet={handleAddBet} 
-                setCurrentView={setCurrentView}
-                isPastSearch={!!currentPastSearchId}
-                onGradePredictions={handleGradePredictions}
-                isGrading={loading}
-              />
+              <ErrorBoundary>
+                <AnalysisResults 
+                  data={data} 
+                  onAddBet={handleAddBet} 
+                  setCurrentView={setCurrentView}
+                  isPastSearch={!!currentPastSearchId}
+                  onGradePredictions={handleGradePredictions}
+                  isGrading={loading}
+                />
+              </ErrorBoundary>
             </div>
           )}
           
