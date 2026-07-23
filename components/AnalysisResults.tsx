@@ -178,7 +178,7 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
       </section>
 
       {/* 02. MICRO-MARKETS */}
-      {data.microMarkets && data.microMarkets.length > 0 && (
+      {Array.isArray(data.microMarkets) && data.microMarkets.length > 0 && (
         <section id="section-micro">
           <MicroMarketsSection insights={data.microMarkets} onAddBet={onAddBet} onViewAll={() => setCurrentView?.('all-micro')} />
         </section>
@@ -258,31 +258,31 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
       </section>
 
       {/* 04. 1ST SET & HALF */}
-      {data.firstSetWinners && data.firstSetWinners.length > 0 && (
+      {Array.isArray(data.firstSetWinners) && data.firstSetWinners.length > 0 && (
         <section id="section-first-half">
           <FirstSetWinnersSection winners={data.firstSetWinners} onGameClick={() => {}} onAddBet={onAddBet} />
         </section>
       )}
 
       {/* 05. SCORE PREDICTIONS */}
-      {data.scorePredictions && data.scorePredictions.length > 0 && (
+      {Array.isArray(data.scorePredictions) && data.scorePredictions.length > 0 && (
         <section id="section-scores">
-          <ScorePredictionsSection predictions={data.scorePredictions} onAddBet={onAddBet} />
+          <ScorePredictionsSection predictions={data.scorePredictions} onAddBet={onAddBet} onGameClick={() => {}} />
         </section>
       )}
 
       {/* 06. BANKER BETS */}
-      {data.bankerBets && data.bankerBets.length > 0 && (
+      {Array.isArray(data.bankerBets) && data.bankerBets.length > 0 && (
         <section id="section-bankers">
           <BankerBetsSection bets={data.bankerBets} onGameClick={() => {}} onAddBet={onAddBet} onViewAll={() => setCurrentView?.('all-bankers')} />
         </section>
       )}
 
       {/* 07. ODDS MOVEMENT */}
-      {((data.oddsMovement && data.oddsMovement.length > 0) || (data.evScanner && data.evScanner.length > 0)) && (
+      {((Array.isArray(data.oddsMovement) && data.oddsMovement.length > 0) || (Array.isArray(data.evScanner) && data.evScanner.length > 0)) && (
         <section id="section-odds" className="space-y-8">
-          {data.oddsMovement && data.oddsMovement.length > 0 && <OddsMovementSection movements={data.oddsMovement} onAddBet={onAddBet} />}
-          {data.evScanner && data.evScanner.length > 0 && <EvScannerSection bets={data.evScanner} onAddBet={onAddBet} />}
+          {Array.isArray(data.oddsMovement) && data.oddsMovement.length > 0 && <OddsMovementSection movements={data.oddsMovement} onAddBet={onAddBet} gameName={matchName} />}
+          {Array.isArray(data.evScanner) && data.evScanner.length > 0 && <EvScannerSection bets={data.evScanner} onAddBet={onAddBet} gameName={matchName} />}
         </section>
       )}
 

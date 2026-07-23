@@ -60,6 +60,7 @@ export interface Prediction {
 
 export interface GamePredictions {
   gameName: string;
+  matchStatus?: 'UPCOMING' | 'ONGOING' | 'FINISHED';
   mainstream: Prediction[];
   niche: Prediction[];
 }
