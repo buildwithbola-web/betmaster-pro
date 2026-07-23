@@ -216,15 +216,10 @@ export async function searchMatchData(query: string, sport: Sport = "Unknown"): 
 
       if (sport === "Football") {
         searches.push(`${query} expected goals xG cards corners news ${year}`);
-        searches.push(`${query} injuries starting lineups soccer ${year}`);
       } else if (sport === "Basketball") {
         searches.push(`${query} points rebounds assists player props ${year}`);
-        searches.push(`${query} quarters spread nba basketball ${year}`);
       } else if (sport === "Tennis") {
         searches.push(`${query} aces double faults sets tennis ${year}`);
-        searches.push(`${query} court surface stats h2h ${year}`);
-      } else {
-        searches.push(`${query} team news injuries lineup ${year}`);
       }
 
       console.log(`[Scraper] Running ${searches.length} sequential Bing searches for: "${query}"...`);
@@ -237,7 +232,7 @@ export async function searchMatchData(query: string, sport: Sport = "Unknown"): 
         } catch (e) {
           results.push({ status: "rejected", reason: e });
         }
-        if (i < searches.length - 1) await delay(600);
+        if (i < searches.length - 1) await delay(250); // Reduced delay to 250ms
       }
 
       const allResults: WebSearchResult[] = results
@@ -261,11 +256,16 @@ export async function searchMatchData(query: string, sport: Sport = "Unknown"): 
       const topUrls = unique.slice(0, 3).filter(r => r.url.startsWith("http"));
       let deepContext = "";
       
-      for (let i = 0; i < topUrls.length; i++) {
-        console.log(`[Scraper] Extracting URL ${i+1}: ${topUrls[i].url}`);
-        const articleText = await fetchArticleText(topUrls[i].url);
-        if (articleText.length > 200) {
-          deepContext += `\n\n--- ARTICLE ${i+1} SOURCE: ${topUrls[i].url} ---\n${topUrls[i].title}\n${articleText}`;
+      const articlePromises = topUrls.map(urlObj => {
+        console.log(`[Scraper] Extracting URL: ${urlObj.url}`);
+        return fetchArticleText(urlObj.url).then(text => ({ url: urlObj.url, title: urlObj.title, text }));
+      });
+      
+      const articleResults = await Promise.allSettled(articlePromises);
+      for (let i = 0; i < articleResults.length; i++) {
+        const res = articleResults[i];
+        if (res.status === 'fulfilled' && res.value.text.length > 200) {
+          deepContext += `\n\n--- ARTICLE ${i+1} SOURCE: ${res.value.url} ---\n${res.value.title}\n${res.value.text}`;
         }
       }
 
