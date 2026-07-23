@@ -42,7 +42,20 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
             </div>
             <div>
               <div className="text-[10px] text-indigo-400 font-bold uppercase tracking-widest mb-1">Deep Search Intelligence</div>
-              <h2 className="text-2xl md:text-3xl font-black text-white">{matchName}</h2>
+              <div className="flex items-center gap-3 flex-wrap">
+                <h2 className="text-2xl md:text-3xl font-black text-white">{matchName}</h2>
+                {data.matchStatus && data.matchStatus.startsWith("LIVE") && (
+                  <span className="px-2 py-1 bg-red-500/10 text-red-400 border border-red-500/30 rounded text-xs font-bold uppercase tracking-widest animate-pulse flex items-center gap-1.5 shadow-[0_0_10px_rgba(239,68,68,0.2)]">
+                    <span className="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
+                    {data.matchStatus}
+                  </span>
+                )}
+                {data.matchStatus && !data.matchStatus.startsWith("LIVE") && (
+                  <span className="px-2 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/30 rounded text-[10px] font-bold uppercase tracking-widest">
+                    {data.matchStatus}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
           <div className="flex items-center gap-6 mt-4 md:mt-0">
