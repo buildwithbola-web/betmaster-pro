@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { MicroMarketInsight, BetSlipItem } from '../types';
-import { Target, Swords, BarChart2, Zap, ShieldAlert, TrendingDown, Flame, Plus } from 'lucide-react';
+import { Target, Swords, BarChart2, Zap, ShieldAlert, TrendingDown, Flame, Plus, ArrowRight } from 'lucide-react';
 
 interface MicroMarketsSectionProps {
   insights: MicroMarketInsight[];
