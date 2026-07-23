@@ -210,7 +210,8 @@ export async function searchMatchData(query: string, sport: Sport = "Unknown"): 
       const searches = [
         `${query} live score update today ${year}`,
         `${query} match betting odds predictions ${year}`,
-        `${query} head to head form statistics ${year}`,
+        `${query} head to head h2h statistics ${year}`,
+        `${query} last 5 matches form results ${year}`,
       ];
 
       if (sport === "Football") {

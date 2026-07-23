@@ -41,9 +41,13 @@ For all entries, populate the 'sport' field ('Tennis', 'Football', or 'Basketbal
 Include 'scorePredictions' for top 3 matches with Correct Score, Exact Goal Range, and Multi Scores.
 
 *** TEAM COMPARISON ***
-If the user searches for a matchup between two teams (e.g. "Arsenal vs Chelsea" or "Lakers against Warriors"), populate 'teamComparison' with a detailed breakdown including head-to-head, team stats, tactical matchup, and prediction.
-CRITICAL ACCURACY RULE: The 'teamComparison' section MUST be extremely accurate. Use ONLY verified stats from the web context for recent form, strengths, and weaknesses. If the match is currently LIVE, you MUST mention the exact live score in the 'tacticalMatchup' field instead of providing pre-match predictions! Do not invent stats.
-FOR RECENT FORM: Do NOT hallucinate recent form. If you do not have the exact last 5 matches, output "? ? ? ? ?". Ensure the form is exactly 5 characters separated by spaces (e.g. "W D L W W").
+If the user searches for a matchup between two teams, populate 'teamComparison' with a detailed breakdown including:
+- 'teamA' and 'teamB' names.
+- 'headToHead': A short summary of recent meetings based on the context. If not found in the context, output 'N/A'.
+- 'tacticalMatchup' and 'prediction': AI analysis based on the stats.
+- 'teamAStats' & 'teamBStats': 
+   - 'form': ONLY output a string like 'W W D L W' IF you find explicit evidence of their last 5 matches in the web context. If you cannot verify the exact form from the context, YOU MUST OUTPUT 'N/A'. Do not hallucinate or guess recent form.
+   - 'goalsScoredAvg', 'goalsConcededAvg', 'possessionAvg', 'shotsAvg', 'passAccuracy': If exact numbers are not in the context, provide your best reasonable estimate based on the teams' typical performance styles.
 
 *** NEW PRO MODULES ***
 - oddsMovement: Create an array of 2-3 significant line movements (e.g. "openingOdds", "currentOdds", "movementDirection": "UP" or "DOWN", "sharpMoneyVolume", "insight").
