@@ -1,13 +1,14 @@
 import React from 'react';
 import Logo from './Logo';
-import { Search, Bell, Settings } from 'lucide-react';
+import { Search, Bell, Settings, Receipt } from 'lucide-react';
 
 interface TopNavProps {
   currentView: string;
   setCurrentView: (view: string) => void;
+  onOpenBetSlip: () => void;
 }
 
-const TopNav: React.FC<TopNavProps> = ({ currentView, setCurrentView }) => {
+const TopNav: React.FC<TopNavProps> = ({ currentView, setCurrentView, onOpenBetSlip }) => {
   const navLinks = [
     { id: 'home', label: 'Home' },
     { id: 'search', label: 'Predictions' },
@@ -54,8 +55,11 @@ const TopNav: React.FC<TopNavProps> = ({ currentView, setCurrentView }) => {
 
       {/* Right: Actions */}
       <div className="flex items-center gap-6">
-        <button className="text-zinc-400 hover:text-white transition-colors">
+        <button onClick={() => setCurrentView('search')} className="text-zinc-400 hover:text-white transition-colors">
           <Search size={18} />
+        </button>
+        <button onClick={onOpenBetSlip} className="text-zinc-400 hover:text-white transition-colors">
+          <Receipt size={18} />
         </button>
         <button className="text-zinc-400 hover:text-white transition-colors relative">
           <Bell size={18} />

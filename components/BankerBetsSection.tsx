@@ -25,11 +25,6 @@ const BankerBetsSection: React.FC<BankerBetsSectionProps> = ({ bets, onGameClick
             <ShieldCheck size={12} className="text-rose-500" /> Lowest Odds • Uncommon Markets • Maximum Confidence
           </p>
         </div>
-        {onViewAll && (
-          <button onClick={onViewAll} className="text-xs font-bold text-rose-400 hover:text-rose-300 uppercase tracking-widest border border-rose-500/30 px-3 py-1 rounded-full hover:bg-rose-500/10 transition-colors shrink-0">
-            View All
-          </button>
-        )}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -132,6 +127,14 @@ const BankerBetsSection: React.FC<BankerBetsSectionProps> = ({ bets, onGameClick
           );
         })}
       </div>
+
+      {onViewAll && (
+        <div className="mt-8 flex justify-center">
+          <button onClick={onViewAll} className="text-xs font-bold text-zinc-400 hover:text-white uppercase tracking-widest flex items-center gap-2 transition-colors">
+            View All Banker Bets <ArrowRight size={14} />
+          </button>
+        </div>
+      )}
     </div>
   );
 };

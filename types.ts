@@ -85,22 +85,24 @@ export interface BankerBet {
   reasoning: string;
 }
 
+export interface TeamStats {
+  form: string;
+  keyPlayer: string;
+  strengths: string[];
+  weaknesses: string[];
+  goalsScoredAvg?: number;
+  goalsConcededAvg?: number;
+  possessionAvg?: number;
+  shotsAvg?: number;
+  passAccuracy?: number;
+}
+
 export interface TeamComparison {
   teamA: string;
   teamB: string;
   headToHead: string;
-  teamAStats: {
-    form: string;
-    keyPlayer: string;
-    strengths: string[];
-    weaknesses: string[];
-  };
-  teamBStats: {
-    form: string;
-    keyPlayer: string;
-    strengths: string[];
-    weaknesses: string[];
-  };
+  teamAStats: TeamStats;
+  teamBStats: TeamStats;
   tacticalMatchup: string;
   prediction: string;
 }
@@ -131,12 +133,12 @@ export interface AbsenceImpact {
   severity: 'CRITICAL' | 'MODERATE' | 'LOW';
 }
 
-export interface TeamDuel {
+export interface HeadToHeadMatch {
+  date: string;
   teamA: string;
   teamB: string;
-  statFocus: string;
-  winnerPrediction: string;
-  insight: string;
+  score: string;
+  competition: string;
 }
 
 export interface LiveMomentum {
@@ -164,7 +166,7 @@ export interface BetMasterResponse {
   oddsMovement?: OddsMovement[];
   evScanner?: EvScannerBet[];
   absenceImpact?: AbsenceImpact[];
-  teamDuels?: TeamDuel[];
+  headToHeadMatches?: HeadToHeadMatch[];
   liveMomentum?: LiveMomentum;
 
   isFallback?: boolean;

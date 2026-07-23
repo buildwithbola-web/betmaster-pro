@@ -189,7 +189,7 @@ const App: React.FC = () => {
 
   return (
     <div className="flex flex-col h-screen bg-[#000000] text-white overflow-hidden font-sans">
-      <TopNav currentView={currentView} setCurrentView={setCurrentView} />
+      <TopNav currentView={currentView} setCurrentView={setCurrentView} onOpenBetSlip={() => setIsBetSlipOpen(true)} />
       
       <main className="flex-1 overflow-y-auto bg-[#0a0a0a]/50 relative">
         {/* Dynamic Orbs background for main area */}
@@ -206,6 +206,7 @@ const App: React.FC = () => {
               onSearch={(query) => { handleAnalyze(undefined, query); setCurrentView('analysis'); }} 
               loading={loading}
               hasData={!!data}
+              searchHistory={searchHistory}
             />
           )}
 

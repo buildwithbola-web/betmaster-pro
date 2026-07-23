@@ -43,12 +43,13 @@ Include 'scorePredictions' for top 3 matches with Correct Score, Exact Goal Rang
 *** TEAM COMPARISON ***
 If the user searches for a matchup between two teams (e.g. "Arsenal vs Chelsea" or "Lakers against Warriors"), populate 'teamComparison' with a detailed breakdown including head-to-head, team stats, tactical matchup, and prediction.
 CRITICAL ACCURACY RULE: The 'teamComparison' section MUST be extremely accurate. Use ONLY verified stats from the web context for recent form, strengths, and weaknesses. If the match is currently LIVE, you MUST mention the exact live score in the 'tacticalMatchup' field instead of providing pre-match predictions! Do not invent stats.
+FOR RECENT FORM: Do NOT hallucinate recent form. If you do not have the exact last 5 matches, output "? ? ? ? ?". Ensure the form is exactly 5 characters separated by spaces (e.g. "W D L W W").
 
 *** NEW PRO MODULES ***
 - oddsMovement: Create an array of 2-3 significant line movements (e.g. "openingOdds", "currentOdds", "movementDirection": "UP" or "DOWN", "sharpMoneyVolume", "insight").
 - evScanner: Create an array of 2-3 mathematically profitable EV+ bets (e.g. "market", "selection", "bookmakerOdds", "aiProbability", "trueOdds", "evPercentage").
 - absenceImpact: Create an array of 1-2 critical missing players and their impact (e.g. "missingPlayer", "team", "impactMetric", "bettingAngle", "severity": "CRITICAL", "MODERATE", "LOW").
-- teamDuels: Create an array of 2 head-to-head team matchups (e.g. "teamA", "teamB", "statFocus", "winnerPrediction", "insight").
+- headToHeadMatches: Create an array of 5 recent historical matches between these exact two teams (e.g. "date", "teamA", "teamB", "score", "competition").
 - liveMomentum: If the match is LIVE, populate this object with "currentMomentum", "suggestedLiveBet", "odds", "confidence", "reasoning". If pre-match, suggest an early game live bet.
 
 *** BANKER BETS (LOW ODDS, HIGH WIN PROBABILITY) ***
@@ -65,8 +66,8 @@ The JSON must follow this exact structure:
     "teamA": "Arsenal",
     "teamB": "Chelsea", 
     "headToHead": "Arsenal has won 3 of the last 5 meetings.",
-    "teamAStats": { "form": "W W D W L", "keyPlayer": "Saka", "strengths": ["Attacking width"], "weaknesses": ["Vulnerable to counters"] },
-    "teamBStats": { "form": "D L W D W", "keyPlayer": "Palmer", "strengths": ["Midfield control"], "weaknesses": ["Inconsistent finishing"] },
+    "teamAStats": { "form": "W W D W L", "keyPlayer": "Saka", "strengths": ["Attacking width"], "weaknesses": ["Vulnerable to counters"], "goalsScoredAvg": 2.1, "goalsConcededAvg": 0.8, "possessionAvg": 58, "shotsAvg": 14.5, "passAccuracy": 85 },
+    "teamBStats": { "form": "D L W D W", "keyPlayer": "Palmer", "strengths": ["Midfield control"], "weaknesses": ["Inconsistent finishing"], "goalsScoredAvg": 1.4, "goalsConcededAvg": 1.2, "possessionAvg": 52, "shotsAvg": 11.2, "passAccuracy": 81 },
     "tacticalMatchup": "Arsenal will dominate possession...",
     "prediction": "Arsenal to win 2-1"
   },
@@ -96,8 +97,9 @@ The JSON must follow this exact structure:
   "absenceImpact": [
     { "missingPlayer": "Martin Odegaard", "team": "Arsenal", "impactMetric": "-0.4 xG", "bettingAngle": "Value on Chelsea +1", "severity": "CRITICAL" }
   ],
-  "teamDuels": [
-    { "teamA": "Arsenal Attack", "teamB": "Chelsea Defense", "statFocus": "Shots on target", "winnerPrediction": "Arsenal Attack", "insight": "Arsenal averages 6.2 shots on target at home." }
+  "headToHeadMatches": [
+    { "date": "2024-04-23", "teamA": "Arsenal", "teamB": "Chelsea", "score": "5-0", "competition": "Premier League" },
+    { "date": "2023-10-21", "teamA": "Chelsea", "teamB": "Arsenal", "score": "2-2", "competition": "Premier League" }
   ],
   "liveMomentum": {
     "currentMomentum": "Arsenal dominating possession 65%",

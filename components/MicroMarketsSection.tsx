@@ -54,11 +54,6 @@ const MicroMarketsSection: React.FC<MicroMarketsSectionProps> = ({ insights, onA
             Deep Prop Scanner
           </span>
         </div>
-        {onViewAll && (
-          <button onClick={onViewAll} className="text-xs font-bold text-blue-400 hover:text-blue-300 uppercase tracking-widest border border-blue-500/30 px-3 py-1 rounded-full hover:bg-blue-500/10 transition-colors shrink-0">
-            View All
-          </button>
-        )}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -117,6 +112,14 @@ const MicroMarketsSection: React.FC<MicroMarketsSectionProps> = ({ insights, onA
             </div>
         ))}
       </div>
+
+      {onViewAll && (
+        <div className="mt-8 flex justify-center">
+          <button onClick={onViewAll} className="text-xs font-bold text-zinc-400 hover:text-white uppercase tracking-widest flex items-center gap-2 transition-colors">
+            View All Micro-Markets <ArrowRight size={14} />
+          </button>
+        </div>
+      )}
     </div>
   );
 };

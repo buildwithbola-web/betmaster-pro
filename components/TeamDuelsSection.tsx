@@ -1,56 +1,111 @@
 import React from 'react';
-import { Swords, Trophy } from 'lucide-react';
-import { TeamDuel } from '../types';
+import { HeadToHeadMatch } from '../types';
 
 interface TeamDuelsSectionProps {
-  duels: TeamDuel[];
+  matches: HeadToHeadMatch[];
+  teamA?: string;
+  teamB?: string;
 }
 
-const TeamDuelsSection: React.FC<TeamDuelsSectionProps> = ({ duels }) => {
-  if (!duels || duels.length === 0) return null;
+const TeamDuelsSection: React.FC<TeamDuelsSectionProps> = ({ matches, teamA = "Team A", teamB = "Team B" }) => {
+  if (!matches || matches.length === 0) return null;
+
+  // Group matches
+  const teamAWins = matches.filter(m => {
+    const scores = m.score.split('-').map(Number);
+    if (scores.length !== 2) return false;
+    if (m.teamA.toLowerCase().includes(teamA.toLowerCase())) {
+      return scores[0] > scores[1];
+    }
+    if (m.teamB.toLowerCase().includes(teamA.toLowerCase())) {
+      return scores[1] > scores[0];
+    }
+    return false;
+  });
+
+  const teamBWins = matches.filter(m => {
+    const scores = m.score.split('-').map(Number);
+    if (scores.length !== 2) return false;
+    if (m.teamA.toLowerCase().includes(teamB.toLowerCase())) {
+      return scores[0] > scores[1];
+    }
+    if (m.teamB.toLowerCase().includes(teamB.toLowerCase())) {
+      return scores[1] > scores[0];
+    }
+    return false;
+  });
+
+  const draws = matches.filter(m => {
+    const scores = m.score.split('-').map(Number);
+    if (scores.length !== 2) return false;
+    return scores[0] === scores[1];
+  });
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center gap-3 mb-4 pb-4 border-b border-white/10">
-        <Swords className="text-emerald-500" size={24} />
-        <h2 className="text-xl font-black text-white uppercase tracking-widest">
-          Head-to-Head <span className="text-emerald-500">Team Duels</span>
-        </h2>
+    <section className="mt-12">
+      <div className="flex items-center justify-between mb-6 border-b border-white/5 pb-4">
+        <div className="flex items-center gap-4">
+          <span className="text-xl md:text-2xl font-black text-purple-500">09.</span>
+          <h2 className="text-lg md:text-xl font-bold text-white uppercase tracking-widest">HEAD TO HEAD (LAST 5 MATCHES)</h2>
+        </div>
       </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {duels.map((duel, idx) => (
-          <div key={idx} className="bg-black border border-white/10 rounded-none p-5 relative hover:border-emerald-500 hover:bg-white/5 transition-all">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black border border-white/10 rounded-none p-2">
-              <Swords size={16} className="text-emerald-500" />
-            </div>
 
-            <div className="text-center mb-4 mt-2">
-              <div className="text-[10px] uppercase font-mono text-zinc-500 tracking-widest mb-1">Key Battle</div>
-              <div className="text-[10px] font-mono tracking-widest font-bold text-black bg-emerald-500 inline-block px-3 py-1 rounded-none border border-emerald-500 uppercase">
-                {duel.statFocus}
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between gap-4 mb-5">
-              <div className={`flex-1 text-center p-3 rounded-none border ${duel.winnerPrediction === duel.teamA ? 'bg-white/5 border-emerald-500 text-emerald-500' : 'bg-black border-white/10 opacity-60 text-zinc-500'}`}>
-                <div className="text-sm font-black uppercase tracking-wider mb-1 truncate">{duel.teamA}</div>
-                {duel.winnerPrediction === duel.teamA && <Trophy size={14} className="text-emerald-500 mx-auto" />}
-              </div>
-              <div className="text-xs font-mono font-bold text-zinc-600">VS</div>
-              <div className={`flex-1 text-center p-3 rounded-none border ${duel.winnerPrediction === duel.teamB ? 'bg-white/5 border-emerald-500 text-emerald-500' : 'bg-black border-white/10 opacity-60 text-zinc-500'}`}>
-                <div className="text-sm font-black uppercase tracking-wider mb-1 truncate">{duel.teamB}</div>
-                {duel.winnerPrediction === duel.teamB && <Trophy size={14} className="text-emerald-500 mx-auto" />}
-              </div>
-            </div>
-
-            <p className="text-[10px] font-mono tracking-widest uppercase text-zinc-400 text-center leading-relaxed px-4 border-t border-white/10 pt-4 mt-2">
-              {duel.insight}
-            </p>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Team A Wins */}
+        <div className="bg-[#050505] border border-white/5 rounded-2xl p-5">
+          <div className="flex justify-between items-center text-xs text-emerald-400 font-bold mb-4 border-b border-white/5 pb-2">
+            <span>{teamA} Wins</span>
+            <span>{teamAWins.length}</span>
           </div>
-        ))}
+          <div className="space-y-2 text-xs">
+            {teamAWins.map((m, i) => (
+              <div key={i} className="flex justify-between text-zinc-400">
+                <span className="truncate w-32">vs {m.teamA === teamA ? m.teamB : m.teamA}</span>
+                <span className="text-white font-bold">{m.score}</span>
+                <span>{m.date.split('-')[0] || m.date}</span>
+              </div>
+            ))}
+            {teamAWins.length === 0 && <div className="text-zinc-600 italic text-center py-2">No wins found</div>}
+          </div>
+        </div>
+
+        {/* Draws */}
+        <div className="bg-[#050505] border border-white/5 rounded-2xl p-5">
+          <div className="flex justify-between items-center text-xs text-zinc-400 font-bold mb-4 border-b border-white/5 pb-2">
+            <span>Draws</span>
+            <span>{draws.length}</span>
+          </div>
+          <div className="space-y-2 text-xs">
+            {draws.map((m, i) => (
+              <div key={i} className="flex justify-between text-zinc-400">
+                <span className="truncate w-32">vs {m.teamA === teamA ? m.teamB : m.teamA}</span>
+                <span className="text-white font-bold">{m.score}</span>
+                <span>{m.date.split('-')[0] || m.date}</span>
+              </div>
+            ))}
+            {draws.length === 0 && <div className="text-zinc-600 italic text-center py-2">No draws found</div>}
+          </div>
+        </div>
+
+        {/* Team B Wins */}
+        <div className="bg-[#050505] border border-white/5 rounded-2xl p-5">
+          <div className="flex justify-between items-center text-xs text-amber-400 font-bold mb-4 border-b border-white/5 pb-2">
+            <span>{teamB} Wins</span>
+            <span>{teamBWins.length}</span>
+          </div>
+          <div className="space-y-2 text-xs">
+            {teamBWins.map((m, i) => (
+              <div key={i} className="flex justify-between text-zinc-400">
+                <span className="truncate w-32">vs {m.teamA === teamB ? m.teamB : m.teamA}</span>
+                <span className="text-white font-bold">{m.score}</span>
+                <span>{m.date.split('-')[0] || m.date}</span>
+              </div>
+            ))}
+            {teamBWins.length === 0 && <div className="text-zinc-600 italic text-center py-2">No wins found</div>}
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

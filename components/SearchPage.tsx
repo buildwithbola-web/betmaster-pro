@@ -6,12 +6,11 @@ interface SearchPageProps {
   loading: boolean;
   hasData: boolean;
   searchHistory?: string[];
-  activeTab: 'search' | 'recent';
-  setActiveTab: (tab: 'search' | 'recent') => void;
 }
 
-const SearchPage: React.FC<SearchPageProps> = ({ onSearch, loading, hasData, searchHistory = [], activeTab, setActiveTab }) => {
+const SearchPage: React.FC<SearchPageProps> = ({ onSearch, loading, hasData, searchHistory = [] }) => {
   const [input, setInput] = useState('');
+  const [activeTab, setActiveTab] = useState<'search' | 'recent'>('search');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

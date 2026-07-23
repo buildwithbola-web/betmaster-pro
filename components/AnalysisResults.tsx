@@ -271,14 +271,14 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
                 <div className="flex items-center justify-between z-10 relative">
                   <div>
                     <h3 className="text-2xl font-black text-emerald-400 uppercase mb-2">Most Likely Score</h3>
-                    <div className="text-lg font-bold text-white">{data.scorePredictions[0].prediction}</div>
+                    <div className="text-lg font-bold text-white">{data.scorePredictions[0].correctScores?.[0]?.score || "N/A"}</div>
                   </div>
                   <div className="w-20 h-20 rounded-full border-[6px] border-emerald-500/20 flex flex-col items-center justify-center relative">
                     <svg className="absolute inset-0 w-full h-full transform -rotate-90">
-                      <circle cx="34" cy="34" r="34" stroke="currentColor" strokeWidth="6" fill="none" className="text-emerald-500" strokeDasharray="213" strokeDashoffset={`${213 - (213 * (data.scorePredictions[0].probability / 100))}`} />
+                      <circle cx="34" cy="34" r="34" stroke="currentColor" strokeWidth="6" fill="none" className="text-emerald-500" strokeDasharray="213" strokeDashoffset={`${213 - (213 * ((data.scorePredictions[0].correctScores?.[0]?.confidence || 75) / 100))}`} />
                     </svg>
-                    <span className="text-[10px] text-zinc-500 -mb-1">Prob</span>
-                    <span className="text-lg font-black text-white">{data.scorePredictions[0].probability}%</span>
+                    <span className="text-[10px] text-zinc-500 -mb-1">Confidence</span>
+                    <span className="text-lg font-black text-white">{data.scorePredictions[0].correctScores?.[0]?.confidence || 75}%</span>
                   </div>
                 </div>
               </div>
@@ -287,50 +287,9 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
         </section>
       )}
 
-      {/* 09. HEAD TO HEAD (If Team Comparison is rendered, this might be redundant but keeping for fallback unless it has real data, but TeamComparisonSection already has Head-to-Head) */}
-      {!data.teamComparison && (
-        <section>
-          {renderSectionHeader("09", "Head to Head (Last 5 Matches)")}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-[#050505] border border-white/5 rounded-2xl p-5">
-              <div className="flex justify-between items-center text-xs text-emerald-400 font-bold mb-4 border-b border-white/5 pb-2">
-                <span>{teamA} Wins</span>
-                <span>2</span>
-              </div>
-              <div className="space-y-2 text-xs">
-                <div className="flex justify-between text-zinc-400"><span className="truncate w-32">vs {teamB}</span><span className="text-white font-bold">2-1</span><span>2022</span></div>
-                <div className="flex justify-between text-zinc-400"><span className="truncate w-32">vs {teamB}</span><span className="text-white font-bold">1-0</span><span>2019</span></div>
-              </div>
-            </div>
-            <div className="bg-[#050505] border border-white/5 rounded-2xl p-5">
-              <div className="flex justify-between items-center text-xs text-zinc-400 font-bold mb-4 border-b border-white/5 pb-2">
-                <span>Draws</span>
-                <span>2</span>
-              </div>
-              <div className="space-y-2 text-xs">
-                <div className="flex justify-between text-zinc-400"><span className="truncate w-32">vs {teamB}</span><span className="text-white font-bold">1-1</span><span>2021</span></div>
-                <div className="flex justify-between text-zinc-400"><span className="truncate w-32">vs {teamB}</span><span className="text-white font-bold">0-0</span><span>2018</span></div>
-              </div>
-            </div>
-            <div className="bg-[#050505] border border-white/5 rounded-2xl p-5">
-              <div className="flex justify-between items-center text-xs text-amber-400 font-bold mb-4 border-b border-white/5 pb-2">
-                <span>{teamB} Wins</span>
-                <span>1</span>
-              </div>
-              <div className="space-y-2 text-xs">
-                <div className="flex justify-between text-zinc-400"><span className="truncate w-32">vs {teamA}</span><span className="text-white font-bold">0-1</span><span>2022</span></div>
-                <div className="flex justify-between text-zinc-400"><span className="truncate w-32">vs {teamA}</span><span className="text-white font-bold">3-0</span><span>2017</span></div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* TEAM DUELS */}
-      {data.teamDuels && data.teamDuels.length > 0 && (
-        <section id="section-duels" className="mt-12">
-          <TeamDuelsSection duels={data.teamDuels} />
-        </section>
+      {/* 09. HEAD TO HEAD */}
+      {data.headToHeadMatches && data.headToHeadMatches.length > 0 && (
+        <TeamDuelsSection matches={data.headToHeadMatches} teamA={teamA} teamB={teamB} />
       )}
 
       

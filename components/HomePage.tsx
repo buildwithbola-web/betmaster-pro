@@ -11,14 +11,15 @@ interface HomePageProps {
 }
 
 const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage }) => {
-  const [topPicksData, setTopPicksData] = useState<BetMasterResponse | null>(null);
+  const [topPicksData, setTopPicksData] = useState<any[] | null>(null);
   const [isLoadingPicks, setIsLoadingPicks] = useState(true);
 
   useEffect(() => {
     const fetchTopPicks = async () => {
       try {
-        const data = await analyzeBets("today's best picks");
-        setTopPicksData(data);
+        const res = await fetch('/api/matches/upcoming');
+        const data = await res.json();
+        setTopPicksData(data.matches);
       } catch (error) {
         console.error("Failed to fetch top picks", error);
       } finally {
@@ -212,26 +213,26 @@ const HomePage: React.FC<HomePageProps> = ({ onLaunch, onDashboard, onArbitrage 
         <div className="flex gap-4 overflow-x-auto pb-4 custom-scrollbar">
           {isLoadingPicks ? (
             <div className="text-zinc-500 text-sm animate-pulse flex-1 text-center py-8">Scanning markets for live top picks...</div>
-          ) : topPicksData?.gamePredictions?.mainstream && topPicksData.gamePredictions.mainstream.length > 0 ? (
-            topPicksData.gamePredictions.mainstream.slice(0, 3).map((pick: any, index: number) => (
-              <div key={index} onClick={onLaunch} className="cursor-pointer min-w-[300px] bg-[#0a0a0a] border border-white/5 rounded-2xl p-5 shrink-0 hover:border-emerald-500/30 transition-colors flex flex-col justify-between">
+          ) : topPicksData && topPicksData.length > 0 ? (
+            topPicksData.map((match: any, index: number) => (
+              <div key={index} onClick={() => onLaunch()} className="cursor-pointer min-w-[300px] bg-[#0a0a0a] border border-white/5 rounded-2xl p-5 shrink-0 hover:border-emerald-500/30 transition-colors flex flex-col justify-between">
                 <div>
                   <div className="flex justify-between items-center text-[10px] text-zinc-500 mb-4 font-semibold uppercase">
                     <span className="flex items-center gap-1">⚽ Top Pick</span>
-                    <span className="text-emerald-500">Live</span>
+                    <span className="text-emerald-500">{match.time.includes('Today') ? 'Live' : match.time}</span>
                   </div>
                   <div className="text-sm font-bold text-white mb-2 leading-tight">
-                    {topPicksData.gamePredictions?.gameName || "Featured Match"}
+                    {match.homeTeam} vs {match.awayTeam}
                   </div>
                 </div>
                 <div className="flex justify-between items-end border-t border-white/5 pt-4 mt-6">
                   <div>
-                    <div className="text-[10px] text-zinc-500 uppercase">{pick.market}</div>
-                    <div className="text-sm font-bold text-white">{pick.selection}</div>
+                    <div className="text-[10px] text-zinc-500 uppercase">{match.primaryPrediction?.label || "Prediction"}</div>
+                    <div className="text-sm font-bold text-white">{match.primaryPrediction?.value || "N/A"}</div>
                   </div>
                   <div className="text-right">
                     <div className="text-[10px] text-zinc-500 uppercase">Confidence</div>
-                    <div className="text-xl font-black text-emerald-400">{pick.confidence}%</div>
+                    <div className="text-xl font-black text-emerald-400">{match.aiConfidence || 90}%</div>
                   </div>
                 </div>
               </div>
