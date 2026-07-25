@@ -23,14 +23,14 @@ function decodeBingUrl(bingUrl: string): string {
 
 async function scrapeBing(query: string): Promise<WebSearchResult[]> {
   try {
-    const response = await fetch(`https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`, {
+    const response = await fetch(`https://www.bing.com/search?q=${encodeURIComponent(query)}`, {
       headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
       },
     });
 
     if (!response.ok) {
-      console.warn(`[Scraper] DDG returned ${response.status} for query: ${query}`);
+      console.warn(`[Scraper] Bing returned ${response.status} for query: ${query}`);
       return [];
     }
 
@@ -38,16 +38,17 @@ async function scrapeBing(query: string): Promise<WebSearchResult[]> {
     const $ = cheerio.load(html);
     const results: WebSearchResult[] = [];
 
-    $('.result').each((i, el) => {
-      const title = $(el).find('.result__title').text().trim();
-      const snippet = $(el).find('.result__snippet').text().trim();
-      const url = $(el).find('.result__url').attr('href') || "";
+    $('.b_algo').each((i, el) => {
+      const title = $(el).find('h2 a').text().trim();
+      const snippet = $(el).find('.b_caption p, .b_algoSlug').text().trim();
+      const rawUrl = $(el).find('h2 a').attr('href') || "";
+      const url = decodeBingUrl(rawUrl);
       
       if (title && snippet) {
         results.push({
           title,
           snippet,
-          url: url.startsWith('//') ? 'https:' + url : url,
+          url,
         });
       }
     });
