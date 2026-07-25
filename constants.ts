@@ -1,4 +1,4 @@
-export const MODEL_NAME = "deepseek-chat";
+export const MODEL_NAME = "deepseek-v4-pro";
 
 export const SYSTEM_INSTRUCTION = `Elite sports algorithm "BetMaster Pro".
 DIRECTIVE: You will receive LIVE WEB DATA scraped from the internet. Use this to establish current context (injuries, general odds, latest news).
