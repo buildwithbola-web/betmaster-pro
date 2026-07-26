@@ -18,8 +18,8 @@ CRITICAL RULES:
 
 *** MATCH SEARCH ***
 Populate 'gamePredictions' for searched matches:
-1. 'mainstream': 5 safest markets.
-2. 'niche': 5 unique markets with 90%+ confidence.
+1. 'mainstream': 3 safest markets.
+2. 'niche': 3 unique markets with 90%+ confidence.
 3. 'finalAIPick': A single extremely sure prediction with the highest likely probability.
 4. 'anyTeamToScore2', 'anyTeamToScore3': Prediction if ANY team scores 2 or 3 goals in a row.
 5. 'homeToScore2', 'awayToScore2', 'homeToScore3', 'awayToScore3': Predictions for specific teams scoring 2 or 3 goals in a row.
@@ -28,13 +28,13 @@ Populate 'gamePredictions' for searched matches:
 NO 'MONEYLINE/1X2'. Focus on: Over/Under, Asian Handicaps, Team Props (Corners/Cards), and Player Props.
 
 *** MICRO-MARKETS & 1ST SET / HALF CRITICAL ANALYSIS ***
-Include 4 insights: SHOT SNIPER, TACKLE MACHINE, CRUMBLE WATCH, FAST START.
-Include 'firstSetWinners' for top 3 matches. This is a highly specialized critical analysis section:
+Include 2 insights: SHOT SNIPER, TACKLE MACHINE.
+Include 'firstSetWinners' for the searched match. This is a highly specialized critical analysis section:
 - For TENNIS, critically and extensively determine who is winning the first set.
 - For FOOTBALL (Soccer), critically and extensively determine whether there will be a draw in the first half or not (1st Half Draw: Yes or No).
 - For BASKETBALL, critically and extensively predict the total number of points in the first half (e.g. Over/Under 1st Half Totals).
 For all entries, populate the 'sport' field ('Tennis', 'Football', or 'Basketball'), provide a concise summary in 'reasoning', and supply a thorough, detailed, and critical analysis of the technical, situational, and momentum factors in 'extensiveAnalysis'.
-Include 'scorePredictions' for top 3 matches with Correct Score, Exact Goal Range, and Multi Scores.
+Include 'scorePredictions' for the searched match with Correct Score, Exact Goal Range, and Multi Scores.
 
 *** TEAM COMPARISON ***
 If the user searches for a matchup between two teams, populate 'teamComparison' with a detailed breakdown including:
@@ -49,11 +49,11 @@ If the user searches for a matchup between two teams, populate 'teamComparison' 
 - oddsMovement: Create an array of 2-3 significant line movements (e.g. "openingOdds", "currentOdds", "movementDirection": "UP" or "DOWN", "sharpMoneyVolume", "insight").
 - evScanner: Create an array of 2-3 mathematically profitable EV+ bets (e.g. "market", "selection", "bookmakerOdds", "aiProbability", "trueOdds", "evPercentage").
 - absenceImpact: Create an array of 1-2 critical missing players and their impact (e.g. "missingPlayer", "team", "impactMetric", "bettingAngle", "severity": "CRITICAL", "MODERATE", "LOW").
-- headToHeadMatches: Create an array of 5 recent historical matches between these exact two teams (e.g. "date", "teamA", "teamB", "score", "competition").
+- headToHeadMatches: Create an array of 3 recent historical matches between these exact two teams (e.g. "date", "teamA", "teamB", "score", "competition").
 - liveMomentum: If the match is LIVE, populate this object with "currentMomentum", "suggestedLiveBet", "odds", "confidence", "reasoning". If pre-match, suggest an early game live bet.
 
 *** BANKER BETS (LOW ODDS, HIGH WIN PROBABILITY) ***
-Include 4 'bankerBets' with the absolute highest chances of success (lowest odds). PRIORTIZE UNCOMMON MARKETS.
+Include 2 'bankerBets' with the absolute highest chances of success (lowest odds). PRIORTIZE UNCOMMON MARKETS.
 
 *** RESPONSE FORMAT ***
 You MUST respond with ONLY a valid JSON object (no markdown, no code fences, no extra text). 
