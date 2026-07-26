@@ -63,6 +63,13 @@ export interface GamePredictions {
   matchStatus?: 'UPCOMING' | 'ONGOING' | 'FINISHED';
   mainstream: Prediction[];
   niche: Prediction[];
+  finalAIPick?: Prediction;
+  anyTeamToScore2?: Prediction;
+  anyTeamToScore3?: Prediction;
+  homeToScore2?: Prediction;
+  awayToScore2?: Prediction;
+  homeToScore3?: Prediction;
+  awayToScore3?: Prediction;
 }
 
 export interface MicroMarketInsight {

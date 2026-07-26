@@ -20,6 +20,9 @@ CRITICAL RULES:
 Populate 'gamePredictions' for searched matches:
 1. 'mainstream': 5 safest markets.
 2. 'niche': 5 unique markets with 90%+ confidence.
+3. 'finalAIPick': A single extremely sure prediction with the highest likely probability.
+4. 'anyTeamToScore2', 'anyTeamToScore3': Prediction if ANY team scores 2 or 3 goals in a row.
+5. 'homeToScore2', 'awayToScore2', 'homeToScore3', 'awayToScore3': Predictions for specific teams scoring 2 or 3 goals in a row.
 
 *** SAFETY ***
 NO 'MONEYLINE/1X2'. Focus on: Over/Under, Asian Handicaps, Team Props (Corners/Cards), and Player Props.
@@ -71,7 +74,14 @@ The JSON must follow this exact structure:
   "gamePredictions": {
     "gameName": "Arsenal vs Chelsea",
     "mainstream": [{ "market": "Match Winner", "selection": "Arsenal", "odds": "1.85", "confidence": 88, "reasoning": "Strong home form." }],
-    "niche": [{ "market": "Total Corners", "selection": "Over 10.5", "odds": "2.10", "confidence": 82, "reasoning": "Both teams play wide." }]
+    "niche": [{ "market": "Total Corners", "selection": "Over 10.5", "odds": "2.10", "confidence": 82, "reasoning": "Both teams play wide." }],
+    "finalAIPick": { "market": "Arsenal Win", "selection": "Yes", "odds": "1.85", "confidence": 98, "reasoning": "Extremely high probability for home win." },
+    "anyTeamToScore2": { "market": "Any Team 2 In A Row", "selection": "Yes", "odds": "1.50", "confidence": 80, "reasoning": "High scoring." },
+    "anyTeamToScore3": { "market": "Any Team 3 In A Row", "selection": "No", "odds": "1.30", "confidence": 85, "reasoning": "Even match." },
+    "homeToScore2": { "market": "Home 2 In A Row", "selection": "Yes", "odds": "1.90", "confidence": 75, "reasoning": "Strong home." },
+    "awayToScore2": { "market": "Away 2 In A Row", "selection": "No", "odds": "1.20", "confidence": 88, "reasoning": "Weak away." },
+    "homeToScore3": { "market": "Home 3 In A Row", "selection": "No", "odds": "1.15", "confidence": 92, "reasoning": "Too tight." },
+    "awayToScore3": { "market": "Away 3 In A Row", "selection": "No", "odds": "1.05", "confidence": 98, "reasoning": "Very weak away." }
   },
   "microMarkets": [
     { "type": "SHOT_SNIPER", "player": "Odegaard", "team": "Arsenal", "insight": "High shot volume", "prediction": "Over 0.5 outside box shots", "confidence": 85 }
