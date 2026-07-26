@@ -7,7 +7,7 @@ import ScorePredictionsSection from './ScorePredictionsSection';
 import BankerBetsSection from './BankerBetsSection';
 import OddsMovementSection from './OddsMovementSection';
 import EvScannerSection from './EvScannerSection';
-import { FinalAIPick, ConsecutiveGoalsSection } from './GamePredictionsCard';
+import { FinalAIPick, ConsecutiveGoalsSection, EarlyGoalPredictor } from './GamePredictionsCard';
 
 interface AnalysisResultsProps {
   data: any;
@@ -182,8 +182,9 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
         </div>
 
         {data.gamePredictions && (
-          <div className="mt-12">
+          <div className="mt-12 space-y-8">
             <ConsecutiveGoalsSection data={data.gamePredictions} onAddBet={onAddBet} gameName={matchName} />
+            <EarlyGoalPredictor data={data.gamePredictions} onAddBet={onAddBet} gameName={matchName} />
           </div>
         )}
       </section>

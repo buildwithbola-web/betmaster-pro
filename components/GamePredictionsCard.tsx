@@ -268,6 +268,55 @@ export const ConsecutiveGoalsSection: React.FC<{ data: GamePredictions; onAddBet
   );
 };
 
+export const EarlyGoalPredictor: React.FC<{ data: GamePredictions; onAddBet?: (bet: BetSlipItem) => void; gameName: string }> = ({ data, onAddBet, gameName }) => {
+  const hasEarlyGoal = data.goalInFirst15Mins || data.goalInFirst20Mins;
+
+  if (!hasEarlyGoal) return null;
+
+  return (
+    <div className="mt-8 bg-[#050505] border border-white/5 rounded-2xl p-6 relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-[80px] pointer-events-none"></div>
+      
+      <div className="flex items-center justify-between mb-6 relative z-10 border-b border-white/5 pb-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+             <Clock size={20} className="text-emerald-400" />
+          </div>
+          <div>
+            <h3 className="font-black text-white text-lg uppercase tracking-wider">Early Goal Predictor</h3>
+            <p className="text-[10px] text-emerald-400 uppercase tracking-widest font-bold">First 15-20 Minutes</p>
+          </div>
+        </div>
+        <div className="text-right hidden sm:block">
+          <div className="text-[9px] text-zinc-500 uppercase tracking-widest font-bold">System Status</div>
+          <div className="text-emerald-400 text-xs font-black uppercase flex items-center gap-1 justify-end mt-0.5">
+            <Activity size={12} /> Active Monitoring
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative z-10">
+        <SinglePredictionCard
+          title="Goal in First 15 Mins"
+          prediction={data.goalInFirst15Mins}
+          gameName={gameName}
+          onAddBet={onAddBet}
+          accentColor="emerald"
+          icon={<Zap size={16} />}
+        />
+        <SinglePredictionCard
+          title="Goal in First 20 Mins"
+          prediction={data.goalInFirst20Mins}
+          gameName={gameName}
+          onAddBet={onAddBet}
+          accentColor="emerald"
+          icon={<Zap size={16} />}
+        />
+      </div>
+    </div>
+  );
+};
+
 const GamePredictionsCard: React.FC<GamePredictionsCardProps> = ({ data, onGameClick, onAddBet }) => {
   return (
     <div className="mb-12 animate-fade-in-up">

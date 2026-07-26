@@ -24,6 +24,7 @@ Populate 'gamePredictions' for searched matches:
 3. 'finalAIPick': A single extremely sure prediction with the highest likely probability.
 4. 'anyTeamToScore2', 'anyTeamToScore3': Prediction if ANY team scores 2 or 3 goals in a row.
 5. 'homeToScore2', 'awayToScore2', 'homeToScore3', 'awayToScore3': Predictions for specific teams scoring 2 or 3 goals in a row.
+6. 'goalInFirst20Mins', 'goalInFirst15Mins': Predictions if there will be a goal in the first 20 or 15 minutes.
 
 *** SAFETY ***
 NO 'MONEYLINE/1X2'. Focus on: Over/Under, Asian Handicaps, Team Props (Corners/Cards), and Player Props.
@@ -82,7 +83,9 @@ The JSON must follow this exact structure:
     "homeToScore2": { "market": "Home 2 In A Row", "selection": "Yes/No", "odds": "1.90", "confidence": 75, "reasoning": "<Reasoning>" },
     "awayToScore2": { "market": "Away 2 In A Row", "selection": "Yes/No", "odds": "1.20", "confidence": 88, "reasoning": "<Reasoning>" },
     "homeToScore3": { "market": "Home 3 In A Row", "selection": "Yes/No", "odds": "1.15", "confidence": 92, "reasoning": "<Reasoning>" },
-    "awayToScore3": { "market": "Away 3 In A Row", "selection": "Yes/No", "odds": "1.05", "confidence": 98, "reasoning": "<Reasoning>" }
+    "awayToScore3": { "market": "Away 3 In A Row", "selection": "Yes/No", "odds": "1.05", "confidence": 98, "reasoning": "<Reasoning>" },
+    "goalInFirst20Mins": { "market": "Goal in First 20 Mins", "selection": "Yes/No", "odds": "1.80", "confidence": 85, "reasoning": "<Reasoning>" },
+    "goalInFirst15Mins": { "market": "Goal in First 15 Mins", "selection": "Yes/No", "odds": "2.10", "confidence": 70, "reasoning": "<Reasoning>" }
   },
   "microMarkets": [
     { "type": "SHOT_SNIPER", "player": "<PLAYER_NAME>", "team": "<TEAM_NAME>", "insight": "<Insight>", "prediction": "<Prediction>", "confidence": 85 }

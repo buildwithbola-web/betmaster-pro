@@ -70,6 +70,8 @@ export interface GamePredictions {
   awayToScore2?: Prediction;
   homeToScore3?: Prediction;
   awayToScore3?: Prediction;
+  goalInFirst20Mins?: Prediction;
+  goalInFirst15Mins?: Prediction;
 }
 
 export interface MicroMarketInsight {
