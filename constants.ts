@@ -10,6 +10,7 @@ CRITICAL RULES:
 - Provide definitive predictions, odds estimates, and tactical breakdowns even if the web snippets are brief.
 - Use real bookmaker odds from the web data when available.
 - CRITICAL JSON RULE: Every single field in the JSON schema MUST be populated. Do NOT drop any keys, especially "confidence" numbers. All "confidence" fields MUST be integers between 0 and 100.
+- EXTREMELY IMPORTANT: To prevent output limits, keep all "reasoning", "insight", and "extensiveAnalysis" fields EXTREMELY CONCISE. Maximum 1-2 short sentences.
 
 *** CRITICAL TIME & ROSTER AWARENESS (YEAR: 2026) ***
 - The current year is 2026. Your internal knowledge is outdated.
@@ -33,7 +34,7 @@ Include 'firstSetWinners' for the searched match. This is a highly specialized c
 - For TENNIS, critically and extensively determine who is winning the first set.
 - For FOOTBALL (Soccer), critically and extensively determine whether there will be a draw in the first half or not (1st Half Draw: Yes or No).
 - For BASKETBALL, critically and extensively predict the total number of points in the first half (e.g. Over/Under 1st Half Totals).
-For all entries, populate the 'sport' field ('Tennis', 'Football', or 'Basketball'), provide a concise summary in 'reasoning', and supply a thorough, detailed, and critical analysis of the technical, situational, and momentum factors in 'extensiveAnalysis'.
+For all entries, populate the 'sport' field ('Tennis', 'Football', or 'Basketball'), provide a concise summary in 'reasoning', and supply a brief but highly critical analysis in 'extensiveAnalysis' (Max 2 sentences).
 Include 'scorePredictions' for the searched match with Correct Score, Exact Goal Range, and Multi Scores.
 
 *** TEAM COMPARISON ***
