@@ -7,6 +7,7 @@ import ScorePredictionsSection from './ScorePredictionsSection';
 import BankerBetsSection from './BankerBetsSection';
 import OddsMovementSection from './OddsMovementSection';
 import EvScannerSection from './EvScannerSection';
+import { FinalAIPick, ConsecutiveGoalsSection } from './GamePredictionsCard';
 
 interface AnalysisResultsProps {
   data: any;
@@ -89,6 +90,10 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
             </button>
           </div>
         </div>
+
+        {data.gamePredictions?.finalAIPick && (
+          <FinalAIPick prediction={data.gamePredictions.finalAIPick} gameName={matchName} onAddBet={onAddBet} />
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Mainstream Likely Wins Column */}
@@ -175,6 +180,12 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, onAddBet, setCu
             </div>
           </div>
         </div>
+
+        {data.gamePredictions && (
+          <div className="mt-12">
+            <ConsecutiveGoalsSection data={data.gamePredictions} onAddBet={onAddBet} gameName={matchName} />
+          </div>
+        )}
       </section>
 
       {/* 02. MICRO-MARKETS */}

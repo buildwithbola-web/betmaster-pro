@@ -81,7 +81,7 @@ const PredictionList: React.FC<{ predictions: Prediction[], type: 'mainstream' |
   );
 };
 
-const SinglePredictionCard: React.FC<{
+export const SinglePredictionCard: React.FC<{
   title: string;
   prediction?: Prediction;
   gameName: string;
@@ -135,7 +135,7 @@ const SinglePredictionCard: React.FC<{
   );
 };
 
-const FinalAIPick: React.FC<{ prediction?: Prediction; gameName: string; onAddBet?: (bet: BetSlipItem) => void }> = ({ prediction, gameName, onAddBet }) => {
+export const FinalAIPick: React.FC<{ prediction?: Prediction; gameName: string; onAddBet?: (bet: BetSlipItem) => void }> = ({ prediction, gameName, onAddBet }) => {
   if (!prediction) return null;
   
   return (
@@ -187,7 +187,7 @@ const FinalAIPick: React.FC<{ prediction?: Prediction; gameName: string; onAddBe
   );
 };
 
-const ConsecutiveGoalsSection: React.FC<{ data: GamePredictions; onAddBet?: (bet: BetSlipItem) => void; gameName: string }> = ({ data, onAddBet, gameName }) => {
+export const ConsecutiveGoalsSection: React.FC<{ data: GamePredictions; onAddBet?: (bet: BetSlipItem) => void; gameName: string }> = ({ data, onAddBet, gameName }) => {
   const hasAnyTeam = data.anyTeamToScore2 || data.anyTeamToScore3;
   const hasSpecificTeam = data.homeToScore2 || data.awayToScore2 || data.homeToScore3 || data.awayToScore3;
 
