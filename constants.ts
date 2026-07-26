@@ -58,56 +58,55 @@ Include 2 'bankerBets' with the absolute highest chances of success (lowest odds
 
 *** RESPONSE FORMAT ***
 You MUST respond with ONLY a valid JSON object (no markdown, no code fences, no extra text). 
-CRITICAL RULE: The following JSON is STRICTLY an example of the expected structure and data types. DO NOT COPY THE ARSENAL VS CHELSEA DATA. YOU MUST GENERATE ENTIRELY NEW AND ACCURATE DATA FOR THE SPECIFIC MATCH BEING SEARCHED.
+CRITICAL RULE: The following JSON is STRICTLY an example of the expected structure and data types. YOU MUST GENERATE ENTIRELY NEW AND ACCURATE DATA FOR THE SPECIFIC MATCH BEING SEARCHED. Do NOT output placeholder tags like <TEAM_A>.
 
 The JSON must follow this exact structure:
 {
-  "matchStatus": "LIVE - 2nd Set",
+  "matchStatus": "LIVE - 2nd Half or Pre-Match",
   "teamComparison": {
-    "teamA": "Arsenal",
-    "teamB": "Chelsea", 
-    "headToHead": "Arsenal has won 3 of the last 5 meetings.",
-    "teamAStats": { "form": "W W D W L", "keyPlayer": "Saka", "strengths": ["Attacking width"], "weaknesses": ["Vulnerable to counters"], "goalsScoredAvg": 2.1, "goalsConcededAvg": 0.8, "possessionAvg": 58, "shotsAvg": 14.5, "passAccuracy": 85 },
-    "teamBStats": { "form": "D L W D W", "keyPlayer": "Palmer", "strengths": ["Midfield control"], "weaknesses": ["Inconsistent finishing"], "goalsScoredAvg": 1.4, "goalsConcededAvg": 1.2, "possessionAvg": 52, "shotsAvg": 11.2, "passAccuracy": 81 },
-    "tacticalMatchup": "Arsenal will dominate possession...",
-    "prediction": "Arsenal to win 2-1"
+    "teamA": "<TEAM_A_NAME>",
+    "teamB": "<TEAM_B_NAME>", 
+    "headToHead": "<Recent meeting summary>",
+    "teamAStats": { "form": "W W D W L", "keyPlayer": "<PLAYER_NAME>", "strengths": ["<Strength 1>"], "weaknesses": ["<Weakness 1>"], "goalsScoredAvg": 2.1, "goalsConcededAvg": 0.8, "possessionAvg": 58, "shotsAvg": 14.5, "passAccuracy": 85 },
+    "teamBStats": { "form": "D L W D W", "keyPlayer": "<PLAYER_NAME>", "strengths": ["<Strength 1>"], "weaknesses": ["<Weakness 1>"], "goalsScoredAvg": 1.4, "goalsConcededAvg": 1.2, "possessionAvg": 52, "shotsAvg": 11.2, "passAccuracy": 81 },
+    "tacticalMatchup": "<Brief tactical analysis...>",
+    "prediction": "<Final score or winner prediction>"
   },
   "gamePredictions": {
-    "gameName": "Arsenal vs Chelsea",
-    "mainstream": [{ "market": "Match Winner", "selection": "Arsenal", "odds": "1.85", "confidence": 88, "reasoning": "Strong home form." }],
-    "niche": [{ "market": "Total Corners", "selection": "Over 10.5", "odds": "2.10", "confidence": 82, "reasoning": "Both teams play wide." }],
-    "finalAIPick": { "market": "Arsenal Win", "selection": "Yes", "odds": "1.85", "confidence": 98, "reasoning": "Extremely high probability for home win." },
-    "anyTeamToScore2": { "market": "Any Team 2 In A Row", "selection": "Yes", "odds": "1.50", "confidence": 80, "reasoning": "High scoring." },
-    "anyTeamToScore3": { "market": "Any Team 3 In A Row", "selection": "No", "odds": "1.30", "confidence": 85, "reasoning": "Even match." },
-    "homeToScore2": { "market": "Home 2 In A Row", "selection": "Yes", "odds": "1.90", "confidence": 75, "reasoning": "Strong home." },
-    "awayToScore2": { "market": "Away 2 In A Row", "selection": "No", "odds": "1.20", "confidence": 88, "reasoning": "Weak away." },
-    "homeToScore3": { "market": "Home 3 In A Row", "selection": "No", "odds": "1.15", "confidence": 92, "reasoning": "Too tight." },
-    "awayToScore3": { "market": "Away 3 In A Row", "selection": "No", "odds": "1.05", "confidence": 98, "reasoning": "Very weak away." }
+    "gameName": "<TEAM_A> vs <TEAM_B>",
+    "mainstream": [{ "market": "<Market Name>", "selection": "<Selection>", "odds": "1.85", "confidence": 88, "reasoning": "<Concise reasoning>" }],
+    "niche": [{ "market": "<Niche Market>", "selection": "<Selection>", "odds": "2.10", "confidence": 82, "reasoning": "<Concise reasoning>" }],
+    "finalAIPick": { "market": "<Best Market>", "selection": "<Selection>", "odds": "1.85", "confidence": 98, "reasoning": "<Extremely high probability pick reasoning>" },
+    "anyTeamToScore2": { "market": "Any Team 2 In A Row", "selection": "Yes/No", "odds": "1.50", "confidence": 80, "reasoning": "<Reasoning>" },
+    "anyTeamToScore3": { "market": "Any Team 3 In A Row", "selection": "Yes/No", "odds": "1.30", "confidence": 85, "reasoning": "<Reasoning>" },
+    "homeToScore2": { "market": "Home 2 In A Row", "selection": "Yes/No", "odds": "1.90", "confidence": 75, "reasoning": "<Reasoning>" },
+    "awayToScore2": { "market": "Away 2 In A Row", "selection": "Yes/No", "odds": "1.20", "confidence": 88, "reasoning": "<Reasoning>" },
+    "homeToScore3": { "market": "Home 3 In A Row", "selection": "Yes/No", "odds": "1.15", "confidence": 92, "reasoning": "<Reasoning>" },
+    "awayToScore3": { "market": "Away 3 In A Row", "selection": "Yes/No", "odds": "1.05", "confidence": 98, "reasoning": "<Reasoning>" }
   },
   "microMarkets": [
-    { "type": "SHOT_SNIPER", "player": "Odegaard", "team": "Arsenal", "insight": "High shot volume", "prediction": "Over 0.5 outside box shots", "confidence": 85 }
+    { "type": "SHOT_SNIPER", "player": "<PLAYER_NAME>", "team": "<TEAM_NAME>", "insight": "<Insight>", "prediction": "<Prediction>", "confidence": 85 }
   ],
   "firstSetWinners": [
-    { "game": "Arsenal vs Chelsea", "sport": "Football", "predictedWinner": "No", "confidence": 90, "reasoning": "Tight early game expected", "odds": "2.10", "extensiveAnalysis": "First half draw is highly likely..." }
+    { "game": "<TEAM_A> vs <TEAM_B>", "sport": "<Sport Name>", "predictedWinner": "<Yes/No/Team>", "confidence": 90, "reasoning": "<Reasoning>", "odds": "2.10", "extensiveAnalysis": "<Analysis>" }
   ],
   "scorePredictions": [
-    { "game": "Arsenal vs Chelsea", "correctScores": [{ "score": "2-1", "confidence": 80, "odds": "8.50" }], "exactGoalRange": { "range": "2-3 Goals", "confidence": 85, "odds": "2.00" }, "multiScores": { "scores": "1-0, 2-0, 2-1", "confidence": 75, "odds": "3.50" } }
+    { "game": "<TEAM_A> vs <TEAM_B>", "correctScores": [{ "score": "2-1", "confidence": 80, "odds": "8.50" }], "exactGoalRange": { "range": "2-3 Goals", "confidence": 85, "odds": "2.00" }, "multiScores": { "scores": "1-0, 2-0, 2-1", "confidence": 75, "odds": "3.50" } }
   ],
   "bankerBets": [
-    { "game": "Arsenal vs Chelsea", "market": "Double Chance", "selection": "1X", "odds": "1.25", "confidence": 96, "reasoning": "Arsenal rarely lose at home." }
+    { "game": "<TEAM_A> vs <TEAM_B>", "market": "Double Chance", "selection": "1X", "odds": "1.25", "confidence": 96, "reasoning": "<Reasoning>" }
   ],
   "oddsMovement": [
-    { "market": "Arsenal Win", "openingOdds": "2.10", "currentOdds": "1.85", "movementDirection": "DOWN", "sharpMoneyVolume": "High", "insight": "Heavy syndicate betting on Arsenal." }
+    { "market": "<Market Name>", "openingOdds": "2.10", "currentOdds": "1.85", "movementDirection": "DOWN", "sharpMoneyVolume": "High", "insight": "<Insight>" }
   ],
   "evScanner": [
-    { "market": "Over 2.5 Goals", "selection": "Over 2.5", "bookmakerOdds": "1.95", "aiProbability": 60, "trueOdds": "1.66", "evPercentage": 17.5 }
+    { "market": "<Market Name>", "selection": "<Selection>", "bookmakerOdds": "1.95", "aiProbability": 60, "trueOdds": "1.66", "evPercentage": 17.5 }
   ],
   "absenceImpact": [
-    { "missingPlayer": "Martin Odegaard", "team": "Arsenal", "impactMetric": "-0.4 xG", "bettingAngle": "Value on Chelsea +1", "severity": "CRITICAL" }
+    { "missingPlayer": "<PLAYER_NAME>", "team": "<TEAM_NAME>", "impactMetric": "<Metric>", "bettingAngle": "<Angle>", "severity": "CRITICAL" }
   ],
   "headToHeadMatches": [
-    { "date": "2024-04-23", "teamA": "Arsenal", "teamB": "Chelsea", "score": "5-0", "competition": "Premier League" },
-    { "date": "2023-10-21", "teamA": "Chelsea", "teamB": "Arsenal", "score": "2-2", "competition": "Premier League" }
+    { "date": "2024-04-23", "teamA": "<TEAM_A>", "teamB": "<TEAM_B>", "score": "5-0", "competition": "<League>" }
   ],
   "liveMomentum": {
     "currentMomentum": "Arsenal dominating possession 65%",
