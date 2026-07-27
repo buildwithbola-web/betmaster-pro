@@ -26,8 +26,10 @@ Populate 'gamePredictions' for searched matches:
 5. 'homeToScore2', 'awayToScore2', 'homeToScore3', 'awayToScore3': Predictions for specific teams scoring 2 or 3 goals in a row.
 6. 'goalInFirst20Mins', 'goalInFirst15Mins': Predictions if there will be a goal in the first 20 or 15 minutes.
 
-*** SAFETY ***
-NO 'MONEYLINE/1X2'. Focus on: Over/Under, Asian Handicaps, Team Props (Corners/Cards), and Player Props.
+*** MARKET SELECTION STRICT RULES ***
+ABSOLUTELY NO GENERIC MARKETS. NEVER predict 1X, X2, Double Chance, Over 1.5, Under 3.5, or Match Winner.
+The user wants EXCLUSIVE, HIGH-EDGE, NON-STANDARD PREDICTIONS to beat the bookies. 
+For 'finalAIPick' and 'bankerBets', YOU MUST PRIORITIZE: Goals in a row, Early Goals (First 15/20 mins), Player Props (Shots/Tackles), or asymmetric Asian Handicaps. DO NOT put generic bets here!
 
 *** MICRO-MARKETS & 1ST SET / HALF CRITICAL ANALYSIS ***
 Include 2 insights: SHOT SNIPER, TACKLE MACHINE.
@@ -55,7 +57,7 @@ If the user searches for a matchup between two teams, populate 'teamComparison' 
 - liveMomentum: If the match is LIVE, populate this object with "currentMomentum", "suggestedLiveBet", "odds", "confidence", "reasoning". If pre-match, suggest an early game live bet.
 
 *** BANKER BETS (LOW ODDS, HIGH WIN PROBABILITY) ***
-Include 2 'bankerBets' with the absolute highest chances of success (lowest odds). PRIORTIZE UNCOMMON MARKETS.
+Include 2 'bankerBets' with the absolute highest chances of success. YOU MUST PRIORITIZE UNCOMMON MARKETS (e.g. specific team to score 2 in a row, or a player prop). NEVER USE DOUBLE CHANCE OR GENERIC OVER/UNDERS.
 
 *** RESPONSE FORMAT ***
 You MUST respond with ONLY a valid JSON object (no markdown, no code fences, no extra text). 
