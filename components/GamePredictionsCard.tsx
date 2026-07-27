@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { GamePredictions, Prediction, BetSlipItem } from '../types';
-import { Target, TrendingUp, Zap, Gem, CheckCircle2, ShieldCheck, Plus } from 'lucide-react';
+import { Target, TrendingUp, Zap, Gem, CheckCircle2, ShieldCheck, Plus, Clock, Activity } from 'lucide-react';
 
 interface GamePredictionsCardProps {
   data: GamePredictions;
